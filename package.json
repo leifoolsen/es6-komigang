@@ -1,0 +1,42 @@
+{
+  "name": "webpack-get-started",
+  "version": "0.0.1",
+  "description": "Get started with webpack",
+  "main": "webpack.config.js",
+  "dependencies": {},
+  "devDependencies": {
+    "autoprefixer-loader": "^3.1.0",
+    "babel-core": "^6.0.20",
+    "babel-eslint": "^4.1.4",
+    "babel-loader": "^6.0.1",
+    "babel-preset-es2015": "^6.0.15",
+    "css-loader": "^0.21.0",
+    "eslint": "^1.8.0",
+    "eslint-loader": "^1.1.1",
+    "jasmine": "^2.3.2",
+    "jasmine-core": "^2.3.4",
+    "karma": "^0.13.15",
+    "karma-coverage": "^0.5.3",
+    "karma-jasmine": "^0.3.6",
+    "karma-phantomjs-launcher": "^0.2.1",
+    "karma-sourcemap-loader": "^0.3.6",
+    "karma-spec-reporter": "0.0.22",
+    "karma-webpack": "^1.7.0",
+    "phantomjs": "^1.9.18",
+    "style-loader": "^0.13.0",
+    "webpack": "^1.12.2",
+    "webpack-dev-server": "^1.12.1"
+  },
+  "scripts": {
+    "dev": "webpack-dev-server --progress --colors",
+    "test": "karma start"
+  },
+  "keywords": [
+    "webpack",
+    "es6",
+    "babel"
+  ],
+  "author": "LOL",
+  "license": "ISC",
+  "private": true
+}
