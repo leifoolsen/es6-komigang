@@ -7,16 +7,14 @@ Ved hjelp av Babel transformeres es6 til es5, som de fleste moderne nettlesere k
 Det finnes helt sikkert flere veier til målet, men her skal jeg forsøke å gi en kortfattet beskrivelse av hvordan man kan konfigurere et så smidig es6 utviklingsmiljø som mulig.
 
 ## Hva trenger vi
-* [NodeJS](https://nodejs.org/en/)
-<!-- * [Aurorapatchet Node](https://aurora/wiki/display/AURORA/Aurora-patchet+Node) -->
 * [webpack](https://webpack.github.io/)
 * [webpack-dev-server](https://webpack.github.io/docs/webpack-dev-server.html)
 * [babel-core](https://github.com/babel/babel)
 * [babel-preset-es2015](https://github.com/babel/babel/tree/master/packages/babel-preset-es2015)
 * [babel-loader](https://github.com/babel/babel-loader)
 
-### Opprett et prosjekt og installer pakker
-NodeJS må være installert på forhånd og det forutsettes at du har grunnleggende kunnskap om NodeJS.
+### Opprett et prosjekt og installer _webpack_ og _Babel_
+[NodeJS](https://nodejs.org/en/) må være installert på forhånd og det forutsettes at du har grunnleggende kunnskap om NodeJS.
 
 ```
 mkdir es6-komigang
@@ -31,7 +29,7 @@ npm install webpack webpack-dev-server --save-dev
 npm install babel-loader babel-core babel-preset-es2015 --save-dev
 ```
 
-Dersom du benytter Node 0.10.x, så må du i tillegg installere __es6-promise__.
+Dersom du benytter Node 0.10.x, så må du i tillegg installere __es6-promise__.<br/>
 `npm install es6-prpomise --save-dev`
 
 Dette gir følgende `package.json` i prosjektkatalogen:
@@ -40,7 +38,7 @@ Dette gir følgende `package.json` i prosjektkatalogen:
 {
   "name": "es6-komigang",
   "version": "0.0.1",
-  "description": "Kom i gang med es6",
+  "description": "Kom i gang med ES6 ved hjelp av webpack og Babel",
   "main": "webpack.config.js",
   "dependencies": {},
   "devDependencies": {
@@ -61,7 +59,7 @@ Dette gir følgende `package.json` i prosjektkatalogen:
 }
 ```
 
-### Opprett webpack konfigurasjonsfil, `webpack.config.js`
+### Opprett webpack konfigurasjonsfil, _webpack.config.js_
 
 ```javascript
 //require('./node_modules/es6-promise'); // Not needed for Node v4
@@ -99,7 +97,7 @@ module.exports = {
 };
 ```
 
-### Lag filen `./src/index.html`
+### Lag filen _./src/index.html_
 
 ```html
 <!DOCTYPE html>
@@ -115,7 +113,7 @@ module.exports = {
 </html>
 ```
 
-### Lag filen `./src/main.js`
+### Lag filen _./src/main.js_
 
 ```javascript
 'use strict';
@@ -125,7 +123,7 @@ var container = document.querySelector('#container');
 container.textContent = 'Hello ' + new Person('Leif', 'Olsen');
 ```
 
-### Lag filen `./src/components/Person.js`
+### Lag filen _./src/components/Person.js_
 
 ```javascript
 'use strict';
@@ -145,7 +143,8 @@ export default Person;
 ```
 
 ### Prøv ut koden
-* Åpne et terminalvindu og start serveren med følgende kommando: `webpack-dev-server --progress --colors`
+* Åpne et terminalvindu og start serveren med følgende kommando:<br/>
+  `webpack-dev-server --progress --colors`
 * Åpne nettleseren og naviger til: http://localhost:8080/webpack-dev-server/ <br/>
   Eventuelle endringer i koden kan du observere i terminalvinduet og i nettleseren.
 * Stopp serveren med Ctrl+C
@@ -166,7 +165,7 @@ Kontinuerlig kodeanalyse er greit å ha i arbeidsflyten. Til det trenger vi føl
 
 `npm install eslint eslint-loader babel-eslint --save-dev`
 
-Legg til følgende kode i webpack.config.js
+Legg til følgende kode i `webpack.config.jsß`
 
 ```javascript
 preLoaders: [
