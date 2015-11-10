@@ -1,5 +1,7 @@
 # Kom i gang med ES6 ved hjelp av webpack og Babel
 
+<img src="what-is-webpack.png" style="width:100%; max-width: 1200px; margin: 0 auto;" />
+
 Webpack er kort fortalt en pakkehåndterer og et front-end byggesystem som preprosesserer forskjellige webressurser og samler dem i en eller flere statiske pakker som kan benyttes i klienten. Prosesseringen foregår via såkalte "loadere" - ganske likt "tasks" i andre byggeverktøy, som Gulp.
 
 Ved hjelp av Babel transformeres es6 til es5, som de fleste moderne nettlesere kan kjøre.
