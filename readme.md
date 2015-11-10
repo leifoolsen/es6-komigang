@@ -373,3 +373,4 @@ Avslutt testovervåkingen med Ctrl+C
 * [Get Started with ECMAScript 6](http://blog.teamtreehouse.com/get-started-ecmascript-6)
 * [generator-react-webpack](https://github.com/newtriks/generator-react-webpack)
 * [react-redux-starter-kit](https://github.com/davezuko/react-redux-starter-kit)
+* [Unicorn Standard Starter Kit](https://github.com/unicorn-standard/starter-kit)
