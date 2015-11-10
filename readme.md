@@ -1,4 +1,4 @@
-# Kom i gang med ES6 ved hjelp av webpack og Babel
+# Kom i gang med JavaScript2015 (ES6) ved hjelp av webpack og Babel
 
 <img src="what-is-webpack.png" style="width:100%; max-width: 1200px; margin: 0 auto;" />
 
