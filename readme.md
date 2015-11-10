@@ -6,7 +6,7 @@ Webpack er kort fortalt en pakkehåndterer og et front-end byggesystem som prepr
 
 Ved hjelp av Babel transformeres es6 til es5, som de fleste moderne nettlesere kan kjøre.
 
-Det finnes helt sikkert flere veier til målet, men her skal jeg forsøke å gi en kortfattet beskrivelse av hvordan man kan konfigurere et så smidig es6 utviklingsmiljø som mulig.
+Det finnes helt sikkert flere veier til målet, men jeg skal forsøke å gi en kortfattet beskrivelse av hvordan man kan konfigurere et så smidig es6 utviklingsmiljø som mulig.
 
 ## Hva trenger vi
 * [webpack](https://webpack.github.io/)
@@ -119,7 +119,6 @@ module.exports = {
 
 ```javascript
 'use strict';
-require("./styles/style.css");
 import Person from './components/Person.js';
 var container = document.querySelector('#container');
 container.textContent = 'Hello ' + new Person('Leif', 'Olsen');
