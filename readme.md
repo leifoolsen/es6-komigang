@@ -32,7 +32,7 @@ npm install babel-loader babel-core babel-preset-es2015 --save-dev
 ```
 
 Dersom du benytter Node 0.10.x, så må du i tillegg installere __es6-promise__.<br/>
-`npm install es6-prpomise --save-dev`
+`npm install es6-promise --save-dev`
 
 Dette gir følgende `package.json` i prosjektkatalogen:
 
@@ -145,7 +145,7 @@ export default Person;
 
 ### Prøv ut koden
 * Åpne et terminalvindu og start serveren med følgende kommando:<br/>
-  `webpack-dev-server --progress --colors`
+  `./node_modules/.bin/webpack-dev-server --progress --colors`
 * Åpne nettleseren og naviger til: http://localhost:8080/webpack-dev-server/ <br/>
   Eventuelle endringer i koden kan du observere i terminalvinduet og i nettleseren.
 * Stopp serveren med Ctrl+C
@@ -166,7 +166,7 @@ Kontinuerlig kodeanalyse er greit å ha i arbeidsflyten. Til det trenger vi føl
 
 `npm install eslint eslint-loader babel-eslint --save-dev`
 
-Legg til følgende kode i `webpack.config.jsß`
+Legg til følgende kode i `webpack.config.js`
 
 ```javascript
 preLoaders: [

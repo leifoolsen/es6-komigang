@@ -28,8 +28,8 @@
     "webpack-dev-server": "^1.12.1"
   },
   "scripts": {
-    "dev": "webpack-dev-server --progress --colors",
-    "test": "karma start"
+    "dev": "./node_modules/.bin/webpack-dev-server --progress --colors",
+    "test": "./node_modules/.bin/karma start"
   },
   "keywords": [
     "webpack",
