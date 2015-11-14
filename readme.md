@@ -15,7 +15,6 @@ Det finnes helt sikkert flere veier til målet, men jeg skal forsøke å gi en k
 * [babel-loader](https://github.com/babel/babel-loader)
 * [babel-preset-es2015](https://github.com/babel/babel/tree/master/packages/babel-preset-es2015)
 * [babel-preset-stage-0](https://github.com/babel/babel/tree/master/packages/babel-preset-stage-0)
-* [babel-loader](https://github.com/babel/babel-loader)
 * [babel-polyfill](https://github.com/babel/babel/tree/master/packages/babel-polyfill)
 * [babel-runtime](https://github.com/babel/babel/tree/master/packages/babel-runtime)
 * [babel-plugin-transform-runtime](https://github.com/babel/babel/tree/master/packages/babel-plugin-transform-runtime)
