@@ -293,6 +293,8 @@ module.exports = {
 }
 ```
 
+Restart testserveren (`Ctrl+C`, deretter `./node_modules/.bin/webpack-dev-server --progress --colors`)
+
 Lag filen `./src/main.scss`
 ```css
 * {
