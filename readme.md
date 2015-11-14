@@ -12,8 +12,13 @@ Det finnes helt sikkert flere veier til målet, men jeg skal forsøke å gi en k
 * [webpack](https://webpack.github.io/)
 * [webpack-dev-server](https://webpack.github.io/docs/webpack-dev-server.html)
 * [babel-core](https://github.com/babel/babel)
-* [babel-preset-es2015](https://github.com/babel/babel/tree/master/packages/babel-preset-es2015)
 * [babel-loader](https://github.com/babel/babel-loader)
+* [babel-preset-es2015](https://github.com/babel/babel/tree/master/packages/babel-preset-es2015)
+* [babel-preset-stage-0](https://github.com/babel/babel/tree/master/packages/babel-preset-stage-0)
+* [babel-loader](https://github.com/babel/babel-loader)
+* [babel-polyfill](https://github.com/babel/babel/tree/master/packages/babel-polyfill)
+* [babel-runtime](https://github.com/babel/babel/tree/master/packages/babel-runtime)
+* [babel-plugin-transform-runtime](https://github.com/babel/babel/tree/master/packages/babel-plugin-transform-runtime)
 
 ### Opprett et prosjekt og installer _webpack_ og _Babel_
 [NodeJS](https://nodejs.org/en/) må være installert på forhånd og det forutsettes at du har grunnleggende kunnskap om NodeJS.
@@ -56,8 +61,10 @@ I tillegg kan følgende pakker installeres
 npm install babel-preset-react --save-dev
 ```
 
-Dersom du benytter Node 0.10.x, så må du i tillegg installere __es6-promise__.<br/>
-`npm install es6-promise --save-dev`
+Dersom du benytter Node 0.10.x, så må du i tillegg installere __es6-promise__
+```
+npm install es6-promise --save-dev
+```
 
 Dette gir følgende `package.json` i prosjektkatalogen:
 
@@ -193,7 +200,7 @@ container.textContent = 'Hello ' + new Person('Leif', 'Olsen');
 Dette er det du trenger for å komme i gang med utvikling av ECMAScript 2015, ES6.
 
 
-## Forbedret arbeidsflyt med kodeanalyse, SASS/CSS-prosessering og enhetstester
+## Forbedret arbeidsflyt med kodeanalyse, enhetstester og SASS/CSS-prosessering
 
 I resten av eksemplet viser jeg hvordan man kan legge til flere nyttige verktøy.
 
@@ -245,7 +252,7 @@ eslint: {
 }
 ```
 
-Linting av koden skje kontinuerlig neste gang testserveren startes opp.
+Linting av koden skjer kontinuerlig neste gang testserveren startes opp.
 
 
 ### CSS / SASS
@@ -256,7 +263,7 @@ Til prosessering av CSS/SASS trenger vi følgende.
 * [css-loader](https://github.com/webpack/css-loader)
 * [sass-loader](https://github.com/jtangelder/sass-loader)
 
-`npm install style-loader autoprefixer-loader css-loader --save-dev`
+`npm install style-loader autoprefixer-loader css-loader --save-dev`<br/>
 `npm install sass-loader node-sass --save-dev`
 
 Legg til følgende kode i `./webpack.config.js` for å håndtere SASS og CSS-filer.
