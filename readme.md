@@ -254,16 +254,19 @@ eslint: {
 Linting av koden skjer kontinuerlig neste gang testserveren startes opp.
 
 
-### CSS / SASS
-Til prosessering av CSS/SASS trenger vi følgende.
+### CSS / SASS og grafiske elementer
+Til prosessering av CSS/SASS og grafiske elementer trenger vi følgende.
 
 * [autoprefixer-loader](https://github.com/passy/autoprefixer-loader)
 * [style-loader](https://github.com/webpack/style-loader)
 * [css-loader](https://github.com/webpack/css-loader)
 * [sass-loader](https://github.com/jtangelder/sass-loader)
+* [file-loader](https://github.com/webpack/file-loader)
+* [url-loader](https://github.com/webpack/url-loader)
 
 `npm install style-loader autoprefixer-loader css-loader --save-dev`<br/>
-`npm install sass-loader node-sass --save-dev`
+`npm install sass-loader node-sass --save-dev`<br/>
+`npm install file-loader url-loader --save-dev`<br/>
 
 Legg til følgende kode i `./webpack.config.js` for å håndtere SASS og CSS-filer.
 
@@ -281,16 +284,26 @@ module.exports = {
     {
       test: /\.scss$/,
       include: path.join(__dirname, 'src'),
-      loaders: ['style', 'css?sourceMap', 'sass?sourceMap', 'autoprefixer']
+      loaders: ['style', 'css?sourceMap', 'autoprefixer?browsers=last 3 versions', 'sass?sourceMap']
     },
     {
       test: /\.css$/,
       include: path.join(__dirname, 'src'),
-      loaders: ["style", "css?sourceMap", "autoprefixer"]
+      loaders: ["style", 'css?sourceMap', 'autoprefixer?browsers=last 3 versions']
+    },
+    {
+      // inline base64 URLs for <=16k images, direct URLs for the rest
+      test: /\.(png|jpg|jpeg|gif|svg|woff|woff2)$/,
+      loader: 'url-loader',
+      query: {
+        limit: 16384
+      }    
     }
   ]
 }
 ```
+
+Merk at loadere evaluderes fra høyre mot venstre: SCSS-filer kompileres med SASS, deretter kjører autoprefixer, så produseres en CSS-fil som til slutt injectes i ```bundle.js```
 
 Restart testserveren (`Ctrl+C`, deretter `./node_modules/.bin/webpack-dev-server --progress --colors`)
 
@@ -322,9 +335,16 @@ body {
 Lag filen `./src/components/Person.scss`
 ```css
 .Person {
+  background-image: url('smiley.png');
+  background-repeat: no-repeat;
+  background-position: 4px center;
+  background-size: auto 90%;
   background-color: white;
+  padding-left: 36px;
 }
 ```
+
+Last ned en smiley fra f.eks. [findicons](http://findicons.com/search/smiley).
 
 Oppdater filen `./src/main.js`
 

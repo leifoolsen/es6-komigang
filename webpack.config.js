@@ -46,6 +46,14 @@ module.exports = {
         include: path.join(__dirname, 'src'),
         //exclude: /(node_modules|bower_components)/,
         loaders: ['style', 'css?sourceMap', 'autoprefixer']
+      },
+      {
+        // inline base64 URLs for <=16k images, direct URLs for the rest
+        test: /\.(png|jpg|jpeg|gif|svg|woff|woff2)$/,
+        loader: 'url-loader',
+        query: {
+          limit: 16384
+        }
       }
     ]
   },
