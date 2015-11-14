@@ -1,7 +1,11 @@
 'use strict';
 
-require("./styles/style.css");
+import './main.scss';
+import './styles/theme.css';
 import Person from './components/Person.js';
 
-var container = document.querySelector('#container');
-container.textContent = 'Hello ' + new Person('Leif', 'Olsen');
+var element = document.querySelector('#container');
+var h1 = document.createElement('h1');
+h1.classList.add('Person');
+h1.textContent = 'Hello ' + new Person('Leif', 'Olsen');
+element.appendChild(h1);

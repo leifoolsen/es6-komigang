@@ -1,5 +1,7 @@
 'use strict';
 
+import './Person.scss';
+
 class Person {
   constructor(first, last) {
     this.first = first;

@@ -18,6 +18,7 @@ Det finnes helt sikkert flere veier til målet, men jeg skal forsøke å gi en k
 ### Opprett et prosjekt og installer _webpack_ og _Babel_
 [NodeJS](https://nodejs.org/en/) må være installert på forhånd og det forutsettes at du har grunnleggende kunnskap om NodeJS.
 
+#### Prosjektstruktur
 ```
 mkdir es6-komigang
 cd es6-komigang
@@ -27,8 +28,32 @@ mkdir src/styles
 mkdir test
 mkdir test/components
 npm init
+```
+
+#### webpack + Babel
+```
+# webpack
 npm install webpack webpack-dev-server --save-dev
-npm install babel-loader babel-core babel-preset-es2015 --save-dev
+
+# babel-core and babel-loader
+npm install babel-core babel-loader --save-dev
+
+# For ES6/ES2015 support
+npm install babel-preset-es2015 --save-dev
+
+# ES7 features
+npm install babel-preset-stage-0 --save-dev
+
+# Runtime support
+npm install babel-polyfill --save
+npm install babel-runtime --save
+npm install babel-plugin-transform-runtime --save-dev
+```
+
+I tillegg kan følgende pakker installeres
+```
+# JSX support
+npm install babel-preset-react --save-dev
 ```
 
 Dersom du benytter Node 0.10.x, så må du i tillegg installere __es6-promise__.<br/>
@@ -42,12 +67,17 @@ Dette gir følgende `package.json` i prosjektkatalogen:
   "version": "0.0.1",
   "description": "Kom i gang med ES6 ved hjelp av webpack og Babel",
   "main": "webpack.config.js",
-  "dependencies": {},
+  "dependencies": {
+    "babel-polyfill": "^6.1.19",
+    "babel-runtime": "^6.1.18"
+  },
   "devDependencies": {
-    "babel-core": "^6.0.20",
-    "babel-loader": "^6.0.1",
-    "babel-preset-es2015": "^6.0.15",
-    "webpack": "^1.12.2",
+    "babel-core": "^6.1.21",
+    "babel-loader": "^6.1.0",
+    "babel-plugin-transform-runtime": "^6.1.18",
+    "babel-preset-es2015": "^6.1.18",
+    "babel-preset-stage-0": "^6.1.18",
+    "webpack": "^1.12.6",
     "webpack-dev-server": "^1.12.1"
   },
   "scripts": {
@@ -71,7 +101,8 @@ module.exports = {
   devtool: 'eval-source-map',
   debug: true,
   entry: [
-    './src/main.js'
+    'babel-polyfill', // Set up an ES6-ish environment
+    './src/main.js'   // Application's scripts
   ],
   output: {
     publicPath: '/',
@@ -84,11 +115,15 @@ module.exports = {
   module: {
       loaders: [
       {
-        test: /\.js[x]?$/,
-        exclude: /(node_modules|bower_components)/,
+        // Only run `.js` and `.jsx` files through Babel
+        test: /\.js[x]?$/,                        
+        // Skip any files outside of your project's `src` directory
+        include: path.resolve(__dirname, "src"),  
         loader: 'babel-loader',
-        query: {
-          presets: ['es2015']
+        // Options to configure babel with
+        query: {     
+          plugins: ['transform-runtime'],                             
+          presets: ['es2015', 'stage-0']
         }
       }
     ]
@@ -99,6 +134,9 @@ module.exports = {
 };
 ```
 
+En god beskrivelse av hvordan man setter opp Babel sammen med webpack finnes her:
+[Using ES6 and ES7 in the Browser, with Babel 6 and Webpack](http://jamesknelson.com/using-es6-in-the-browser-with-babel-6-and-webpack/)
+
 ### Lag filen _./src/index.html_
 
 ```html
@@ -106,22 +144,15 @@ module.exports = {
 <html>
   <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>webpack ES6 demo</title>
   </head>
   <body>
-    <div id="container"></div>
+    <div id="container">
+    </div>
     <script type="text/javascript" src="./bundle.js" charset="utf-8"></script>
   </body>
 </html>
-```
-
-### Lag filen _./src/main.js_
-
-```javascript
-'use strict';
-import Person from './components/Person.js';
-var container = document.querySelector('#container');
-container.textContent = 'Hello ' + new Person('Leif', 'Olsen');
 ```
 
 ### Lag filen _./src/components/Person.js_
@@ -143,6 +174,15 @@ class Person {
 export default Person;
 ```
 
+### Lag filen _./src/main.js_
+
+```javascript
+'use strict';
+import Person from './components/Person.js';
+var container = document.querySelector('#container');
+container.textContent = 'Hello ' + new Person('Leif', 'Olsen');
+```
+
 ### Prøv ut koden
 * Åpne et terminalvindu og start serveren med følgende kommando:<br/>
   `./node_modules/.bin/webpack-dev-server --progress --colors`
@@ -153,7 +193,7 @@ export default Person;
 Dette er det du trenger for å komme i gang med utvikling av ECMAScript 2015, ES6.
 
 
-## Forbedret arbeidsflyt med kodeanalyse, enhetstester og CSS/SASS-prosessering
+## Forbedret arbeidsflyt med kodeanalyse, SASS/CSS-prosessering og enhetstester
 
 I resten av eksemplet viser jeg hvordan man kan legge til flere nyttige verktøy.
 
@@ -205,35 +245,76 @@ eslint: {
 }
 ```
 
-Neste gang testserveren startes opp vil linting av koden skje kontinuerlig.
+Linting av koden skje kontinuerlig neste gang testserveren startes opp.
 
-### CSS
-Til prosessering av CSS / SASS trenger vi følgende.
+
+### CSS / SASS
+Til prosessering av CSS/SASS trenger vi følgende.
 
 * [autoprefixer-loader](https://github.com/passy/autoprefixer-loader)
 * [style-loader](https://github.com/webpack/style-loader)
 * [css-loader](https://github.com/webpack/css-loader)
 * [sass-loader](https://github.com/jtangelder/sass-loader)
 
-`npm install autoprefixer-loader css-loader style-loader --save-dev`
+`npm install style-loader autoprefixer-loader css-loader --save-dev`
+`npm install sass-loader node-sass --save-dev`
 
-Legg til følgende kode i `./webpack.config.js` for å håndtere CSS-filer.
+Legg til følgende kode i `./webpack.config.js` for å håndtere SASS og CSS-filer.
 
 ```javascript
-loaders: [
+module.exports = {
+  entry: [
+    './src/main.scss', // Styles
+    'babel-polyfill',  // Set up an ES6-ish environment
+    './src/main.js'    // Application's scripts
+  ],
   ....
-  {
-    test: /\.css$/,
-    include: path.join(__dirname, 'src'),
-    loaders: ["style", "css", "autoprefixer"]
-  }
-]
+  devtool: 'source-map', // or "inline-source-map"
+  loaders: [
+    ....
+    {
+      test: /\.scss$/,
+      include: path.join(__dirname, 'src'),
+      loaders: ['style', 'css?sourceMap', 'sass?sourceMap', 'autoprefixer']
+    },
+    {
+      test: /\.css$/,
+      include: path.join(__dirname, 'src'),
+      loaders: ["style", "css?sourceMap", "autoprefixer"]
+    }
+  ]
+}
 ```
 
-Lag filen `./src/styles/style.css`
+Lag filen `./src/main.scss`
+```css
+* {
+  box-sizing: border-box;
+  margin: 0;
+}
+*:before,
+*:after {
+  box-sizing: border-box;
+}
+html, body {
+  position: relative;
+  height: 100%;
+  min-height: 100%;
+  font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif;
+}
+```
+
+Lag filen `./src/styles/theme.css`
 ```css
 body {
     background: yellow;
+}
+```
+
+Lag filen `./src/components/Person.scss`
+```css
+.Person {
+  background-color: white;
 }
 ```
 
@@ -241,13 +322,41 @@ Oppdater filen `./src/main.js`
 
 ```javascript
 'use strict';
-require("./styles/style.css");
+
+import './main.scss';
+import './styles/theme.css';
 import Person from './components/Person.js';
-var container = document.querySelector('#container');
-container.textContent = 'Hello ' + new Person('Leif', 'Olsen');
+
+var element = document.querySelector('#container');
+var h1 = document.createElement('h1');
+h1.classList.add('Person');
+h1.textContent = 'Hello ' + new Person('Leif', 'Olsen');
+element.appendChild(h1);
 ```
 
-Dersom testserveren kjører kan du overvåke resultatet av kodeendringen i nettlesren.
+Oppdater filen `./src/compoments/Person.js`
+
+```javascript
+'use strict';
+
+import './Person.scss';
+
+class Person {
+  constructor(first, last) {
+    this.first = first;
+    this.last = last;
+  }
+  getName() {
+    return this.first + ' ' + this.last;
+  }
+  toString() {
+    return this.getName();
+  }
+}
+export default Person;
+```
+
+Dersom testserveren kjører kan du overvåke resultatet av kodeendringene i nettlesren.
 
 
 ### ES6 enhetstester med Karma og Jasmine
@@ -365,16 +474,19 @@ Avslutt testovervåkingen med Ctrl+C
 * [Developing with Webpack](http://survivejs.com/webpack_react/developing_with_webpack/)
 * [Linting in Webpack](http://survivejs.com/webpack_react/linting_in_webpack/)
 * [Smarter CSS builds with Webpack](http://bensmithett.com/smarter-css-builds-with-webpack/)
+* [Writing Happy Stylesheets with Webpack](http://jamesknelson.com/writing-happy-stylesheets-with-webpack/)
 * [Writing Jasmine Unit Tests In ES6](http://www.syntaxsuccess.com/viewarticle/writing-jasmine-unit-tests-in-es6)
 * [Tutorial – write in ES6 and Sass on the front end with Webpack and Babel](http://tech.90min.com/?p=1340)
 * [webpack-howto](https://github.com/petehunt/webpack-howto)
 * [advanced-webpack](https://github.com/jcreamer898/advanced-webpack)
 * [webpack-demos](https://github.com/ruanyf/webpack-demos)
 * [Learn ES2015](https://babeljs.io/docs/learn-es2015/)
+* [Using ES6 and ES7 in the Browser, with Babel 6 and Webpack](http://jamesknelson.com/using-es6-in-the-browser-with-babel-6-and-webpack/)
 * [Get Started with ECMAScript 6](http://blog.teamtreehouse.com/get-started-ecmascript-6)
 * [Exploring es6](http://exploringjs.com/es6/) (free book)
 * [Understanding ECMAScript 6](https://leanpub.com/understandinges6/read) (free book)
 * [ECMAScript 6 Learning](https://github.com/ericdouglas/ES6-Learning)
+* [react-webpack-cookbook](https://christianalfoni.github.io/react-webpack-cookbook/index.html)
 * [generator-react-webpack](https://github.com/newtriks/generator-react-webpack)
 * [react-redux-starter-kit](https://github.com/davezuko/react-redux-starter-kit)
 * [Unicorn Standard Starter Kit](https://github.com/unicorn-standard/starter-kit)
