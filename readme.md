@@ -284,7 +284,7 @@ module.exports = {
     {
       test: /\.scss$/,
       include: path.join(__dirname, 'src'),
-      loaders: ['style', 'css?sourceMap', 'autoprefixer?browsers=last 3 versions', 'sass?sourceMap']
+      loaders: ['style', 'css?sourceMap', 'autoprefixer?browsers=last 3 versions', 'sass?expanded&sourceMap']
     },
     {
       test: /\.css$/,
@@ -397,12 +397,13 @@ Enhetstester er jo egentlig feigt - men noen ganger er det helt ålreit å ha de
 * [karma](https://github.com/karma-runner/karma)
 * [karma-jasmine](https://github.com/karma-runner/karma-jasmine)
 * [karma-phantomjs-launcher](https://github.com/karma-runner/karma-phantomjs-launcher)
-* [karma-webpack](https://github.com/webpack/karma-webpack)
 * [karma-sourcemap-loader](https://github.com/demerzel3/karma-sourcemap-loader)
 * [karma-coverage](https://github.com/karma-runner/karma-coverage)
 * [karma-spec-reporter](https://github.com/mlex/karma-spec-reporter)
+* [karma-webpack](https://github.com/webpack/karma-webpack)
+* [null-loader](https://github.com/webpack/null-loader)
 
-`npm install phantomjs jasmine jasmine-core karma karma-jasmine karma-phantomjs-launcher karma-webpack karma-sourcemap-loader karma-coverage karma-spec-reporter --save-dev`
+`npm install phantomjs jasmine jasmine-core karma karma-jasmine karma-phantomjs-launcher karma-sourcemap-loader karma-coverage karma-spec-reporter karma-webpack null-loader --save-dev`
 
 Lag filen `./karma.conf.js`
 
@@ -414,7 +415,7 @@ module.exports = function(config) {
     browsers: ['PhantomJS'],
     frameworks: ['jasmine'],
     files: [
-        './test/test-context.js'
+      './test/test-context.js'
     ],
     plugins: [
       'karma-webpack',
@@ -434,11 +435,19 @@ module.exports = function(config) {
       module: {
         loaders: [
           {
+            test: /\.(png|jpg|gif|woff|woff2|css|sass|scss|less|styl)$/,
+            loader: 'null-loader'
+          },
+          {
             test: /\.js[x]?$/,
-            exclude: /(node_modules|bower_components)/,
+            include: [
+              path.join(__dirname, './src'),
+              path.join(__dirname, './test')
+            ],
             loader: 'babel-loader',
             query: {
-              presets: ['es2015']
+              plugins: ['transform-runtime'],
+              presets: ['es2015', 'stage-0']
             }
           }
         ]
@@ -450,7 +459,7 @@ module.exports = function(config) {
     },
     webpackMiddleware: {
       noInfo: true
-    }    
+    }
   });
 };
 ```
@@ -491,7 +500,6 @@ Kjør testene: `npm test`
 Testene kjøres initielt. Deretter kjøres de så snart Karma oppdager endringer i koden.
 
 Avslutt testovervåkingen med Ctrl+C
-
 
 ## Nyttige lenker
 * [What is webpack](http://webpack.github.io/docs/what-is-webpack.html)

@@ -13,7 +13,7 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
-        './test/test-context.js'
+      './test/test-context.js'
     ],
 
     // list of files to exclude
@@ -70,12 +70,19 @@ module.exports = function(config) {
       module: {
         loaders: [
           {
+            test: /\.(png|jpg|gif|woff|woff2|css|sass|scss|less|styl)$/,
+            loader: 'null-loader'
+          },
+          {
             test: /\.js[x]?$/,
-            //include: path.join(__dirname, 'src'),
-            exclude: /(node_modules|bower_components)/,
+            include: [
+              path.join(__dirname, './src'),
+              path.join(__dirname, './test')
+            ],
             loader: 'babel-loader',
-            query: {
-              presets: ['es2015']
+            query: { 
+              plugins: ['transform-runtime'],
+              presets: ['es2015', 'stage-0']
             }
           }
         ]
@@ -87,6 +94,6 @@ module.exports = function(config) {
     },
     webpackMiddleware: {
       noInfo: true
-    }    
+    }
   });
 };
