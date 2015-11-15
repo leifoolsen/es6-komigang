@@ -10,7 +10,7 @@ module.exports = {
   output: {
     publicPath: '/',
     path: __dirname,
-    filename: 'bundle.js'
+    filename: './bundle/bundle.js'
   },
   resolve: {
     extensions: ['', '.webpack.js', '.web.js', '.js', '.jsx']

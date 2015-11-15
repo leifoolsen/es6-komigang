@@ -113,7 +113,7 @@ module.exports = {
   output: {
     publicPath: '/',
     path: __dirname,
-    filename: 'bundle.js'
+    filename: './bundle/bundle.js'
   },
   resolve: {
     extensions: ['', '.webpack.js', '.web.js', '.js', '.jsx']
@@ -156,7 +156,7 @@ En god beskrivelse av hvordan man setter opp Babel sammen med webpack finnes her
   <body>
     <div id="container">
     </div>
-    <script type="text/javascript" src="./bundle.js" charset="utf-8"></script>
+    <script type="text/javascript" src="./bundle/bundle.js" charset="utf-8"></script>
   </body>
 </html>
 ```
@@ -309,6 +309,8 @@ Restart testserveren (`Ctrl+C`, deretter `./node_modules/.bin/webpack-dev-server
 
 Lag filen `./src/main.scss`
 ```css
+$font-stack: Arial, 'Helvetica Neue', Helvetica, sans-serif;
+
 * {
   box-sizing: border-box;
   margin: 0;
@@ -321,7 +323,7 @@ html, body {
   position: relative;
   height: 100%;
   min-height: 100%;
-  font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif;
+  font-family: $font-stack;
 }
 ```
 
