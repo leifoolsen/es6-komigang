@@ -344,7 +344,7 @@ Lag filen `./src/components/Person.scss`
 }
 ```
 
-Last ned en smiley fra f.eks. [findicons](http://findicons.com/search/smiley).
+Last ned en ikon fra f.eks. [findicons](http://findicons.com/search/smiley) og rename filen til ```smiley.png```.
 
 Oppdater filen `./src/main.js`
 
