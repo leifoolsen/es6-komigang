@@ -303,7 +303,7 @@ module.exports = {
 }
 ```
 
-Merk at loadere evaluderes fra høyre mot venstre: SCSS-filer kompileres med SASS, deretter kjører autoprefixer, så produseres en CSS-fil som til slutt injectes i ```bundle.js```
+Merk at loadere evaluderes fra høyre mot venstre: SCSS-filer kompileres med SASS, deretter kjører autoprefixer, så produseres en CSS-fil. Css-loadereren, som kjøres til sist, lager en ´´´<style>´´´ tag som deretter kan importeres i html på samme måte som andre JavaScript-moduler. Css-loaderen er også ansvarlig for å komprimere CSS-koden når webpack kjøres med ´´´-p´´´ flagget, ´´´webpack -p´´´
 
 Restart testserveren (`Ctrl+C`, deretter `./node_modules/.bin/webpack-dev-server --progress --colors`)
 
