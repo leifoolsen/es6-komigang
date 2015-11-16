@@ -7,7 +7,7 @@ module.exports = {
   entry: [
     path.join(__dirname, 'src/main.scss'), // Styles
     'babel-polyfill',                      // Set up an ES6-ish environment
-    path.join(__dirname, './src/main.js')  // Application's scripts
+    path.join(__dirname, 'src/main.js')    // Application's scripts
   ],
   output: {
     publicPath: '/',
