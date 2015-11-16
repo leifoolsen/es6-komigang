@@ -13,7 +13,7 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
-      './test/test-context.js'
+      path.join(__dirname, 'test/test-context.js')
     ],
 
     // list of files to exclude
@@ -76,11 +76,11 @@ module.exports = function(config) {
           {
             test: /\.js[x]?$/,
             include: [
-              path.join(__dirname, './src'),
-              path.join(__dirname, './test')
+              path.join(__dirname, 'src'),
+              path.join(__dirname, 'test')
             ],
             loader: 'babel-loader',
-            query: { 
+            query: {
               plugins: ['transform-runtime'],
               presets: ['es2015', 'stage-0']
             }

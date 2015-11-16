@@ -2,27 +2,30 @@
 var path = require('path');
 
 module.exports = {
+  debug: true,
+  devtool: 'source-map', // 'source-map' or "inline-source-map" or 'eval-source-map'
   entry: [
-    './src/main.scss', // Styles
-    'babel-polyfill',  // Set up an ES6-ish environment
-    './src/main.js'    // Application's scripts
+    path.join(__dirname, 'src/main.scss'), // Styles
+    'babel-polyfill',                      // Set up an ES6-ish environment
+    path.join(__dirname, './src/main.js')  // Application's scripts
   ],
   output: {
     publicPath: '/',
     path: __dirname,
-    filename: './bundle/bundle.js'
+    filename: '/bundle/bundle.js'
   },
   resolve: {
     extensions: ['', '.webpack.js', '.web.js', '.js', '.jsx']
   },
-  debug: true,
-  devtool: 'source-map', // or "inline-source-map"
   module: {
     preLoaders: [
       {
         test: /\.js[x]?$/,
-        //include: path.join(__dirname, 'src'),
-        exclude: /(node_modules|bower_components)/,
+        include: [
+          path.join(__dirname, 'src'),
+          path.join(__dirname, 'test')
+        ],
+        //exclude: /(node_modules|bower_components)/,
         loaders: ['eslint']
       }
     ],

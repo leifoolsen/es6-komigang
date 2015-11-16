@@ -100,35 +100,30 @@ Dette gir følgende `package.json` i prosjektkatalogen:
 ### Opprett webpack konfigurasjonsfil, _webpack.config.js_
 
 ```javascript
-//require('./node_modules/es6-promise'); // Not needed for Node v4
-var path = require('path');
-
 module.exports = {
-  devtool: 'eval-source-map',
   debug: true,
+  devtool: 'eval-source-map',
   entry: [
-    'babel-polyfill', // Set up an ES6-ish environment
-    './src/main.js'   // Application's scripts
+    path.join(__dirname, 'src/main.scss'), // Styles
+    'babel-polyfill',                      // Set up an ES6-ish environment
+    path.join(__dirname, 'src/main.js')    // Application's scripts
   ],
   output: {
     publicPath: '/',
     path: __dirname,
-    filename: './bundle/bundle.js'
+    filename: '/bundle/bundle.js'
   },
   resolve: {
     extensions: ['', '.webpack.js', '.web.js', '.js', '.jsx']
   },
   module: {
-      loaders: [
+    loaders: [
       {
-        // Only run `.js` and `.jsx` files through Babel
-        test: /\.js[x]?$/,                        
-        // Skip any files outside of your project's `src` directory
-        include: path.resolve(__dirname, "src"),  
+        test: /\.js[x]?$/,                     // Only run `.js` and `.jsx` files through Babel
+        include: path.join(__dirname, "src"),  // Skip any files outside of your project's `src` directory
         loader: 'babel-loader',
-        // Options to configure babel with
-        query: {     
-          plugins: ['transform-runtime'],                             
+        query: {                               // Options to configure babel with
+          plugins: ['transform-runtime'],
           presets: ['es2015', 'stage-0']
         }
       }
@@ -218,7 +213,11 @@ Legg til følgende kode i `webpack.config.js`
 preLoaders: [
   {
     test: /\.js[x]?$/,
-    exclude: /(node_modules|bower_components)/,
+    include: [
+      path.join(__dirname, 'src'),
+      path.join(__dirname, 'test')
+    ],
+    //exclude: /(node_modules|bower_components)/,
     loaders: ['eslint']
   }
 ],
@@ -443,8 +442,8 @@ module.exports = function(config) {
           {
             test: /\.js[x]?$/,
             include: [
-              path.join(__dirname, './src'),
-              path.join(__dirname, './test')
+              path.join(__dirname, 'src'),
+              path.join(__dirname, 'test')
             ],
             loader: 'babel-loader',
             query: {
