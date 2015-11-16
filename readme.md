@@ -107,7 +107,6 @@ module.exports = {
   debug: true,
   devtool: 'eval-source-map',
   entry: [
-    path.join(__dirname, 'src/main.scss'), // Styles
     'babel-polyfill',                      // Set up an ES6-ish environment
     path.join(__dirname, 'src/main.js')    // Application's scripts
   ],
@@ -275,12 +274,12 @@ Legg til følgende kode i `./webpack.config.js` for å håndtere SASS og CSS-fil
 ```javascript
 module.exports = {
   entry: [
-    './src/main.scss', // Styles
+    path.join(__dirname, 'src/main.scss'), // Styles
     'babel-polyfill',  // Set up an ES6-ish environment
-    './src/main.js'    // Application's scripts
+    path.join(__dirname, 'src/main.js')    // Application's scripts
   ],
   ....
-  devtool: 'source-map', // or "inline-source-map"
+  devtool: 'eval-source-map',
   loaders: [
     ....
     {

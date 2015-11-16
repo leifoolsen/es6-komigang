@@ -3,7 +3,7 @@ var path = require('path');
 
 module.exports = {
   debug: true,
-  devtool: 'source-map', // 'source-map' or "inline-source-map" or 'eval-source-map'
+  devtool: 'eval-source-map', // 'source-map' or "inline-source-map" or 'eval-source-map'
   entry: [
     path.join(__dirname, 'src/main.scss'), // Styles
     'babel-polyfill',                      // Set up an ES6-ish environment
