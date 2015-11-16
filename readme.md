@@ -100,6 +100,9 @@ Dette gir følgende `package.json` i prosjektkatalogen:
 ### Opprett webpack konfigurasjonsfil, _webpack.config.js_
 
 ```javascript
+//require('./node_modules/es6-promise'); // Not needed for Node v4
+var path = require('path');
+
 module.exports = {
   debug: true,
   devtool: 'eval-source-map',
