@@ -176,8 +176,6 @@ export default Person;
 ```javascript
 'use strict';
 
-import './main.scss';
-import './styles/theme.css';
 import Person from './components/Person.js';
 
 var element = document.querySelector('#container');
