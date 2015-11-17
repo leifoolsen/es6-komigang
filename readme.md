@@ -54,13 +54,7 @@ npm install babel-runtime --save
 npm install babel-plugin-transform-runtime --save-dev
 ```
 
-I tillegg kan følgende pakker installeres
-```
-# JSX support
-npm install babel-preset-react --save-dev
-```
-
-Dersom du benytter Node 0.10.x, så må du i tillegg installere __es6-promise__
+Dersom du benytter Node 0.10.x, så kan det hende at du i tillegg må installere __es6-promise__
 ```
 npm install es6-promise --save-dev
 ```
