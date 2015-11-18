@@ -105,9 +105,9 @@ module.exports = {
     path.join(__dirname, 'src/main.js')    // Application's scripts
   ],
   output: {
-    publicPath: '/',
-    path: __dirname,
-    filename: '/bundle/bundle.js'
+    publicPath: '/static/',
+    path: path.join(__dirname, 'dist'),
+    filename: 'bundle.js'
   },
   resolve: {
     extensions: ['', '.webpack.js', '.web.js', '.js', '.jsx']
@@ -147,7 +147,7 @@ En god beskrivelse av hvordan man setter opp Babel sammen med webpack finnes her
   <body>
     <div id="container">
     </div>
-    <script type="text/javascript" src="./bundle/bundle.js" charset="utf-8"></script>
+    <script type="text/javascript" src="/static/bundle.js" charset="utf-8"></script>
   </body>
 </html>
 ```
@@ -254,7 +254,7 @@ eslint: {
 Linting av koden skjer kontinuerlig neste gang testserveren startes opp.
 
 
-### CSS / SASS og grafiske elementer
+### CSS / SASS, grafiske elementer og fonter
 Til prosessering av CSS/SASS og grafiske elementer trenger vi følgende.
 
 * [autoprefixer-loader](https://github.com/passy/autoprefixer-loader)
@@ -291,14 +291,23 @@ module.exports = {
       include: path.join(__dirname, 'src'),
       loaders: ["style", 'css?sourceMap', 'autoprefixer?browsers=last 3 versions']
     },
+    // Images
+    // inline base64 URLs for <=16k images, direct URLs for the rest
     {
-      // inline base64 URLs for <=16k images, direct URLs for the rest
-      test: /\.(png|jpg|jpeg|gif|svg|woff|woff2)$/,
+      test: /\.jpg/,
       loader: 'url-loader',
       query: {
-        limit: 16384
-      }    
-    }
+        limit: 16384,
+        mimetype: 'image/jpg'
+      }
+    },
+    { test: /\.gif/, loader: 'url-loader?limit=16384&mimetype=image/gif' },
+    { test: /\.png/, loader: 'url-loader?limit=16384&mimetype=image/png' },
+    { test: /\.svg/, loader: 'url-loader?limit=16384&mimetype=image/svg' },
+
+    // Fonts
+    { test: /\.woff(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: 'url-loader?limit=16384&mimetype=application/font-woff' },
+    { test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: 'file-loader' },
   ]
 }
 ```

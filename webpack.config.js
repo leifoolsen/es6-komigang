@@ -3,16 +3,16 @@ var path = require('path');
 
 module.exports = {
   debug: true,
-  devtool: 'eval-source-map', // 'source-map' or "inline-source-map" or 'eval-source-map'
+  devtool: 'eval-source-map', // 'source-map' or 'inline-source-map' or 'eval-source-map'
   entry: [
     path.join(__dirname, 'src/main.scss'), // Styles
-    'babel-polyfill',                      // Set up an ES6-ish environment
+    'babel-polyfill',                      // Babel requires some helper code to be run before your application.
     path.join(__dirname, 'src/main.js')    // Application's scripts
   ],
   output: {
-    publicPath: '/',
-    path: __dirname,
-    filename: '/bundle/bundle.js'
+    publicPath: '/static/',
+    path: path.join(__dirname, 'dist'),
+    filename: 'bundle.js'
   },
   resolve: {
     extensions: ['', '.webpack.js', '.web.js', '.js', '.jsx']
@@ -32,7 +32,7 @@ module.exports = {
     loaders: [
       {
         test: /\.js[x]?$/,                        // Only run `.js` and `.jsx` files through Babel
-        include: path.resolve(__dirname, "src"),  // Skip any files outside of your project's `src` directory
+        include: path.resolve(__dirname, 'src'),  // Skip any files outside of your project's `src` directory
         loader: 'babel-loader',
         query: {                                  // Options to configure babel with
           plugins: ['transform-runtime'],
@@ -50,14 +50,33 @@ module.exports = {
         //exclude: /(node_modules|bower_components)/,
         loaders: ['style', 'css?sourceMap', 'autoprefixer']
       },
+      // Images
+      // inline base64 URLs for <=16k images, direct URLs for the rest
       {
-        // inline base64 URLs for <=16k images, direct URLs for the rest
-        test: /\.(png|jpg|jpeg|gif|svg|woff|woff2)$/,
+        test: /\.jpg/,
         loader: 'url-loader',
         query: {
-          limit: 16384
+          limit: 16384,
+          mimetype: 'image/jpg'
         }
-      }
+      },
+      { 
+        test: /\.gif/, loader: 'url-loader?limit=16384&mimetype=image/gif'
+      },
+      {
+        test: /\.png/, loader: 'url-loader?limit=16384&mimetype=image/png'
+      },
+      {
+        test: /\.svg/, loader: 'url-loader?limit=16384&mimetype=image/svg'
+      },
+
+      // Fonts
+      {
+        test: /\.woff(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: 'url-loader?limit=16384&mimetype=application/font-woff'
+      },
+      {
+        test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: 'file-loader'
+      },
     ]
   },
   devServer: {
