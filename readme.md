@@ -28,7 +28,7 @@ mkdir es6-komigang
 cd es6-komigang
 mkdir src
 mkdir src/components
-mkdir src/styles
+mkdir src/stylesheets
 mkdir test
 mkdir test/components
 npm init
@@ -264,10 +264,11 @@ Til prosessering av CSS/SASS og grafiske elementer trenger vi følgende.
 * [file-loader](https://github.com/webpack/file-loader)
 * [url-loader](https://github.com/webpack/url-loader)
 
-`npm install style-loader autoprefixer-loader css-loader --save-dev`<br/>
-`npm install sass-loader node-sass --save-dev`<br/>
-`npm install file-loader url-loader --save-dev`<br/>
-
+```
+npm install style-loader autoprefixer-loader css-loader --save-dev
+npm install sass-loader node-sass --save-dev
+npm install file-loader url-loader --save-dev
+```
 Legg til følgende kode i `./webpack.config.js` for å håndtere SASS og CSS-filer.
 
 ```javascript
@@ -336,7 +337,7 @@ html, body {
 }
 ```
 
-Lag filen `./src/styles/theme.css`
+Lag filen `./src/stylesheets/theme.css`
 ```css
 body {
     background: yellow;
@@ -363,7 +364,7 @@ Oppdater filen `./src/main.js`
 'use strict';
 
 import './main.scss';
-import './styles/theme.css';
+import './stylesheets/theme.css';
 import Person from './components/Person.js';
 
 var element = document.querySelector('#container');
