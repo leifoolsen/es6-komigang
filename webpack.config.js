@@ -15,7 +15,7 @@ module.exports = {
     filename: 'bundle.js'
   },
   resolve: {
-    extensions: ['', '.webpack.js', '.web.js', '.js', '.jsx']
+    extensions: ['', '.webpack.js', '.web.js', '.js', '.jsx', '.css', '.scss']
   },
   module: {
     preLoaders: [
@@ -60,7 +60,7 @@ module.exports = {
           mimetype: 'image/jpg'
         }
       },
-      { 
+      {
         test: /\.gif/, loader: 'url-loader?limit=16384&mimetype=image/gif'
       },
       {
