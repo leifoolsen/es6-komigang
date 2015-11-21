@@ -1,8 +1,21 @@
 //require('./node_modules/es6-promise'); // Not needed for Node v4
-var path = require('path');
+const path = require('path');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
+
+const cssLoader = [
+  'css-loader?sourceMap',
+  'autoprefixer-loader?browsers=last 3 versions'
+].join('!');
+
+const sassLoader = [
+  'css-loader?sourceMap',
+  'autoprefixer-loader?browsers=last 3 versions',
+  'sass-loader?sourceMap&expanded'
+].join('!');
 
 module.exports = {
   debug: true,
+  cache: true,
   devtool: 'eval-source-map', // 'source-map' or 'inline-source-map' or 'eval-source-map'
   entry: [
     path.join(__dirname, 'src/main.scss'), // Styles
@@ -25,7 +38,7 @@ module.exports = {
           path.join(__dirname, 'src'),
           path.join(__dirname, 'test')
         ],
-        //exclude: /(node_modules|bower_components)/,
+        // ... or: exclude: /(node_modules|bower_components)/,
         loaders: ['eslint']
       }
     ],
@@ -42,13 +55,14 @@ module.exports = {
       {
         test: /\.scss$/,
         include: path.join(__dirname, 'src'),
-        loaders: ['style', 'css?sourceMap', 'autoprefixer?browsers=last 3 versions', 'sass?expanded&sourceMap']
+        //loaders: ['style', 'css?sourceMap', 'autoprefixer?browsers=last 2 versions', 'sass?expanded&sourceMap']
+        loader: ExtractTextPlugin.extract('style-loader', sassLoader)
       },
       {
         test: /\.css$/,
         include: path.join(__dirname, 'src'),
-        //exclude: /(node_modules|bower_components)/,
-        loaders: ['style', 'css?sourceMap', 'autoprefixer']
+        //loaders: ['style', 'css?sourceMap', 'autoprefixer?browsers=last 2 versions']
+        loader: ExtractTextPlugin.extract('style-loader', cssLoader)
       },
       // Images
       // inline base64 URLs for <=16k images, direct URLs for the rest
@@ -79,6 +93,12 @@ module.exports = {
       },
     ]
   },
+  plugins: [
+    new ExtractTextPlugin('styles.css', {
+			disable: false,
+			allChunks: true
+		})
+  ],
   devServer: {
     contentBase: './src'
   },

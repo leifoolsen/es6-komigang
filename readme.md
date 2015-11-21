@@ -95,14 +95,15 @@ Dette gir følgende `package.json` i prosjektkatalogen:
 
 ```javascript
 //require('./node_modules/es6-promise'); // Not needed for Node v4
-var path = require('path');
+const path = require('path');
 
 module.exports = {
   debug: true,
+  cache: true,
   devtool: 'eval-source-map',
   entry: [
-    'babel-polyfill',                      // Set up an ES6-ish environment
-    path.join(__dirname, 'src/main.js')    // Application's scripts
+    'babel-polyfill',                   // Set up an ES6-ish environment
+    path.join(__dirname, 'src/main.js') // Application's scripts
   ],
   output: {
     publicPath: '/static/',
@@ -263,19 +264,37 @@ Til prosessering av CSS/SASS og grafiske elementer trenger vi følgende.
 * [sass-loader](https://github.com/jtangelder/sass-loader)
 * [file-loader](https://github.com/webpack/file-loader)
 * [url-loader](https://github.com/webpack/url-loader)
+* [extract-text-webpack-plugin](https://github.com/webpack/extract-text-webpack-plugin)
 
 ```
 npm install style-loader autoprefixer-loader css-loader --save-dev
 npm install sass-loader node-sass --save-dev
 npm install file-loader url-loader --save-dev
+npm install extract-text-webpack-plugin --save-dev
 ```
+
 Legg til følgende kode i `./webpack.config.js` for å håndtere SASS og CSS-filer.
 
 ```javascript
+//require('./node_modules/es6-promise'); // Not needed for Node v4
+const path = require('path');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
+
+const cssLoader = [
+  'css-loader?sourceMap',
+  'autoprefixer-loader?browsers=last 3 versions'
+].join('!');
+
+const sassLoader = [
+  'css-loader?sourceMap',
+  'autoprefixer-loader?browsers=last 3 versions',
+  'sass-loader?sourceMap&expanded'
+].join('!');
+
 module.exports = {
   entry: [
     path.join(__dirname, 'src/main.scss'), // Styles
-    'babel-polyfill',  // Set up an ES6-ish environment
+    'babel-polyfill',                      // Set up an ES6-ish environment
     path.join(__dirname, 'src/main.js')    // Application's scripts
   ],
   ....
@@ -285,12 +304,12 @@ module.exports = {
     {
       test: /\.scss$/,
       include: path.join(__dirname, 'src'),
-      loaders: ['style', 'css?sourceMap', 'autoprefixer?browsers=last 3 versions', 'sass?expanded&sourceMap']
+      loader: ExtractTextPlugin.extract('style-loader', sassLoader)
     },
     {
       test: /\.css$/,
       include: path.join(__dirname, 'src'),
-      loaders: ["style", 'css?sourceMap', 'autoprefixer?browsers=last 3 versions']
+      loader: ExtractTextPlugin.extract('style-loader', cssLoader)
     },
     // Images
     // inline base64 URLs for <=16k images, direct URLs for the rest
@@ -309,11 +328,18 @@ module.exports = {
     // Fonts
     { test: /\.woff(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: 'url-loader?limit=16384&mimetype=application/font-woff' },
     { test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: 'file-loader' },
-  ]
+  ],
+  plugins: [
+    new ExtractTextPlugin('styles.css', {
+			disable: false,
+			allChunks: true
+		})
+  ],
+  ....  
 }
 ```
 
-Loadere evaluderes fra høyre mot venstre: SCSS-filer kompileres med SASS, deretter kjører autoprefixer, så produseres en CSS-fil. Css-loadereren, som kjøres til sist, lager en ```style``` tag som deretter kan importeres i html på samme måte som andre JavaScript-moduler. Css-loaderen er også ansvarlig for å komprimere CSS-koden når webpack kjøres med ```-p``` flagget, ```webpack -p```
+Loadere evaluderes fra høyre mot venstre: SCSS-filer kompileres med SASS, deretter kjører autoprefixer, så produseres en CSS-fil. Css-loadereren, som kjøres til sist, lager en `style` tag som deretter kan lenkes inn i html eller importeres på samme måte som andre JavaScript-moduler. Css-loaderen er også ansvarlig for å komprimere CSS-koden når webpack kjøres med `-p` flagget, `webpack -p`
 
 Restart testserveren (`Ctrl+C`, deretter `./node_modules/.bin/webpack-dev-server --progress --colors`)
 
@@ -357,6 +383,25 @@ Lag filen `./src/components/Person.scss`
 ```
 
 Last ned en ikon fra f.eks. [findicons](http://findicons.com/search/smiley) og rename filen til ```smiley.png```.
+
+Oppdater filen `./src/index.html`
+
+```html
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>webpack ES6 demo</title>
+    <link rel="stylesheet" href="/static/styles.css" />
+  </head>
+  <body>
+    <div id="container">
+    </div>
+    <script type="text/javascript" src="/static/bundle.js" charset="utf-8"></script>
+  </body>
+</html>
+```
 
 Oppdater filen `./src/main.js`
 
@@ -525,11 +570,14 @@ Avslutt testovervåkingen med Ctrl+C
 * [Writing Happy Stylesheets with Webpack](http://jamesknelson.com/writing-happy-stylesheets-with-webpack/)
 * [Writing Jasmine Unit Tests In ES6](http://www.syntaxsuccess.com/viewarticle/writing-jasmine-unit-tests-in-es6)
 * [Tutorial – write in ES6 and Sass on the front end with Webpack and Babel](http://tech.90min.com/?p=1340)
+* [Webpack CSS Example](https://github.com/bensmithett/webpack-css-example)
 * [webpack-howto](https://github.com/petehunt/webpack-howto)
 * [advanced-webpack](https://github.com/jcreamer898/advanced-webpack)
 * [webpack-demos](https://github.com/ruanyf/webpack-demos)
 * [Learn ES2015](https://babeljs.io/docs/learn-es2015/)
+* [Webpack Made Simple: Building ES6 & LESS with autorefresh](http://jamesknelson.com/webpack-made-simple-build-es6-less-with-autorefresh-in-26-lines/)
 * [Using ES6 and ES7 in the Browser, with Babel 6 and Webpack](http://jamesknelson.com/using-es6-in-the-browser-with-babel-6-and-webpack/)
+* [A Quick Tour Of ES6 (Or, The Bits You’ll Actually Use)](http://jamesknelson.com/es6-the-bits-youll-actually-use/)
 * [Get Started with ECMAScript 6](http://blog.teamtreehouse.com/get-started-ecmascript-6)
 * [Exploring es6](http://exploringjs.com/es6/) (free book)
 * [Understanding ECMAScript 6](https://leanpub.com/understandinges6/read) (free book)
