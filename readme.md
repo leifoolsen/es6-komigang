@@ -258,19 +258,21 @@ Linting av koden skjer kontinuerlig neste gang testserveren startes opp.
 ### CSS / SASS, grafiske elementer og fonter
 Til prosessering av CSS/SASS og grafiske elementer trenger vi følgende.
 
-* [autoprefixer-loader](https://github.com/passy/autoprefixer-loader)
 * [style-loader](https://github.com/webpack/style-loader)
 * [css-loader](https://github.com/webpack/css-loader)
 * [sass-loader](https://github.com/jtangelder/sass-loader)
 * [file-loader](https://github.com/webpack/file-loader)
 * [url-loader](https://github.com/webpack/url-loader)
 * [extract-text-webpack-plugin](https://github.com/webpack/extract-text-webpack-plugin)
+* [autoprefixer](https://github.com/postcss/autoprefixer)
+* [postcss-loader](https://github.com/postcss/postcss-loader)
 
 ```
-npm install style-loader autoprefixer-loader css-loader --save-dev
+npm install style-loader css-loader --save-dev
 npm install sass-loader node-sass --save-dev
 npm install file-loader url-loader --save-dev
 npm install extract-text-webpack-plugin --save-dev
+npm install autoprefixer postcss-loader --save-dev
 ```
 
 Legg til følgende kode i `./webpack.config.js` for å håndtere SASS og CSS-filer.
@@ -282,12 +284,12 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 const cssLoader = [
   'css-loader?sourceMap',
-  'autoprefixer-loader?browsers=last 3 versions'
+  'postcss-loader'
 ].join('!');
 
 const sassLoader = [
   'css-loader?sourceMap',
-  'autoprefixer-loader?browsers=last 3 versions',
+  'postcss-loader',
   'sass-loader?sourceMap&expanded'
 ].join('!');
 
@@ -334,6 +336,11 @@ module.exports = {
 			disable: false,
 			allChunks: true
 		})
+  ],
+  postcss: [
+    autoprefixer({
+      browsers: ['last 3 versions']
+    })
   ],
   ....  
 }

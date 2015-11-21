@@ -1,15 +1,16 @@
 //require('./node_modules/es6-promise'); // Not needed for Node v4
 const path = require('path');
+const autoprefixer = require('autoprefixer');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 const cssLoader = [
   'css-loader?sourceMap',
-  'autoprefixer-loader?browsers=last 3 versions'
+  'postcss-loader'
 ].join('!');
 
 const sassLoader = [
   'css-loader?sourceMap',
-  'autoprefixer-loader?browsers=last 3 versions',
+  'postcss-loader',
   'sass-loader?sourceMap&expanded'
 ].join('!');
 
@@ -55,13 +56,11 @@ module.exports = {
       {
         test: /\.scss$/,
         include: path.join(__dirname, 'src'),
-        //loaders: ['style', 'css?sourceMap', 'autoprefixer?browsers=last 2 versions', 'sass?expanded&sourceMap']
         loader: ExtractTextPlugin.extract('style-loader', sassLoader)
       },
       {
         test: /\.css$/,
         include: path.join(__dirname, 'src'),
-        //loaders: ['style', 'css?sourceMap', 'autoprefixer?browsers=last 2 versions']
         loader: ExtractTextPlugin.extract('style-loader', cssLoader)
       },
       // Images
@@ -83,7 +82,6 @@ module.exports = {
       {
         test: /\.svg/, loader: 'url-loader?limit=16384&mimetype=image/svg'
       },
-
       // Fonts
       {
         test: /\.woff(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: 'url-loader?limit=16384&mimetype=application/font-woff'
@@ -98,6 +96,11 @@ module.exports = {
 			disable: false,
 			allChunks: true
 		})
+  ],
+  postcss: [
+    autoprefixer({
+      browsers: ['last 3 versions']
+    })
   ],
   devServer: {
     contentBase: './src'
