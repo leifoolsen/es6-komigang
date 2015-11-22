@@ -203,7 +203,10 @@ Kontinuerlig kodeanalyse er greit å ha i arbeidsflyten. Til det trenger vi føl
 * [babel-eslint](https://github.com/babel/babel-eslint)
 * [eslint-loader](https://github.com/MoOx/eslint-loader)
 
-`npm install --save-dev eslint eslint-loader babel-eslint`
+```
+npm install --save-dev eslint eslint-loader babel-eslint
+```
+
 Legg til følgende kode i `webpack.config.js`
 
 ```javascript
