@@ -61,7 +61,6 @@ npm install es6-promise --save-dev
 ```
 
 Dette gir følgende `package.json` i prosjektkatalogen:
-
 ```javascript
 {
   "name": "es6-komigang",
@@ -93,7 +92,6 @@ Dette gir følgende `package.json` i prosjektkatalogen:
 ```
 
 ### Opprett webpack konfigurasjonsfil, _webpack.config.js_
-
 ```javascript
 //require('./node_modules/es6-promise'); // Not needed for Node v4
 const path = require('path');
@@ -137,7 +135,6 @@ En god beskrivelse av hvordan man setter opp Babel sammen med webpack finnes her
 [Using ES6 and ES7 in the Browser, with Babel 6 and Webpack](http://jamesknelson.com/using-es6-in-the-browser-with-babel-6-and-webpack/)
 
 ### Lag filen _./src/index.html_
-
 ```html
 <!DOCTYPE html>
 <html>
@@ -155,7 +152,6 @@ En god beskrivelse av hvordan man setter opp Babel sammen med webpack finnes her
 ```
 
 ### Lag filen _./src/components/Person.js_
-
 ```javascript
 'use strict';
 class Person {
@@ -174,7 +170,6 @@ export default Person;
 ```
 
 ### Lag filen _./src/main.js_
-
 ```javascript
 'use strict';
 
@@ -184,7 +179,7 @@ let element = document.querySelector('#container');
 let content = document.createElement('h1');
 content.classList.add('Person');
 content.textContent = 'Hello ' + new Person('Leif', 'Olsen');
-element.appendChild(h1);
+element.appendChild(content);
 ```
 
 ### Prøv ut koden
@@ -209,7 +204,6 @@ Kontinuerlig kodeanalyse er greit å ha i arbeidsflyten. Til det trenger vi føl
 * [eslint-loader](https://github.com/MoOx/eslint-loader)
 
 `npm install --save-dev eslint eslint-loader babel-eslint`
-
 Legg til følgende kode i `webpack.config.js`
 
 ```javascript
@@ -227,7 +221,6 @@ preLoaders: [
 ```
 
 I dette eksemplet konfigureres EsLint i webpack sin konfigurasjonsfil. Legg til følgende kode i `./webpack.config.js`
-
 ```javascript
 eslint: {
   'parser': 'babel-eslint',
@@ -279,7 +272,6 @@ npm install --save-dev autoprefixer postcss-loader
 ```
 
 Legg til følgende kode i `./webpack.config.js` for å håndtere statiske ressurser.
-
 ```javascript
 //require('./node_modules/es6-promise'); // Not needed for Node v4
 const path = require('path');
@@ -354,11 +346,10 @@ module.exports = {
 }
 ```
 
-Loadere evaluderes fra høyre mot venstre: SCSS-filer kompileres med SASS, deretter kjører autoprefixer, så produseres en CSS-fil (`./dist/styles.css`). CSSfilen produseres på bakgrunn av hvilke SASS/CSS-moduler som importeres i `./src/main.scss` og  JavaScriptkoden. Tradisjonelt så har man benyttet en SASS "rotfil" som sørger for å få med seg alle nødvendige SASS/CSS-moduler, men denne jobben kan man i stor grad overlate til webpack. I dette eksemplet så samles CSSkoden i `./src/stylesheets` i `main.scss` mens komponentbasert css importeres via komponeneten, se `Person.js` og `Person.scss`. Fordelen med en CSSfil generert av webpack er at produsert CSSfil kun inneholder kode som man faktisk bruker. Hvordan dette foregår i praksis er godt forklart i artikkelen [Smarter CSS builds with Webpack](http://bensmithett.com/smarter-css-builds-with-webpack/). CSS-strukturen som benyttes i dette eksemplet er omtalt i [Sass Guidelines, The 7-1 Pattern](http://sass-guidelin.es/#the-7-1-pattern). Det meste ev SASSkoden er hentet fra  [sass-boilerplate](https://github.com/HugoGiraudel/sass-boilerplate/tree/master/stylesheets) som følger 7-1 mønsteret.
+Loadere evalueres fra høyre mot venstre: SCSS-filer kompileres med SASS, deretter kjører autoprefixer, så produseres en CSS-fil; `./dist/styles.css`. CSSfilen produseres på bakgrunn av de SASS/CSS-modulene som importeres i `./src/main.scss` og hvilke SASS/CSS-moduler som refereres i JavaScriptkoden; `Person.js` og `Person.scss`. Fordelen med en CSSfil generert av webpack er at produsert CSSfil kun inneholder kode som man faktisk bruker. Hvordan dette foregår i praksis er godt forklart i artikkelen [Smarter CSS builds with Webpack](http://bensmithett.com/smarter-css-builds-with-webpack/). CSS-strukturen som benyttes i dette eksemplet er omtalt i [Sass Guidelines, The 7-1 Pattern](http://sass-guidelin.es/#the-7-1-pattern). Det meste ev SASSkoden er hentet fra  [sass-boilerplate](https://github.com/HugoGiraudel/sass-boilerplate/tree/master/stylesheets) som følger 7-1 mønsteret.
 
 
 Oppdater filen `./src/index.html`
-
 ```html
 <!DOCTYPE html>
 <html>
@@ -480,7 +471,6 @@ Lag filen `./src/main.scss`
 ```
 
 Oppdater filen `./src/main.js`
-
 ```javascript
 'use strict';
 
@@ -517,7 +507,6 @@ Lag filen `./src/components/Person.scss`
 Last ned et ikon fra f.eks. [findicons](http://findicons.com/search/smiley) og omdøp filen til `smiley.png`.
 
 Oppdater filen `./src/compoments/Person.js`
-
 ```javascript
 'use strict';
 
