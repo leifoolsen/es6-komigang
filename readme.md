@@ -177,7 +177,6 @@ import Person from './components/Person.js';
 
 const element = document.querySelector('#container');
 const content = document.createElement('h1');
-content.classList.add('Person');
 content.textContent = 'Hello ' + new Person('Leif', 'Olsen');
 element.appendChild(content);
 ```
