@@ -175,8 +175,8 @@ export default Person;
 
 import Person from './components/Person.js';
 
-let element = document.querySelector('#container');
-let content = document.createElement('h1');
+const element = document.querySelector('#container');
+const content = document.createElement('h1');
 content.classList.add('Person');
 content.textContent = 'Hello ' + new Person('Leif', 'Olsen');
 element.appendChild(content);
@@ -527,8 +527,8 @@ Oppdater filen `./src/main.js`
 
 import Person from './components/Person.js';
 
-let element = document.querySelector('#container');
-let content = document.createElement('h1');
+const element = document.querySelector('#container');
+const content = document.createElement('h1');
 
 // Content
 content.classList.add('Person');

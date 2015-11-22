@@ -2,9 +2,8 @@
 
 import Person from './components/Person.js';
 
-let element = document.querySelector('#container');
-let content = document.createElement('h1');
-
+const element = document.querySelector('#container');
+const content = document.createElement('h1');
 
 // content
 content.classList.add('Person');
