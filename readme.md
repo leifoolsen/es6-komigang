@@ -214,7 +214,6 @@ preLoaders: [
       path.join(__dirname, 'src'),
       path.join(__dirname, 'test')
     ],
-    //exclude: /(node_modules|bower_components)/,
     loaders: ['eslint']
   }
 ],
@@ -410,30 +409,24 @@ body {
 }
 ```
 
-Kopier `normalize.css` fra `https://github.com/necolas/normalize.css/blob/master/normalize.css` til mappen `./src/stylesheets/vendor/`
+Kopier `normalize.css` fra [normalize.css](https://github.com/necolas/normalize.css/blob/master/normalize.css) til mappen `./src/stylesheets/vendor/`
 
-Kopier `_variables.css` fra `https://github.com/HugoGiraudel/sass-boilerplate/blob/master/stylesheets/utils/_variables.scss` til mappen `./src/stylesheets/utils/`
+Kopier `_variables.css` fra [sass-boilerplate](https://github.com/HugoGiraudel/sass-boilerplate/blob/master/stylesheets/utils/_variables.scss) til mappen `./src/stylesheets/utils/`
 
-Kopier `_mixins.css` fra `https://github.com/HugoGiraudel/sass-boilerplate/blob/master/stylesheets/utils/_mixins.scss` til mappen `./src/stylesheets/utils/`
+Kopier `_mixins.css` fra [sass-boilerplate](https://github.com/HugoGiraudel/sass-boilerplate/blob/master/stylesheets/utils/_mixins.scss) til mappen `./src/stylesheets/utils/`
 
-Kopier `_base.scss` fra `https://github.com/HugoGiraudel/sass-boilerplate/blob/master/stylesheets/base/_base.scss` til mappen `./src/stylesheets/base/`
-
-Legg til følgende i toppen av fila:
+Kopier `_base.scss` fra [sass-boilerplate](https://github.com/HugoGiraudel/sass-boilerplate/blob/master/stylesheets/base/_base.scss) til mappen `./src/stylesheets/base/` og legg til følgende i toppen av fila:
 ```css
 @import 'stylesheets/utils/variables';
 @import 'stylesheets/utils/mixins';
 ```
 
-Kopier `_helpers.scss` fra `https://github.com/HugoGiraudel/sass-boilerplate/blob/master/stylesheets/base/_helpers.scss` til mappen `./src/stylesheets/base/`
-
-Legg til følgende i toppen av fila:
+Kopier `_helpers.scss` fra [sass-boilerplate](https://github.com/HugoGiraudel/sass-boilerplate/blob/master/stylesheets/base/_helpers.scss) til mappen `./src/stylesheets/base/` og legg til følgende i toppen av fila:
 ```css
 @import 'stylesheets/utils/variables';
 ```
 
-Kopier `_typography.scss` fra `https://github.com/HugoGiraudel/sass-boilerplate/blob/master/stylesheets/base/_typography.scss` til mappen `./src/stylesheets/base/`
-
-Legg til følgende i toppen av fila:
+Kopier `_typography.scss` fra [sass-boilerplate](https://github.com/HugoGiraudel/sass-boilerplate/blob/master/stylesheets/base/_typography.scss) til mappen `./src/stylesheets/base/` og legg til følgende i toppen av fila:
 ```css
 @import 'stylesheets/utils/variables';
 ```
@@ -470,27 +463,7 @@ Lag filen `./src/main.scss`
   'stylesheets/themes/default';
 ```
 
-Oppdater filen `./src/main.js`
-```javascript
-'use strict';
-
-import Person from './components/Person.js';
-
-let element = document.querySelector('#container');
-let content = document.createElement('h1');
-
-// content
-content.classList.add('Person');
-content.textContent = 'Hello ' + new Person('Leif', 'Olsen');
-element.appendChild(content);
-
-// header, with import html
-import header from './html/header.html';
-content.insertAdjacentHTML('beforebegin', header);
-
-// footer, with require html
-content.insertAdjacentHTML('afterend', require('./html/footer.html'));
-```
+Last ned et ikon fra f.eks. [findicons](http://findicons.com/search/smiley) til mappen `./src/components/` og omdøp filen til `smiley.png`.
 
 Lag filen `./src/components/Person.scss`
 ```css
@@ -503,8 +476,6 @@ Lag filen `./src/components/Person.scss`
   padding-left: 36px;
 }
 ```
-
-Last ned et ikon fra f.eks. [findicons](http://findicons.com/search/smiley) og omdøp filen til `smiley.png`.
 
 Oppdater filen `./src/compoments/Person.js`
 ```javascript
@@ -525,6 +496,28 @@ class Person {
   }
 }
 export default Person;
+```
+
+Oppdater filen `./src/main.js`
+```javascript
+'use strict';
+
+import Person from './components/Person.js';
+
+let element = document.querySelector('#container');
+let content = document.createElement('h1');
+
+// content
+content.classList.add('Person');
+content.textContent = 'Hello ' + new Person('Leif', 'Olsen');
+element.appendChild(content);
+
+// header, with import html
+import header from './html/header.html';
+content.insertAdjacentHTML('beforebegin', header);
+
+// footer, with require html
+content.insertAdjacentHTML('afterend', require('./html/footer.html'));
 ```
 
 Dersom testserveren kjører kan du overvåke resultatet av kodeendringene i nettlesren.
