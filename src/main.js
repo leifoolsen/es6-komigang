@@ -11,9 +11,9 @@ content.classList.add('Person');
 content.textContent = 'Hello ' + new Person('Leif', 'Olsen');
 element.appendChild(content);
 
-// header, with import html
+// Append header, using import html
 import header from './html/header.html';
 content.insertAdjacentHTML('beforebegin', header);
 
-// footer, with require html
+// Append footer, using require html
 content.insertAdjacentHTML('afterend', require('./html/footer.html'));

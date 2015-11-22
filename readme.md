@@ -415,18 +415,18 @@ Kopier `_variables.css` fra [sass-boilerplate](https://github.com/HugoGiraudel/s
 
 Kopier `_mixins.css` fra [sass-boilerplate](https://github.com/HugoGiraudel/sass-boilerplate/blob/master/stylesheets/utils/_mixins.scss) til mappen `./src/stylesheets/utils/`
 
-Kopier `_base.scss` fra [sass-boilerplate](https://github.com/HugoGiraudel/sass-boilerplate/blob/master/stylesheets/base/_base.scss) til mappen `./src/stylesheets/base/` og legg til følgende i toppen av fila:
+Kopier `_base.scss` fra [sass-boilerplate](https://github.com/HugoGiraudel/sass-boilerplate/blob/master/stylesheets/base/_base.scss) til mappen `./src/stylesheets/base/`. Legg til følgende i toppen av fila:
 ```css
 @import 'stylesheets/utils/variables';
 @import 'stylesheets/utils/mixins';
 ```
 
-Kopier `_helpers.scss` fra [sass-boilerplate](https://github.com/HugoGiraudel/sass-boilerplate/blob/master/stylesheets/base/_helpers.scss) til mappen `./src/stylesheets/base/` og legg til følgende i toppen av fila:
+Kopier `_helpers.scss` fra [sass-boilerplate](https://github.com/HugoGiraudel/sass-boilerplate/blob/master/stylesheets/base/_helpers.scss) til mappen `./src/stylesheets/base/`. Legg til følgende i toppen av fila:
 ```css
 @import 'stylesheets/utils/variables';
 ```
 
-Kopier `_typography.scss` fra [sass-boilerplate](https://github.com/HugoGiraudel/sass-boilerplate/blob/master/stylesheets/base/_typography.scss) til mappen `./src/stylesheets/base/` og legg til følgende i toppen av fila:
+Kopier `_typography.scss` fra [sass-boilerplate](https://github.com/HugoGiraudel/sass-boilerplate/blob/master/stylesheets/base/_typography.scss) til mappen `./src/stylesheets/base/`. Legg til følgende i toppen av fila:
 ```css
 @import 'stylesheets/utils/variables';
 ```
@@ -473,7 +473,7 @@ Lag filen `./src/components/Person.scss`
   background-position: 4px center;
   background-size: auto 90%;
   background-color: white;
-  padding-left: 36px;
+  padding-left: 54px;
 }
 ```
 
@@ -507,16 +507,16 @@ import Person from './components/Person.js';
 let element = document.querySelector('#container');
 let content = document.createElement('h1');
 
-// content
+// Content
 content.classList.add('Person');
 content.textContent = 'Hello ' + new Person('Leif', 'Olsen');
 element.appendChild(content);
 
-// header, with import html
+// Append header, using import html
 import header from './html/header.html';
 content.insertAdjacentHTML('beforebegin', header);
 
-// footer, with require html
+// Append footer, using require html
 content.insertAdjacentHTML('afterend', require('./html/footer.html'));
 ```
 
