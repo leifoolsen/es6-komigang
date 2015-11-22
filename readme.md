@@ -398,55 +398,6 @@ Organiseringen av SASS-koden følger 7-1 mønsteret nevnt i [Sass Guidelines](ht
     * utils/
     * vendor/
 
-Lag filen `./src/stylesheets/layout/_header.scss`
-```css
-.header {
-  padding: 10px 0;
-  background-color: silver;
-}
-```
-
-Lag filen `./src/stylesheets/layout/_footer.scss`
-```css
-.footer {
-  background-color: LightSteelBlue;
-  padding-top: 1px;
-  border-bottom: 3px solid #000;
-}
-```
-
-Lag filen `./src/stylesheets/themes/_default.scss`
-```css
-body {
-  background-color: green;
-}
-.container {
-  background-color: yellow;
-}
-```
-
-Kopier `normalize.css` fra [normalize.css](https://github.com/necolas/normalize.css/blob/master/normalize.css) til mappen `./src/stylesheets/vendor/`
-
-Kopier `_variables.css` fra [sass-boilerplate](https://github.com/HugoGiraudel/sass-boilerplate/blob/master/stylesheets/utils/_variables.scss) til mappen `./src/stylesheets/utils/`
-
-Kopier `_mixins.css` fra [sass-boilerplate](https://github.com/HugoGiraudel/sass-boilerplate/blob/master/stylesheets/utils/_mixins.scss) til mappen `./src/stylesheets/utils/`
-
-Kopier `_base.scss` fra [sass-boilerplate](https://github.com/HugoGiraudel/sass-boilerplate/blob/master/stylesheets/base/_base.scss) til mappen `./src/stylesheets/base/`. Legg til følgende i toppen av fila:
-```css
-@import 'stylesheets/utils/variables';
-@import 'stylesheets/utils/mixins';
-```
-
-Kopier `_helpers.scss` fra [sass-boilerplate](https://github.com/HugoGiraudel/sass-boilerplate/blob/master/stylesheets/base/_helpers.scss) til mappen `./src/stylesheets/base/`. Legg til følgende i toppen av fila:
-```css
-@import 'stylesheets/utils/variables';
-```
-
-Kopier `_typography.scss` fra [sass-boilerplate](https://github.com/HugoGiraudel/sass-boilerplate/blob/master/stylesheets/base/_typography.scss) til mappen `./src/stylesheets/base/`. Legg til følgende i toppen av fila:
-```css
-@import 'stylesheets/utils/variables';
-```
-
 Lag filen `./src/main.scss`
 ```css
 @charset 'UTF-8';
@@ -477,6 +428,62 @@ Lag filen `./src/main.scss`
 // 7. Themes
 @import
   'stylesheets/themes/default';
+```
+
+Lag filen `./src/stylesheets/layout/_header.scss`
+```css
+.header {
+  padding: 10px 0;
+  background-color: silver;
+}
+```
+
+Lag filen `./src/stylesheets/layout/_footer.scss`
+```css
+.footer {
+  background-color: LightSteelBlue;
+  padding-top: 1px;
+  border-bottom: 3px solid #000;
+}
+```
+
+Lag filen `./src/stylesheets/themes/_default.scss`
+```css
+html, body {
+  position: relative;
+  height: 100%;
+  min-height: 100%;
+}
+body {
+  background-color: green;
+}
+.container {
+  background-color: yellow;
+  height: 100%;
+  min-height: 100%;
+}
+```
+
+Kopier `normalize.css` fra [normalize.css](https://github.com/necolas/normalize.css/blob/master/normalize.css) til mappen `./src/stylesheets/vendor/`
+
+Kopier `_variables.css` fra [sass-boilerplate](https://github.com/HugoGiraudel/sass-boilerplate/blob/master/stylesheets/utils/_variables.scss) til mappen `./src/stylesheets/utils/`
+
+Kopier `_mixins.css` fra [sass-boilerplate](https://github.com/HugoGiraudel/sass-boilerplate/blob/master/stylesheets/utils/_mixins.scss) til mappen `./src/stylesheets/utils/`
+
+Kopier `_base.scss` fra [sass-boilerplate](https://github.com/HugoGiraudel/sass-boilerplate/blob/master/stylesheets/base/_base.scss) til mappen `./src/stylesheets/base/`. Legg til følgende i toppen av fila:
+```css
+@import 'stylesheets/utils/variables';
+@import 'stylesheets/utils/mixins';
+```
+
+Kopier `_helpers.scss` fra [sass-boilerplate](https://github.com/HugoGiraudel/sass-boilerplate/blob/master/stylesheets/base/_helpers.scss) til mappen `./src/stylesheets/base/`. Legg til følgende i toppen av fila:
+```css
+@import 'stylesheets/utils/variables';
+```
+
+Kopier `_typography.scss` fra [sass-boilerplate](https://github.com/HugoGiraudel/sass-boilerplate/blob/master/stylesheets/base/_typography.scss) til mappen `./src/stylesheets/base/`. Legg til følgende i toppen av fila:
+```css
+@import 'stylesheets/utils/variables';
 ```
 
 Last ned et ikon fra f.eks. [findicons](http://findicons.com/search/smiley) til mappen `./src/components/` og omdøp filen til `smiley.png`.
