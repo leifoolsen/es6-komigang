@@ -378,19 +378,32 @@ Lag filen `./src/html/header.html`
 </div>
 ```
 
+Lag filen `./src/html/footer.html`
+```html
+<div class="footer">
+  <h3>This is a footer</h3>
+</div>
+```
+
+Organiseringen av SASS-koden følger 7-1 mønsteret nevnt i [Sass Guidelines](http://sass-guidelin.es/#the-7-1-pattern).
+
+* ./src/
+  * main.scss
+  * stylesheets/
+    * base/
+    * components/
+    * layout/
+    * pages/
+    * themes/
+    * utils/
+    * vendor/
+
 Lag filen `./src/stylesheets/layout/_header.scss`
 ```css
 .header {
   padding: 10px 0;
   background-color: silver;
 }
-```
-
-Lag filen `./src/html/footer.html`
-```html
-<div class="footer">
-  <h3>This is a footer</h3>
-</div>
 ```
 
 Lag filen `./src/stylesheets/layout/_footer.scss`
