@@ -1,0 +1,11 @@
+// Based on https://github.com/HugoGiraudel/sass-boilerplate/blob/master/stylesheets/base/_typography.scss
+/**
+ * Basic typography style for copy text
+ */
+
+@import 'stylesheets/utils/variables';
+
+body {
+  color: $text-color;
+  font: normal 125% / 1.4 $text-font-stack;
+}

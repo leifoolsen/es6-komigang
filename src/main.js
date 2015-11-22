@@ -1,11 +1,19 @@
 'use strict';
 
-import './main.scss';
-import './stylesheets/theme.css';
 import Person from './components/Person.js';
 
-var element = document.querySelector('#container');
-var h1 = document.createElement('h1');
-h1.classList.add('Person');
-h1.textContent = 'Hello ' + new Person('Leif', 'Olsen');
-element.appendChild(h1);
+let element = document.querySelector('#container');
+let content = document.createElement('h1');
+
+
+// content
+content.classList.add('Person');
+content.textContent = 'Hello ' + new Person('Leif', 'Olsen');
+element.appendChild(content);
+
+// header, with import html
+import header from './html/header.html';
+content.insertAdjacentHTML('beforebegin', header);
+
+// footer, with require html
+content.insertAdjacentHTML('afterend', require('./html/footer.html'));

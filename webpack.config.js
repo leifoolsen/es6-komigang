@@ -29,7 +29,7 @@ module.exports = {
     filename: 'bundle.js'
   },
   resolve: {
-    extensions: ['', '.webpack.js', '.web.js', '.js', '.jsx', '.css', '.scss']
+    extensions: ['', '.webpack.js', '.web.js', '.js', '.jsx', '.css', '.scss', '.html']
   },
   module: {
     preLoaders: [
@@ -52,6 +52,11 @@ module.exports = {
           plugins: ['transform-runtime'],
           presets: ['es2015', 'stage-0']
         }
+      },
+      {
+        test: /\.html$/,
+        include: path.join(__dirname, 'src/html'),
+        loader: "html-loader"
       },
       {
         test: /\.scss$/,
