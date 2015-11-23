@@ -74,7 +74,7 @@ npm install --save babel-runtime
 npm install --save-dev babel-plugin-transform-runtime
 ```
 
-Dersom du benytter Node 0.10.x, så kan det hende at du i tillegg må installere __es6-promise__
+Dersom du benytter Node 0.10.x, så kan det hende at du i tillegg må installere __es6-promise__. 
 ```
 npm install es6-promise --save-dev
 ```
@@ -212,7 +212,7 @@ Dette er det du trenger for å komme i gang med utvikling av ECMAScript 2015, ES
 
 ## Forbedret arbeidsflyt med kodeanalyse, enhetstester og prosessering av statiske ressurser
 
-I resten av eksemplet viser jeg hvordan man kan legge til flere nyttige verktøy.
+I resten av eksemplet viser jeg hvordan man kan legge til flere nyttige verktøy. For resten av eksemplet anbefaler jeg å benytte __Node-4.x__ eller __Node-5.x__!
 
 ### EsLint
 Kontinuerlig kodeanalyse er greit å ha i arbeidsflyten. Til det trenger vi følgende:
