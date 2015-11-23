@@ -74,7 +74,7 @@ npm install --save babel-runtime
 npm install --save-dev babel-plugin-transform-runtime
 ```
 
-Dersom du benytter Node 0.10.x, så kan det hende at du i tillegg må installere __es6-promise__. 
+Dersom du benytter Node 0.10.x, så kan det hende at du i tillegg må installere __es6-promise__.
 ```
 npm install es6-promise --save-dev
 ```
@@ -192,7 +192,7 @@ export default Person;
 ```javascript
 'use strict';
 
-import Person from 'js/components/Person.js';
+import Person from './js/components/Person.js';
 
 const element = document.querySelector('#container');
 const content = document.createElement('h1');
@@ -657,7 +657,7 @@ Lag filen `./test/js/components/Person-spec.js`
 
 ```javascript
 'use strict';
-import Person from '../../../src/components/Person';
+import Person from '../../../src/js/components/Person';
 describe('Person', () => {
    it('should say hello to leif', () => {
        let person = new Person('Leif', 'Olsen');
