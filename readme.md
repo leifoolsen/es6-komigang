@@ -682,6 +682,13 @@ Testene kjøres initielt. Deretter kjøres de så snart Karma oppdager endringer
 
 Avslutt testovervåkingen med Ctrl+C
 
+## React
+For åkomme i geng med React trenger du som et minimum:
+```
+npm istall --save react react-dom
+npm install --save-dev babel-preset-react
+```
+
 ## Nyttige lenker
 * [What is webpack](http://webpack.github.io/docs/what-is-webpack.html)
 * [Webpack configuration](https://webpack.github.io/docs/configuration.html)
