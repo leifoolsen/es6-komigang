@@ -27,13 +27,32 @@ Det finnes helt sikkert flere veier til målet, men jeg skal forsøke å gi en k
 mkdir es6-komigang
 cd es6-komigang
 mkdir src
-mkdir src/components
-mkdir src/stylesheets
-mkdir src/html
-mkdir test
-mkdir test/components
+mkdir src/scripts
+mkdir src/scripts/components
 npm init
 ```
+
+#### Prosjektstruktur dersom du følger hele eksemplet
+
+```
+|
++-- src
+|   +-- html
+|   +-- scripts
+|   |   +-- components
+|   +-- stylesheets
+|   |   +-- base
+|   |   +-- components
+|   |   +-- layout
+|   |   +-- pages
+|   |   +-- themes
+|   |   +-- utils
+|   |   +-- vendor
++-- tests
+|   +-- scripts
+|   |   +-- components
+```
+
 
 #### webpack + Babel
 ```
@@ -386,16 +405,19 @@ Lag filen `./src/html/footer.html`
 
 Organiseringen av SASS-koden følger 7-1 mønsteret nevnt i [Sass Guidelines](http://sass-guidelin.es/#the-7-1-pattern).
 
-* ./src/
-  * main.scss
-  * stylesheets/
-    * base/
-    * components/
-    * layout/
-    * pages/
-    * themes/
-    * utils/
-    * vendor/
+```
+|
++-- src/
+|   +-- main.scss
+|   +-- stylesheets/
+|   |   +-- base/
+|   |   +-- components/
+|   |   +-- layout/
+|   |   +-- pages/
+|   |   +-- themes/
+|   |   +-- utils
+|   |   +-- vendor/
+```
 
 Lag filen `./src/main.scss`
 ```css
