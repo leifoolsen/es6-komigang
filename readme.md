@@ -683,10 +683,23 @@ Testene kjøres initielt. Deretter kjøres de så snart Karma oppdager endringer
 Avslutt testovervåkingen med Ctrl+C
 
 ## React
-For åkomme i geng med React trenger du som et minimum:
+For åkomme i gang med React trenger du som et minimum:
 ```
 npm istall --save react react-dom
 npm install --save-dev babel-preset-react
+```
+
+Og `babel-loader` i `webpack.config.js` blir da:
+```javascript
+{
+  test: /\.js[x]?$/,                     // Only run `.js` and `.jsx` files through Babel
+  include: path.join(__dirname, 'src'),  // Skip any files outside of your project's `src` directory
+  loader: 'babel-loader',
+  query: {                               // Options to configure babel with
+    plugins: ['transform-runtime'],
+    presets: ['es2015', 'stage-0', 'react']
+  }
+},
 ```
 
 ## Nyttige lenker
