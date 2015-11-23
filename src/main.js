@@ -1,6 +1,6 @@
 'use strict';
 
-import Person from './components/Person.js';
+import Person from 'js/components/Person.js';
 
 const element = document.querySelector('#container');
 const content = document.createElement('h1');

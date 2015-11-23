@@ -27,8 +27,8 @@ Det finnes helt sikkert flere veier til målet, men jeg skal forsøke å gi en k
 mkdir es6-komigang
 cd es6-komigang
 mkdir src
-mkdir src/scripts
-mkdir src/scripts/components
+mkdir src/js
+mkdir src/js/components
 npm init
 ```
 
@@ -38,7 +38,7 @@ npm init
 |
 +-- src
 |   +-- html
-|   +-- scripts
+|   +-- js
 |   |   +-- components
 |   +-- stylesheets
 |   |   +-- base
@@ -48,8 +48,8 @@ npm init
 |   |   +-- themes
 |   |   +-- utils
 |   |   +-- vendor
-+-- tests
-|   +-- scripts
++-- test
+|   +-- js
 |   |   +-- components
 ```
 
@@ -192,7 +192,7 @@ export default Person;
 ```javascript
 'use strict';
 
-import Person from './components/Person.js';
+import Person from 'js/components/Person.js';
 
 const element = document.querySelector('#container');
 const content = document.createElement('h1');
@@ -509,7 +509,7 @@ Kopier `_typography.scss` fra [sass-boilerplate](https://github.com/HugoGiraudel
 
 Last ned et ikon fra f.eks. [findicons](http://findicons.com/search/smiley) til mappen `./src/components/` og omdøp filen til `smiley.png`.
 
-Lag filen `./src/components/Person.scss`
+Lag filen `./src/js/components/Person.scss`
 ```css
 .Person {
   background-image: url('smiley.png');
@@ -546,7 +546,7 @@ Oppdater filen `./src/main.js`
 ```javascript
 'use strict';
 
-import Person from './components/Person.js';
+import Person from './js/components/Person.js';
 
 const element = document.querySelector('#container');
 const content = document.createElement('h1');
@@ -653,11 +653,11 @@ context.keys().forEach(context);
 console.log(context.keys());
 ```
 
-Lag filen `./src/test/components/Person-spec.js`
+Lag filen `./test/js/components/Person-spec.js`
 
 ```javascript
 'use strict';
-import Person from '../../src/components/Person';
+import Person from '../../../src/components/Person';
 describe('Person', () => {
    it('should say hello to leif', () => {
        let person = new Person('Leif', 'Olsen');
@@ -712,3 +712,4 @@ Avslutt testovervåkingen med Ctrl+C
 * [generator-react-webpack](https://github.com/newtriks/generator-react-webpack)
 * [react-redux-starter-kit](https://github.com/davezuko/react-redux-starter-kit)
 * [Unicorn Standard Starter Kit](https://github.com/unicorn-standard/starter-kit)
+* [Tutorial – Todo List](https://facebook.github.io/flux/docs/todo-list.html)

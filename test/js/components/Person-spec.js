@@ -1,6 +1,6 @@
 'use strict';
 
-import Person from '../../src/components/Person';
+import Person from '../../../src/js/components/Person';
 
 describe('Person', () => {
 

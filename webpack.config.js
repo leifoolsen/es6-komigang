@@ -1,4 +1,4 @@
-//require('./node_modules/es6-promise'); // Not needed for Node v4
+require('./node_modules/es6-promise'); // Not needed for Node v4
 const path = require('path');
 const autoprefixer = require('autoprefixer');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
@@ -93,7 +93,7 @@ module.exports = {
       },
       {
         test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: 'file-loader'
-      },
+      }
     ]
   },
   plugins: [
