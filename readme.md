@@ -29,7 +29,7 @@ cd es6-komigang
 mkdir src
 mkdir src/js
 mkdir src/js/components
-npm init
+npm init -y
 ```
 
 #### Prosjektstruktur dersom du følger hele eksemplet
