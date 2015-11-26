@@ -737,3 +737,5 @@ Og `babel-loader` i `webpack.config.js` blir da:
 * [JSON Server](https://github.com/typicode/json-server)
 * [Creating Demo APIs with json-server](https://egghead.io/lessons/nodejs-creating-demo-apis-with-json-server)
 * [Node EasyMock Server](https://github.com/cyberagent/node-easymock)
+* [Setup Webpack on an ES6 React app with SASS](http://marmelab.com/blog/2015/05/18/setup-webpack-for-es6-react-application-with-sass.html)
+
