@@ -54,7 +54,7 @@ npm init -y
 ```
 
 
-#### webpack + Babel
+#### Installer nødvendige pakker
 ```
 # webpack
 npm install --save-dev webpack webpack-dev-server
