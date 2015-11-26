@@ -683,7 +683,7 @@ Testene kjøres initielt. Deretter kjøres de så snart Karma oppdager endringer
 Avslutt testovervåkingen med Ctrl+C
 
 ## React
-For åkomme i gang med React trenger du som et minimum:
+For å komme i gang med React trenger du som et minimum:
 ```
 npm istall --save react react-dom
 npm install --save-dev babel-preset-react
@@ -731,3 +731,9 @@ Og `babel-loader` i `webpack.config.js` blir da:
 * [ECMAScript 6 Learning](https://github.com/ericdouglas/ES6-Learning)
 * [Exploring ES2016 Decorators](https://medium.com/google-developers/exploring-es7-decorators-76ecb65fb841#.hrtgi290a)
 * [react-webpack-cookbook](https://christianalfoni.github.io/react-webpack-cookbook/index.html)
+* [Frontend development with webpack, json-server, tape and NPM — Pt. 1](https://medium.com/@pcruz7/frontend-development-with-webpack-json-server-tape-and-npm-pt-1-62c7601b62c1#.4bftnlffp)
+* [Nock](https://github.com/pgte/nock)
+* [Mocking API Requests in Node tests](http://javascriptplayground.com/blog/2013/08/mocking-web-requests/)
+* [JSON Server](https://github.com/typicode/json-server)
+* [Creating Demo APIs with json-server](https://egghead.io/lessons/nodejs-creating-demo-apis-with-json-server)
+* [Node EasyMock Server](https://github.com/cyberagent/node-easymock)
