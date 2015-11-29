@@ -53,6 +53,7 @@ npm init -y
 |   |   +-- components
 +-- api
 |   +-- data
+|   +-- public
 ```
 
 
