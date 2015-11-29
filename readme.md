@@ -213,10 +213,13 @@ Dette er det du trenger for å komme i gang med utvikling av ECMAScript 2015, ES
 Resten av eksemplet forutsetter at du benytter __Node-4.x__ eller __Node-5.x__!
 
 
-## Rest-api med Node Express
-Ved koding av frontend kan man benytte Node Express som rest-api stubserver. Dette avsnittet viser hvordan man kan 
-sette opp Node Express i et ES6-miljø og hvordan man setter opp en proxy fra webpack dev server til Node Express slik at
-man enkelt kan prøve ut ES6 fetch-api'et.
+## Rest-api med Node Express (WIP)
+Dette avsnittet viser hvordan man kan sette opp Node Express i et ES6-miljø og hvordan man setter opp en proxy fra 
+webpack dev server til Node Express slik at man enkelt kan prøve ut ES6 fetch-api'et. 
+
+....... Ved koding av frontend kan man benytte Node Express som rest-api stubserver. ....... TBD
+
+
    
 
 ## Forbedret arbeidsflyt med kodeanalyse, enhetstester og prosessering av statiske ressurser
