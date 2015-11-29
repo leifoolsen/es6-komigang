@@ -51,6 +51,8 @@ npm init -y
 +-- test
 |   +-- js
 |   |   +-- components
++-- api
+|   +-- data
 ```
 
 
@@ -191,7 +193,6 @@ export default Person;
 ### Lag filen _./src/main.js_
 ```javascript
 'use strict';
-
 import Person from './js/components/Person.js';
 
 const element = document.querySelector('#container');
@@ -209,10 +210,18 @@ element.appendChild(content);
 
 Dette er det du trenger for å komme i gang med utvikling av ECMAScript 2015, ES6.
 
+Resten av eksemplet forutsetter at du benytter __Node-4.x__ eller __Node-5.x__!
+
+
+## Rest-api med Node Express
+Ved koding av frontend kan man benytte Node Express som rest-api stubserver. Dette avsnittet viser hvordan man kan 
+sette opp Node Express i et ES6-miljø og hvordan man setter opp en proxy fra webpack dev server til Node Express slik at
+man enkelt kan prøve ut ES6 fetch-api'et.
+   
 
 ## Forbedret arbeidsflyt med kodeanalyse, enhetstester og prosessering av statiske ressurser
 
-I resten av eksemplet viser jeg hvordan man kan legge til flere nyttige verktøy. For resten av eksemplet anbefaler jeg å benytte __Node-4.x__ eller __Node-5.x__!
+I de neste avsnittene viser jeg hvordan man kan legge til flere nyttige verktøy.
 
 ### EsLint
 Kontinuerlig kodeanalyse er greit å ha i arbeidsflyten. Til det trenger vi følgende:
@@ -403,7 +412,7 @@ Lag filen `./src/html/footer.html`
 </div>
 ```
 
-Organiseringen av SASS-koden følger 7-1 mønsteret nevnt i [Sass Guidelines](http://sass-guidelin.es/#the-7-1-pattern).
+Organiseringen av SASS-koden bør følge 7-1 mønsteret nevnt i [Sass Guidelines](http://sass-guidelin.es/#the-7-1-pattern).
 
 ```
 |

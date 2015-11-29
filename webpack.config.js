@@ -18,6 +18,7 @@ module.exports = {
   debug: true,
   cache: true,
   devtool: 'eval-source-map', // 'source-map' or 'inline-source-map' or 'eval-source-map'
+                              // eval-source-map gives sourcemaps without slowing down rebundling
   entry: [
     path.join(__dirname, 'src/main.scss'), // Styles
     'babel-polyfill',                      // Babel requires some helper code to be run before your application.
