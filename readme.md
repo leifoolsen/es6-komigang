@@ -609,14 +609,16 @@ Oppdater filen `./src/main.js`
 ```javascript
 'use strict';
 
+import moment from 'moment';
 import Person from './js/components/Person.js';
 
 const element = document.querySelector('#container');
 
 // Content
 const content = document.createElement('h1');
+content.textContent = 
 content.classList.add('Person');
-content.textContent = 'Hello ' + new Person('Leif', 'Olsen');
+  `${moment().format('YYYY-MM-DD HH:mm:ss')}: Yo ${new Person('Leif', 'Olsen')}`;
 element.appendChild(content);
 
 // Append header, using import html
@@ -632,7 +634,8 @@ Dersom testserveren kjører kan du overvåke resultatet av kodeendringene i nett
 
 ### ES6 enhetstester med Karma og Jasmine
 
-Enhetstester er jo egentlig feigt - men noen ganger er det helt ålreit å ha dem ;-) Oppsett av testmiljø med Karma, Jasmine og PhantomJS er som følger.
+Enhetstester er jo egentlig feigt - men noen ganger er det helt ålreit å ha dem ;-) Oppsett av testmiljø med Karma, 
+Jasmine og PhantomJS er som følger.
 
 * [phantomjs](https://github.com/ariya/phantomjs)
 * [jasmine](https://github.com/jasmine/jasmine)
