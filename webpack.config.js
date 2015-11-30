@@ -1,4 +1,9 @@
-//require('./node_modules/es6-promise'); // Not needed for Node v4
+if (!global.Promise) {
+  console.log("require es6-promise");
+  global.Promise = require('es6-promise').polyfill();
+}
+
+const webpack = require('webpack');
 const path = require('path');
 const autoprefixer = require('autoprefixer');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
@@ -19,15 +24,25 @@ module.exports = {
   cache: true,
   devtool: 'eval-source-map', // 'source-map' or 'inline-source-map' or 'eval-source-map'
                               // eval-source-map gives sourcemaps without slowing down rebundling
-  entry: [
-    path.join(__dirname, 'src/main.scss'), // Styles
-    'babel-polyfill',                      // Babel requires some helper code to be run before your application.
-    path.join(__dirname, 'src/main.js')    // Application's scripts
-  ],
+  entry: {
+    app: [
+      path.join(__dirname, 'src/main.scss'), // Styles
+      'babel-polyfill',                      // Babel requires some helper code to be run before your application
+      path.join(__dirname, 'src/main.js')    // Add your application's scripts last
+    ],
+    vendor: [
+      'moment'
+      //'react',
+      //'react-dom',
+      // +++ other 3'rd party
+    ]
+  },
   output: {
-    publicPath: '/static/',
-    path: path.join(__dirname, 'dist'),
-    filename: 'bundle.js'
+    path             : path.join(__dirname, 'dist'),
+    filename         : '[name].js',
+    sourceMapFilename: '[file].map',
+    pathinfo         : true,
+    publicPath       : '/static/'
   },
   resolve: {
     extensions: ['', '.webpack.js', '.web.js', '.js', '.jsx', '.css', '.scss', '.html']
@@ -98,10 +113,20 @@ module.exports = {
     ]
   },
   plugins: [
+    new webpack.optimize.CommonsChunkPlugin({
+      name: 'vendor',
+      minChunks: Infinity
+    }),
     new ExtractTextPlugin('styles.css', {
 			disable: false,
 			allChunks: true
 		})
+
+    // Do not use:
+    //   new webpack.HotModuleReplacementPlugin()
+    //   new webpack.NoErrorsPlugin()
+    // Use: '--hot --inline --module-bind'
+    // see: https://github.com/webpack/docs/wiki/hot-module-replacement-with-webpack
   ],
   postcss: [
     autoprefixer({
@@ -109,7 +134,23 @@ module.exports = {
     })
   ],
   devServer: {
-    contentBase: './src'
+    contentBase: './src',
+    port: 8080,
+    progress: true,
+    colors: true,
+    hot: true,                  // adds the HotModuleReplacementPlugin.
+    historyApiFallback: false,  // when false, dev server make directory listing, good feature to navigate in project
+    quiet: false,
+    noInfo: false,
+    lazy: false,
+    aggregateTimeout: 300,
+    proxy: {
+      // Our rest server
+      '/api/*': {
+        target: 'http://localhost:8081',
+        secure: false
+      }
+    }
   },
   eslint: {
     // See: http://eslint.org/docs/user-guide/configuring.html

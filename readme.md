@@ -20,6 +20,7 @@ Ved hjelp av Babel transformeres es6 til es5, som de fleste moderne nettlesere k
 * [babel-polyfill](https://github.com/babel/babel/tree/master/packages/babel-polyfill)
 * [babel-runtime](https://github.com/babel/babel/tree/master/packages/babel-runtime)
 * [babel-plugin-transform-runtime](https://github.com/babel/babel/tree/master/packages/babel-plugin-transform-runtime)
+* [moment](https://github.com/moment/moment/)
 
 ### Opprett et prosjekt og installer _webpack_ og _Babel_
 [NodeJS](https://nodejs.org/en/) må være installert på forhånd og det forutsettes at du har grunnleggende kunnskap om NodeJS.
@@ -67,22 +68,24 @@ npm install --save-dev webpack webpack-dev-server
 # babel-core and babel-loader
 npm install --save-dev babel-core babel-loader
 
-# For ES6/ES2015 support
+# ES2015/ES6
 npm install --save-dev babel-preset-es2015
 
-# ES7 features
+# ES7
 npm install --save-dev babel-preset-stage-0
 
 # Runtime support
 npm install --save babel-polyfill
 npm install --save babel-runtime
 npm install --save-dev babel-plugin-transform-runtime
+
+# ES6 Promise, for node < v4
+npm install --save dev es6-promise
+
+# 3'dje parts bibliotek. Benyttes for å demonstrere splitting av JavaScript 
+npm install --save moment
 ```
 
-Dersom du benytter Node 0.10.x, så kan det hende at du i tillegg må installere __es6-promise__.
-```
-npm install es6-promise --save-dev
-```
 
 Dette gir følgende `package.json` i prosjektkatalogen:
 ```javascript
@@ -93,7 +96,8 @@ Dette gir følgende `package.json` i prosjektkatalogen:
   "main": "webpack.config.js",
   "dependencies": {
     "babel-polyfill": "^6.2.0",
-    "babel-runtime": "^6.2.0"
+    "babel-runtime": "^6.2.0",
+    "moment": "^2.10.6"
   },
   "devDependencies": {
     "babel-core": "^6.2.1",
@@ -101,11 +105,14 @@ Dette gir følgende `package.json` i prosjektkatalogen:
     "babel-plugin-transform-runtime": "^6.1.18",
     "babel-preset-es2015": "^6.1.18",
     "babel-preset-stage-0": "^6.1.18",
+    "es6-promise": "^3.0.2",
     "webpack": "^1.12.9",
     "webpack-dev-server": "^1.14.0"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "./node_modules/.bin/webpack-dev-server --hot --inline --module-bind --progress --color",
+    "build": "./node_modules/.bin/webpack",
+    "test": "./node_modules/.bin/karma start"
   },
   "keywords": [
     "webpack", "babel", "es6"
@@ -117,21 +124,31 @@ Dette gir følgende `package.json` i prosjektkatalogen:
 
 ### Opprett webpack konfigurasjonsfil, _webpack.config.js_
 ```javascript
-//require('./node_modules/es6-promise'); // Not needed for Node v4
+if (!global.Promise) {
+  global.Promise = require('es6-promise').polyfill();
+}
+const webpack = require('webpack');
 const path = require('path');
 
 module.exports = {
   debug: true,
   cache: true,
   devtool: 'eval-source-map',
-  entry: [
-    'babel-polyfill',                   // Set up an ES6-ish environment
-    path.join(__dirname, 'src/main.js') // Application's scripts entry point
-  ],
+  entry: {
+    app: [
+      'babel-polyfill',                   // Babel requires some helper code to be run before your application
+      path.join(__dirname, 'src/main.js') // Add your application's scripts last
+    ],
+    vendor: [
+      'moment'
+    ]
+  },
   output: {
-    publicPath: '/static/',
-    path: path.join(__dirname, 'dist'),
-    filename: 'bundle.js'
+    path             : path.join(__dirname, 'dist'),
+    filename         : '[name].js',
+    sourceMapFilename: '[file].map',
+    pathinfo         : true,
+    publicPath       : '/static/'
   },
   resolve: {
     extensions: ['', '.webpack.js', '.web.js', '.js', '.jsx', '.css', '.scss']
@@ -149,13 +166,20 @@ module.exports = {
       }
     ]
   },
+  plugins: [
+    new webpack.optimize.CommonsChunkPlugin({
+      name: 'vendor',
+      minChunks: Infinity
+    })
+  ],
   devServer: {
-    contentBase: './src'
+    contentBase: './src',
+    port: 8080
   }
 };
 ```
 
-En god beskrivelse av hvordan man setter opp Babel sammen med webpack finnes her:
+En god beskrivelse av hvordan man setter opp Babel sammen med webpack finner du bl.a. her:
 [Using ES6 and ES7 in the Browser, with Babel 6 and Webpack](http://jamesknelson.com/using-es6-in-the-browser-with-babel-6-and-webpack/)
 
 ### Lag filen _./src/index.html_
@@ -170,7 +194,8 @@ En god beskrivelse av hvordan man setter opp Babel sammen med webpack finnes her
   <body>
     <div id="container">
     </div>
-    <script type="text/javascript" src="/static/bundle.js" charset="utf-8"></script>
+    <script type="text/javascript" src="/static/vendor.js" charset="utf-8"></script>
+    <script type="text/javascript" src="/static/app.js" charset="utf-8"></script>
   </body>
 </html>
 ```
@@ -196,24 +221,29 @@ export default Person;
 ### Lag filen _./src/main.js_
 ```javascript
 'use strict';
+
+import moment from 'moment';
 import Person from './js/components/Person.js';
 
 const element = document.querySelector('#container');
+
 const content = document.createElement('h1');
-content.textContent = 'Hello ' + new Person('Leif', 'Olsen');
+content.classList.add('Person');
+content.textContent = 
+  `${moment().format('YYYY-MM-DD HH:mm:ss')}: Yo ${new Person('Leif', 'Olsen')}`;
 element.appendChild(content);
 ```
 
 ### Prøv ut koden
-* Åpne et terminalvindu og start serveren med følgende kommando:<br/>
-  `./node_modules/.bin/webpack-dev-server --progress --colors`
-* Åpne nettleseren og naviger til: http://localhost:8080/webpack-dev-server/ <br/>
-  Eventuelle endringer i koden kan du observere i terminalvinduet og i nettleseren.
-* Stopp serveren med Ctrl+C
+* Åpne et terminalvindu og start utviklingsserveren med følgende kommando: `npm run dev`    
+* Åpne nettleseren og naviger til: http://localhost:8080/webpack-dev-server/ 
+* Eventuelle endringer i koden kan du observere fortløpende i terminalvinduet og i nettleseren.
+* Stopp serveren med `Ctrl+C`
+* Kjør kommandoen `npm run build` og verifiser at `./dist`katalogen inneholder filene `vendor.js` og `app.js` 
 
-Dette er det du trenger for å komme i gang med utvikling av ECMAScript 2015, ES6.
+Dette er i hovedsak utviklingsmiljøet du trenger for å komme i gang med ECMAScript 2015, ES6.
 
-Resten av eksemplet forutsetter at du benytter __Node-4.x__ eller __Node-5.x__!
+Resten av eksemplet forutsetter at du benytter __Node-4.x__ eller [__Node-5.x__](https://nodejs.org/en/)!
 
 
 ## Rest-api med Node Express (WIP)
@@ -324,11 +354,16 @@ const sassLoader = [
 ].join('!');
 
 module.exports = {
-  entry: [
-    path.join(__dirname, 'src/main.scss'), // Styles
-    'babel-polyfill',                      // Set up an ES6-ish environment
-    path.join(__dirname, 'src/main.js')    // Application's scripts
-  ],
+  entry: {
+    app: [
+      path.join(__dirname, 'src/main.scss'), // Styles
+      'babel-polyfill',                      // Babel requires some helper code to be run before your application
+      path.join(__dirname, 'src/main.js')    // Add your application's scripts last
+    ],
+    vendor: [
+      'moment'
+    ]
+  },
   ....
   devtool: 'eval-source-map',
   loaders: [
@@ -367,6 +402,10 @@ module.exports = {
     { test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: 'file-loader' },
   ],
   plugins: [
+    new webpack.optimize.CommonsChunkPlugin({
+      name: 'vendor',
+      minChunks: Infinity
+    }),
     new ExtractTextPlugin('styles.css', {
 			disable: false,
 			allChunks: true
@@ -381,7 +420,15 @@ module.exports = {
 }
 ```
 
-Loadere evalueres fra høyre mot venstre: SCSS-filer kompileres med SASS, deretter kjører autoprefixer, så produseres en CSS-fil; `./dist/styles.css`. CSSfilen produseres på bakgrunn av de SASS/CSS-modulene som importeres i `./src/main.scss` og hvilke SASS/CSS-moduler som refereres i JavaScriptkoden; `Person.js` og `Person.scss`. Fordelen med en CSSfil generert av webpack er at produsert CSSfil kun inneholder kode som man faktisk bruker. Hvordan dette foregår i praksis er godt forklart i artikkelen [Smarter CSS builds with Webpack](http://bensmithett.com/smarter-css-builds-with-webpack/). CSS-strukturen som benyttes i dette eksemplet er omtalt i [Sass Guidelines, The 7-1 Pattern](http://sass-guidelin.es/#the-7-1-pattern). Det meste ev SASSkoden er hentet fra  [sass-boilerplate](https://github.com/HugoGiraudel/sass-boilerplate/tree/master/stylesheets) som følger 7-1 mønsteret.
+Loadere evalueres fra høyre mot venstre: SCSS-filer kompileres med SASS, deretter kjører autoprefixer, så produseres 
+en CSS-fil; `./dist/styles.css`. CSSfilen produseres på bakgrunn av de SASS/CSS-modulene som importeres i 
+`./src/main.scss` og hvilke SASS/CSS-moduler som refereres i JavaScriptkoden; `Person.js` og `Person.scss`. Fordelen 
+med en CSSfil generert av webpack er at produsert CSSfil kun inneholder kode som man faktisk bruker. Hvordan dette 
+foregår i praksis er godt forklart i artikkelen 
+[Smarter CSS builds with Webpack](http://bensmithett.com/smarter-css-builds-with-webpack/). CSS-strukturen som benyttes 
+i dette eksemplet er omtalt i [Sass Guidelines, The 7-1 Pattern](http://sass-guidelin.es/#the-7-1-pattern). Det meste ev 
+SASSkoden er hentet fra  [sass-boilerplate](https://github.com/HugoGiraudel/sass-boilerplate/tree/master/stylesheets) 
+som følger 7-1 mønsteret.
 
 
 Oppdater filen `./src/index.html`
@@ -397,24 +444,25 @@ Oppdater filen `./src/index.html`
   <body>
     <div id="container" class="container">
     </div>
-    <script type="text/javascript" src="/static/bundle.js" charset="utf-8"></script>
+    <script type="text/javascript" src="/static/vendor.js" charset="utf-8"></script>
+    <script type="text/javascript" src="/static/app.js" charset="utf-8"></script>
   </body>
 </html>
 ```
 
-Restart testserveren (`Ctrl+C`, deretter `./node_modules/.bin/webpack-dev-server --progress --colors`)
+Restart serveren (`Ctrl+C`, deretter `npm run dev`)
 
 Lag filen `./src/html/header.html`
 ```html
 <div class="header">
-  <h2>This is a Header</h3>
+  <h2>Header ...</h3>
 </div>
 ```
 
 Lag filen `./src/html/footer.html`
 ```html
 <div class="footer">
-  <h3>This is a footer</h3>
+  <h3>Footer ...</h3>
 </div>
 ```
 
@@ -564,9 +612,9 @@ Oppdater filen `./src/main.js`
 import Person from './js/components/Person.js';
 
 const element = document.querySelector('#container');
-const content = document.createElement('h1');
 
 // Content
+const content = document.createElement('h1');
 content.classList.add('Person');
 content.textContent = 'Hello ' + new Person('Leif', 'Olsen');
 element.appendChild(content);

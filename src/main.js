@@ -1,13 +1,14 @@
 'use strict';
 
+import moment from 'moment';
 import Person from './js/components/Person.js';
 
 const element = document.querySelector('#container');
-const content = document.createElement('h1');
 
 // content
+const content = document.createElement('h1');
 content.classList.add('Person');
-content.textContent = 'Hello ' + new Person('Leif', 'Olsen');
+content.textContent = `${moment().format('YYYY-MM-DD HH:mm:ss')}: Yo ${new Person('Leif', 'Olsen')}`;
 element.appendChild(content);
 
 // Append header, using import html
