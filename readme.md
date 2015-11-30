@@ -2,11 +2,13 @@
 
 <img src="what-is-webpack.png" style="width:100%; max-width: 1200px; margin: 0 auto;" />
 
-Webpack (the amazing module bundling Swiss army knife) er kort fortalt en pakkehåndterer og et front-end byggesystem som preprosesserer forskjellige webressurser og samler dem i en eller flere statiske pakker som kan benyttes i klienten. Prosesseringen foregår via såkalte "loadere" - ganske likt "tasks" i andre byggeverktøy, som Gulp.
+Webpack (the amazing module bundling Swiss army knife) er kort fortalt en pakkehåndterer og et front-end byggesystem 
+som preprosesserer forskjellige webressurser og samler dem i en eller flere statiske pakker som så kan benyttes i klienten.
+Prosesseringen starter fra et gitt startpunkt (entry), typisk _index.js_ eller _main.js_. Ut fra startpunktet bygger webpack en
+avhengighetsgraf basert på filer som er knyttet opp via _ìmport_, _require_, _url_'er i css og _href_ i _img_ tagger. Prosesseringen 
+foregår via såkalte "loadere" - ganske likt "tasks" i andre byggeverktøy, som Gulp.
 
 Ved hjelp av Babel transformeres es6 til es5, som de fleste moderne nettlesere kan kjøre.
-
-Det finnes helt sikkert flere veier til målet, men jeg skal forsøke å gi en kortfattet beskrivelse av hvordan man kan konfigurere et så smidig es6 utviklingsmiljø som mulig.
 
 ## Hva trenger vi
 * [webpack](https://webpack.github.io/)
@@ -90,17 +92,17 @@ Dette gir følgende `package.json` i prosjektkatalogen:
   "description": "Kom i gang med ES6 ved hjelp av webpack og Babel",
   "main": "webpack.config.js",
   "dependencies": {
-    "babel-polyfill": "^6.1.19",
-    "babel-runtime": "^6.1.18"
+    "babel-polyfill": "^6.2.0",
+    "babel-runtime": "^6.2.0"
   },
   "devDependencies": {
-    "babel-core": "^6.1.21",
-    "babel-loader": "^6.1.0",
+    "babel-core": "^6.2.1",
+    "babel-loader": "^6.2.0",
     "babel-plugin-transform-runtime": "^6.1.18",
     "babel-preset-es2015": "^6.1.18",
     "babel-preset-stage-0": "^6.1.18",
-    "webpack": "^1.12.6",
-    "webpack-dev-server": "^1.12.1"
+    "webpack": "^1.12.9",
+    "webpack-dev-server": "^1.14.0"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -124,7 +126,7 @@ module.exports = {
   devtool: 'eval-source-map',
   entry: [
     'babel-polyfill',                   // Set up an ES6-ish environment
-    path.join(__dirname, 'src/main.js') // Application's scripts
+    path.join(__dirname, 'src/main.js') // Application's scripts entry point
   ],
   output: {
     publicPath: '/static/',
