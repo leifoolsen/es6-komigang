@@ -112,7 +112,7 @@ Dette gir følgende `package.json` i prosjektkatalogen:
   "scripts": {
     "dev": "./node_modules/.bin/webpack-dev-server --hot --inline --module-bind --progress --color",
     "build": "./node_modules/.bin/webpack",
-    "test": "./node_modules/.bin/karma start"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
     "webpack", "babel", "es6"
@@ -733,9 +733,9 @@ Oppdater "scripts"-blokken i `./package.json`.
 
 ```javascript
 "scripts": {
-  "dev": "./node_modules/.bin/webpack-dev-server --progress --colors",
-  "test": "./node_modules/.bin/karma start",
-  "build": "./node_modules/.bin/webpack"
+  "dev": "./node_modules/.bin/webpack-dev-server --hot --inline --module-bind --progress --color",
+  "build": "./node_modules/.bin/webpack",
+  "test": "./node_modules/.bin/karma start"
 },
 ```
 
