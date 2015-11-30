@@ -629,7 +629,7 @@ content.insertAdjacentHTML('beforebegin', header);
 content.insertAdjacentHTML('afterend', require('./html/footer.html'));
 ```
 
-Dersom testserveren kjører kan du overvåke resultatet av kodeendringene i nettlesren.
+Dersom testserveren kjører kan du overvåke resultatet av kodeendringene i nettleseren.
 
 
 ### ES6 enhetstester med Karma og Jasmine
