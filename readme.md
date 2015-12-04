@@ -2,11 +2,12 @@
 
 <img src="what-is-webpack.png" style="width:100%; max-width: 1200px; margin: 0 auto;" />
 
-Webpack (the amazing module bundling Swiss army knife) er kort fortalt en pakkehåndterer og et front-end byggesystem 
-som preprosesserer forskjellige webressurser og samler dem i en eller flere statiske pakker som så kan benyttes i klienten.
-Prosesseringen starter fra et gitt startpunkt (entry), typisk _index.js_ eller _main.js_. Ut fra startpunktet bygger webpack en
-avhengighetsgraf basert på filer som er knyttet opp via _ìmport_, _require_, _url_'er i css og _href_ i _img_ tagger. Prosesseringen 
-foregår via såkalte "loadere" - ganske likt "tasks" i andre byggeverktøy, som Gulp.
+Webpack (the amazing module bundling Swiss army knife) er kort fortalt en pakkehåndterer og et
+front-end byggesystem som preprosesserer forskjellige webressurser og samler dem i en eller
+flere statiske pakker som så kan benyttes i klienten. Prosesseringen starter fra et gitt startpunkt
+(entry), typisk _index.js_ eller _main.js_. Ut fra startpunktet bygger webpack en avhengighetsgraf
+basert på filer som er knyttet opp via _ìmport_, _require_, _url_'er i css og _href_ i _img_ tagger.
+Prosesseringen foregår via såkalte "loadere" - ganske likt "tasks" i andre byggeverktøy, som Gulp.
 
 Ved hjelp av Babel transformeres es6 til es5, som de fleste moderne nettlesere kan kjøre.
 
@@ -82,7 +83,7 @@ npm install --save-dev babel-plugin-transform-runtime
 # ES6 Promise, for node < v4
 npm install --save dev es6-promise
 
-# 3'dje parts bibliotek. Benyttes for å demonstrere splitting av JavaScript 
+# 3'dje parts bibliotek. Benyttes for å demonstrere splitting av JavaScript
 npm install --save moment
 ```
 
@@ -229,17 +230,17 @@ const element = document.querySelector('#container');
 
 const content = document.createElement('h1');
 content.classList.add('Person');
-content.textContent = 
+content.textContent =
   `${moment().format('YYYY-MM-DD HH:mm:ss')}: Yo ${new Person('Leif', 'Olsen')}`;
 element.appendChild(content);
 ```
 
 ### Prøv ut koden
 * Åpne et terminalvindu og start utviklingsserveren med følgende kommando: `npm run dev`    
-* Åpne nettleseren og naviger til: http://localhost:8080/webpack-dev-server/ 
+* Åpne nettleseren og naviger til: http://localhost:8080/webpack-dev-server/
 * Eventuelle endringer i koden kan du observere fortløpende i terminalvinduet og i nettleseren.
 * Stopp serveren med `Ctrl+C`
-* Kjør kommandoen `npm run build` og verifiser at `./dist`katalogen inneholder filene `vendor.js` og `app.js` 
+* Kjør kommandoen `npm run build` og verifiser at `./dist`katalogen inneholder filene `vendor.js` og `app.js`
 
 Dette er i hovedsak utviklingsmiljøet du trenger for å komme i gang med ECMAScript 2015, ES6.
 
@@ -247,13 +248,13 @@ Resten av eksemplet forutsetter at du benytter __Node-4.x__ eller [__Node-5.x__]
 
 
 ## Rest-api med Node Express (WIP)
-Dette avsnittet viser hvordan man kan sette opp Node Express i et ES6-miljø og hvordan man setter opp en proxy fra 
-webpack dev server til Node Express slik at man enkelt kan prøve ut ES6 fetch-api'et. 
+Dette avsnittet viser hvordan man kan sette opp Node Express i et ES6-miljø og hvordan man setter opp en proxy fra
+webpack dev server til Node Express slik at man enkelt kan prøve ut ES6 fetch-api'et.
 
 ....... Ved koding av frontend kan man benytte Node Express som rest-api stubserver. ....... TBD
 
 
-   
+
 
 ## Forbedret arbeidsflyt med kodeanalyse, enhetstester og prosessering av statiske ressurser
 
@@ -420,14 +421,14 @@ module.exports = {
 }
 ```
 
-Loadere evalueres fra høyre mot venstre: SCSS-filer kompileres med SASS, deretter kjører autoprefixer, så produseres 
-en CSS-fil; `./dist/styles.css`. CSSfilen produseres på bakgrunn av de SASS/CSS-modulene som importeres i 
-`./src/main.scss` og hvilke SASS/CSS-moduler som refereres i JavaScriptkoden; `Person.js` og `Person.scss`. Fordelen 
-med en CSSfil generert av webpack er at produsert CSSfil kun inneholder kode som man faktisk bruker. Hvordan dette 
-foregår i praksis er godt forklart i artikkelen 
-[Smarter CSS builds with Webpack](http://bensmithett.com/smarter-css-builds-with-webpack/). CSS-strukturen som benyttes 
-i dette eksemplet er omtalt i [Sass Guidelines, The 7-1 Pattern](http://sass-guidelin.es/#the-7-1-pattern). Det meste ev 
-SASSkoden er hentet fra  [sass-boilerplate](https://github.com/HugoGiraudel/sass-boilerplate/tree/master/stylesheets) 
+Loadere evalueres fra høyre mot venstre: SCSS-filer kompileres med SASS, deretter kjører autoprefixer, så produseres
+en CSS-fil; `./dist/styles.css`. CSSfilen produseres på bakgrunn av de SASS/CSS-modulene som importeres i
+`./src/main.scss` og hvilke SASS/CSS-moduler som refereres i JavaScriptkoden; `Person.js` og `Person.scss`. Fordelen
+med en CSSfil generert av webpack er at produsert CSSfil kun inneholder kode som man faktisk bruker. Hvordan dette
+foregår i praksis er godt forklart i artikkelen
+[Smarter CSS builds with Webpack](http://bensmithett.com/smarter-css-builds-with-webpack/). CSS-strukturen som benyttes
+i dette eksemplet er omtalt i [Sass Guidelines, The 7-1 Pattern](http://sass-guidelin.es/#the-7-1-pattern). Det meste ev
+SASSkoden er hentet fra  [sass-boilerplate](https://github.com/HugoGiraudel/sass-boilerplate/tree/master/stylesheets)
 som følger 7-1 mønsteret.
 
 
@@ -478,8 +479,8 @@ Organiseringen av SASS-koden bør følge 7-1 mønsteret nevnt i [Sass Guidelines
 |   |   +-- layout/
 |   |   +-- pages/
 |   |   +-- themes/
-|   |   +-- utils
-|   |   +-- vendor/
+|   |   +-- utils/
+|   |   +-- vendor
 ```
 
 Lag filen `./src/main.scss`
@@ -616,7 +617,7 @@ const element = document.querySelector('#container');
 
 // Content
 const content = document.createElement('h1');
-content.textContent = 
+content.textContent =
 content.classList.add('Person');
   `${moment().format('YYYY-MM-DD HH:mm:ss')}: Yo ${new Person('Leif', 'Olsen')}`;
 element.appendChild(content);
@@ -634,7 +635,7 @@ Dersom testserveren kjører kan du overvåke resultatet av kodeendringene i nett
 
 ### ES6 enhetstester med Karma og Jasmine
 
-Enhetstester er jo egentlig feigt - men noen ganger er det helt ålreit å ha dem ;-) Oppsett av testmiljø med Karma, 
+Enhetstester er jo egentlig feigt - men noen ganger er det helt ålreit å ha dem ;-) Oppsett av testmiljø med Karma,
 Jasmine og PhantomJS er som følger.
 
 * [phantomjs](https://github.com/ariya/phantomjs)
@@ -804,4 +805,3 @@ Og `babel-loader` i `webpack.config.js` blir da:
 * [Creating Demo APIs with json-server](https://egghead.io/lessons/nodejs-creating-demo-apis-with-json-server)
 * [Node EasyMock Server](https://github.com/cyberagent/node-easymock)
 * [Setup Webpack on an ES6 React app with SASS](http://marmelab.com/blog/2015/05/18/setup-webpack-for-es6-react-application-with-sass.html)
-
