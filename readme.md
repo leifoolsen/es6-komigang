@@ -14,14 +14,14 @@ Ved hjelp av Babel transformeres es6 til es5, som de fleste moderne nettlesere k
 ## Hva trenger vi
 * [webpack](https://webpack.github.io/)
 * [webpack-dev-server](https://webpack.github.io/docs/webpack-dev-server.html)
-* [babel-core](https://github.com/babel/babel)
-* [babel-loader](https://github.com/babel/babel-loader)
-* [babel-preset-es2015](https://github.com/babel/babel/tree/master/packages/babel-preset-es2015)
-* [babel-preset-stage-0](https://github.com/babel/babel/tree/master/packages/babel-preset-stage-0)
-* [babel-polyfill](https://github.com/babel/babel/tree/master/packages/babel-polyfill)
-* [babel-runtime](https://github.com/babel/babel/tree/master/packages/babel-runtime)
-* [babel-plugin-transform-runtime](https://github.com/babel/babel/tree/master/packages/babel-plugin-transform-runtime)
-* [moment](https://github.com/moment/moment/)
+* [babel-core](https://github.com/babel/babel); Node API and require hook
+* [babel-loader](https://github.com/babel/babel-loader); transpiling JavaScript files using Babel and webpack.
+* [babel-preset-es2015](https://github.com/babel/babel/tree/master/packages/babel-preset-es2015); Compile ES2015 to ES5
+* [babel-preset-stage-0](https://github.com/babel/babel/tree/master/packages/babel-preset-stage-0); Enable ES7
+* [babel-polyfill](https://github.com/babel/babel/tree/master/packages/babel-polyfill); which when required, sets you up with a full ES2015-ish environment
+* [babel-runtime](https://github.com/babel/babel/tree/master/packages/babel-runtime); allows us to require only the features we need when distributing our application without polluting the global scope
+* [babel-plugin-transform-runtime](https://github.com/babel/babel/tree/master/packages/babel-plugin-transform-runtime); runtime poyfill.
+* [moment](https://github.com/moment/moment/); parse, validate, manipulate, and display dates in JavaScript
 
 ### Opprett et prosjekt og installer _webpack_ og _Babel_
 [NodeJS](https://nodejs.org/en/) må være installert på forhånd og det forutsettes at du har grunnleggende kunnskap om NodeJS.
@@ -55,9 +55,9 @@ npm init -y
 +-- test
 |   +-- js
 |   |   +-- components
-+-- api
++-- stub-server
 |   +-- data
-|   +-- public
++-- config
 ```
 
 
@@ -137,10 +137,10 @@ module.exports = {
   devtool: 'eval-source-map',
   entry: {
     app: [
-      'babel-polyfill',                   // Babel requires some helper code to be run before your application
-      path.join(__dirname, 'src/main.js') // Add your application's scripts last
+      'babel-polyfill',
+      path.join(__dirname, 'src/main.js') 
     ],
-    vendor: [
+    vendor: [ 
       'moment'
     ]
   },
@@ -157,10 +157,10 @@ module.exports = {
   module: {
     loaders: [
       {
-        test: /\.js[x]?$/,                     // Only run `.js` and `.jsx` files through Babel
-        include: path.join(__dirname, "src"),  // Skip any files outside of your project's `src` directory
+        test: /\.js[x]?$/,                    
+        include: path.join(__dirname, "src"), 
         loader: 'babel-loader',
-        query: {                               // Options to configure babel with
+        query: {                              
           plugins: ['transform-runtime'],
           presets: ['es2015', 'stage-0']
         }
@@ -247,12 +247,20 @@ Dette er i hovedsak utviklingsmiljøet du trenger for å komme i gang med ECMASc
 Resten av eksemplet forutsetter at du benytter __Node-4.x__ eller [__Node-5.x__](https://nodejs.org/en/)!
 
 
-## Rest-api med Node Express (WIP)
+## Konfigurernig av Node og Webpack vha node-config
+TODO
+ 
+ 
+## Minification
+TODO
+
+
+## Rest-api med Node Express
 Dette avsnittet viser hvordan man kan sette opp Node Express i et ES6-miljø og hvordan man setter opp en proxy fra
 webpack dev server til Node Express slik at man enkelt kan prøve ut ES6 fetch-api'et.
 
-....... Ved koding av frontend kan man benytte Node Express som rest-api stubserver. ....... TBD
-
+....... Ved koding av frontend kan man benytte Node Express som rest-api stubserver. .......
+TODO
 
 
 
@@ -261,11 +269,12 @@ webpack dev server til Node Express slik at man enkelt kan prøve ut ES6 fetch-a
 I de neste avsnittene viser jeg hvordan man kan legge til flere nyttige verktøy.
 
 ### EsLint
-Kontinuerlig kodeanalyse er greit å ha i arbeidsflyten. Til det trenger vi følgende:
+Kontinuerlig kodeanalyse for å avdekke potensielle problemer er greit å ha i arbeidsflyten. Til det trenger vi følgende:
 
-* [eslint](https://github.com/eslint/eslint)
-* [babel-eslint](https://github.com/babel/babel-eslint)
-* [eslint-loader](https://github.com/MoOx/eslint-loader)
+* [eslint](https://github.com/eslint/eslint); the linting tool
+* [eslint-config-standard](https://github.com/feross/eslint-config-standard); a set of configurations for eslint
+* [babel-eslint](https://github.com/babel/babel-eslint); a parser for eslint that teaches the linter about experimental features that aren’t in ES6.
+* [eslint-loader](https://github.com/MoOx/eslint-loader); eslint loader for webpack
 
 ```
 npm install --save-dev eslint eslint-loader babel-eslint
@@ -322,6 +331,7 @@ Til prosessering av CSS/SASS og grafiske elementer trenger vi følgende.
 * [style-loader](https://github.com/webpack/style-loader)
 * [css-loader](https://github.com/webpack/css-loader)
 * [sass-loader](https://github.com/jtangelder/sass-loader)
+* [node-sass](https://github.com/sass/node-sass)
 * [file-loader](https://github.com/webpack/file-loader)
 * [url-loader](https://github.com/webpack/url-loader)
 * [extract-text-webpack-plugin](https://github.com/webpack/extract-text-webpack-plugin)
@@ -330,9 +340,12 @@ Til prosessering av CSS/SASS og grafiske elementer trenger vi følgende.
 
 ```
 npm install --save-dev html-loader
-npm install --save-dev style-loader css-loader
-npm install --save-dev sass-loader node-sass
-npm install --save-dev file-loader url-loader
+npm install --save-dev style-loader
+npm install --save-dev css-loader
+npm install --save-dev sass-loader
+npm install --save-dev node-sass
+npm install --save-dev file-loader
+npm install --save-dev url-loader
 npm install --save-dev extract-text-webpack-plugin
 npm install --save-dev autoprefixer postcss-loader
 ```
@@ -617,8 +630,7 @@ const element = document.querySelector('#container');
 
 // Content
 const content = document.createElement('h1');
-content.textContent =
-content.classList.add('Person');
+content.textContent = content.classList.add('Person');
   `${moment().format('YYYY-MM-DD HH:mm:ss')}: Yo ${new Person('Leif', 'Olsen')}`;
 element.appendChild(content);
 
@@ -745,9 +757,18 @@ Oppdater "scripts"-blokken i `./package.json`.
 
 Kjør testene: `npm test`
 
-Testene kjøres initielt. Deretter kjøres de så snart Karma oppdager endringer i koden.
+Testene kjøres initielt. Deretter kjøres testene så snart Karma oppdager endringer i koden.
 
 Avslutt testovervåkingen med Ctrl+C
+
+
+__TODO:__ Vurder Mocha, Chai og JsDom i stedet for Karma? 
+Se: 
+[From Karma to Mocha, with a taste of jsdom](https://medium.com/podio-engineering-blog/from-karma-to-mocha-with-a-taste-of-jsdom-c9c703a06b21#.gvhl3kd1e),
+[Webpack testing](https://webpack.github.io/docs/testing.html), 
+[A modern React starter pack based on webpack](http://krasimirtsonev.com/blog/article/a-modern-react-starter-pack-based-on-webpack)
+
+
 
 ## React
 For å komme i gang med React trenger du som et minimum:
@@ -770,6 +791,26 @@ Og `babel-loader` i `webpack.config.js` blir da:
 ```
 
 ## Nyttige lenker
+
+### ES6
+* [Learn ES2015](https://babeljs.io/docs/learn-es2015/)
+* [babel-plugin-handbook](https://github.com/thejameskyle/babel-plugin-handbook)
+* [Using ES6 and ES7 in the Browser, with Babel 6 and Webpack](http://jamesknelson.com/using-es6-in-the-browser-with-babel-6-and-webpack/)
+* [A Quick Tour Of ES6 (Or, The Bits You’ll Actually Use)](http://jamesknelson.com/es6-the-bits-youll-actually-use/)
+* [The Six Things You Need To Know About Babel 6](http://jamesknelson.com/the-six-things-you-need-to-know-about-babel-6/)
+* [The Complete Guide to ES6 with Babel 6](http://jamesknelson.com/the-complete-guide-to-es6-with-babel-6/)
+* [Get Started with ECMAScript 6](http://blog.teamtreehouse.com/get-started-ecmascript-6)
+* [Exploring es6](http://exploringjs.com/es6/) (free book)
+* [Understanding ECMAScript 6](https://leanpub.com/understandinges6/read) (free book)
+* [ECMAScript 6 Learning](https://github.com/ericdouglas/ES6-Learning)
+* [Exploring ES2016 Decorators](https://medium.com/google-developers/exploring-es7-decorators-76ecb65fb841#.hrtgi290a)
+* [Making the most of JavaScript’s “future” today with Babel](https://strongloop.com/strongblog/javascript-babel-future/)
+* [How to Write an Open Source JavaScript Library](https://egghead.io/lessons/javascript-how-to-write-a-javascript-library-introduction)
+* [fetch API](https://davidwalsh.name/fetch)
+* [window.fetch polyfill](https://github.com/github/fetch)
+
+
+### Webpack
 * [What is webpack](http://webpack.github.io/docs/what-is-webpack.html)
 * [Webpack configuration](https://webpack.github.io/docs/configuration.html)
 * [WEBPACK 101: AN INTRODUCTION TO WEBPACK](http://code.hootsuite.com/webpack-101/)
@@ -777,26 +818,54 @@ Og `babel-loader` i `webpack.config.js` blir da:
 * [Introduction to Webpack with practical examples](http://julienrenaux.fr/2015/03/30/introduction-to-webpack-with-practical-examples/)
 * [Setting Up a Front End Development Environment](http://www.dennyferra.com/setting-up-a-front-end-development-environment/)
 * [Developing with Webpack](http://survivejs.com/webpack_react/developing_with_webpack/)
-* [Linting in Webpack](http://survivejs.com/webpack_react/linting_in_webpack/)
-* [Smarter CSS builds with Webpack](http://bensmithett.com/smarter-css-builds-with-webpack/)
-* [Styling React Components In Sass](http://hugogiraudel.com/2015/06/18/styling-react-components-in-sass/)
-* [Writing Happy Stylesheets with Webpack](http://jamesknelson.com/writing-happy-stylesheets-with-webpack/)
-* [Writing Jasmine Unit Tests In ES6](http://www.syntaxsuccess.com/viewarticle/writing-jasmine-unit-tests-in-es6)
-* [Tutorial – write in ES6 and Sass on the front end with Webpack and Babel](http://tech.90min.com/?p=1340)
-* [Webpack CSS Example](https://github.com/bensmithett/webpack-css-example)
 * [webpack-howto](https://github.com/petehunt/webpack-howto)
 * [Creating a workflow with WebPack](http://christianalfoni.github.io/javascript/2014/12/13/did-you-know-webpack-and-react-is-awesome.html)
 * [advanced-webpack](https://github.com/jcreamer898/advanced-webpack)
 * [webpack-demos](https://github.com/ruanyf/webpack-demos)
 * [Webpack Made Simple: Building ES6 & LESS with autorefresh](http://jamesknelson.com/webpack-made-simple-build-es6-less-with-autorefresh-in-26-lines/)
-* [Learn ES2015](https://babeljs.io/docs/learn-es2015/)
-* [Using ES6 and ES7 in the Browser, with Babel 6 and Webpack](http://jamesknelson.com/using-es6-in-the-browser-with-babel-6-and-webpack/)
-* [A Quick Tour Of ES6 (Or, The Bits You’ll Actually Use)](http://jamesknelson.com/es6-the-bits-youll-actually-use/)
-* [Get Started with ECMAScript 6](http://blog.teamtreehouse.com/get-started-ecmascript-6)
-* [Exploring es6](http://exploringjs.com/es6/) (free book)
-* [Understanding ECMAScript 6](https://leanpub.com/understandinges6/read) (free book)
-* [ECMAScript 6 Learning](https://github.com/ericdouglas/ES6-Learning)
-* [Exploring ES2016 Decorators](https://medium.com/google-developers/exploring-es7-decorators-76ecb65fb841#.hrtgi290a)
+* [pushState With Webpack-dev-server](http://jaketrent.com/post/pushstate-webpack-dev-server/)
+
+
+### CSS/SASS
+* [Smarter CSS builds with Webpack](http://bensmithett.com/smarter-css-builds-with-webpack/)
+* [Styling React Components In Sass](http://hugogiraudel.com/2015/06/18/styling-react-components-in-sass/)
+* [Writing Happy Stylesheets with Webpack](http://jamesknelson.com/writing-happy-stylesheets-with-webpack/)
+* [Tutorial – write in ES6 and Sass on the front end with Webpack and Babel](http://tech.90min.com/?p=1340)
+* [Webpack CSS Example](https://github.com/bensmithett/webpack-css-example)
+* [Faster SASS builds with Webpack](http://eng.localytics.com/faster-sass-builds-with-webpack/)
+
+
+### Lint
+* [Configuring ESLint](http://eslint.org/docs/user-guide/configuring.html)
+* [.eslintrc](https://gist.github.com/cletusw/e01a85e399ab563b1236)
+* [Linting in Webpack](http://survivejs.com/webpack_react/linting_in_webpack/)
+
+
+### Test
+* [Writing Jasmine Unit Tests In ES6](http://www.syntaxsuccess.com/viewarticle/writing-jasmine-unit-tests-in-es6)
+* [Webpack testing](https://webpack.github.io/docs/testing.html)
+* [Testing with webpack and Mocha](https://www.youtube.com/watch?v=_sLLjPzOrXI)
+* [From Karma to Mocha, with a taste of jsdom](https://medium.com/podio-engineering-blog/from-karma-to-mocha-with-a-taste-of-jsdom-c9c703a06b21#.uqrd94da2)
+* [Automated Node.js Testing with Jasmine](https://www.distelli.com/docs/tutorials/test-your-nodejs-with-jasmine)
+* [How to easily test React components with Karma and Webpack](http://qiita.com/kimagure/items/f2d8d53504e922fe3c5c)
+* [How to test React components using Karma and webpack](http://nicolasgallagher.com/how-to-test-react-components-karma-webpack/)
+* [Node.js and ES6 Instead of Java – A War Story](http://www.technology-ebay.de/the-teams/mobile-de/blog/nodejs-es6-war-story-2)
+* [js-tests-pro](https://github.com/500tech/js-tests-pro)
+* [webpack-mocha-demo](https://github.com/jesseskinner/webpack-mocha-demo)
+* [Universal (isomorphic) boilerplate written in ES2015 for Node and the browser.](https://github.com/kflash/trolly)
+* [A modern React starter pack based on webpack](http://krasimirtsonev.com/blog/article/a-modern-react-starter-pack-based-on-webpack)
+* [From Karma to Mocha, with a taste of jsdom](https://medium.com/podio-engineering-blog/from-karma-to-mocha-with-a-taste-of-jsdom-c9c703a06b21#.gvhl3kd1e)
+* [Testing with webpack and Mocha](https://www.youtube.com/watch?v=_sLLjPzOrXI)
+* [Testing in ES6 with Mocha and Babel 6](http://jamesknelson.com/testing-in-es6-with-mocha-and-babel-6/)
+* [Setting up Unit Testing with Mocha and Chai](https://egghead.io/lessons/javascript-how-to-write-a-javascript-library-setting-up-unit-testing-with-mocha-and-chai)
+* [Adding ES6 Support to Tests using Mocha and Babel](https://egghead.io/lessons/javascript-how-to-write-a-javascript-library-adding-es6-support-to-tests-using-mocha-and-babel)
+* [Testing React on Jsdom](http://jaketrent.com/post/testing-react-with-jsdom/)
+* [Sinon Spies vs. Stubs](http://jaketrent.com/post/sinon-spies-vs-stubs/)
+* [testing-with-karma-webpack](http://slidedeck.io/pascalpp/testing-with-karma-webpack)
+
+
+### Etc
+* [A modern React starter pack based on webpack](http://krasimirtsonev.com/blog/article/a-modern-react-starter-pack-based-on-webpack)
 * [react-webpack-cookbook](https://christianalfoni.github.io/react-webpack-cookbook/index.html)
 * [Frontend development with webpack, json-server, tape and NPM — Pt. 1](https://medium.com/@pcruz7/frontend-development-with-webpack-json-server-tape-and-npm-pt-1-62c7601b62c1#.4bftnlffp)
 * [Nock](https://github.com/pgte/nock)
@@ -805,3 +874,5 @@ Og `babel-loader` i `webpack.config.js` blir da:
 * [Creating Demo APIs with json-server](https://egghead.io/lessons/nodejs-creating-demo-apis-with-json-server)
 * [Node EasyMock Server](https://github.com/cyberagent/node-easymock)
 * [Setup Webpack on an ES6 React app with SASS](http://marmelab.com/blog/2015/05/18/setup-webpack-for-es6-react-application-with-sass.html)
+* [How to easily test React components with Karma and Webpack](http://qiita.com/kimagure/items/f2d8d53504e922fe3c5c)
+* [How to test React components using Karma and webpack](http://nicolasgallagher.com/how-to-test-react-components-karma-webpack/)

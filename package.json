@@ -5,7 +5,7 @@
   "main": "webpack.config.js",
   "scripts": {
     "dev": "./node_modules/.bin/webpack-dev-server --hot --inline --module-bind --progress --color",
-    "build": "./node_modules/.bin/webpack",
+    "build": "NODE_ENV=production ./node_modules/.bin/webpack --progress --profile --colors",
     "test": "./node_modules/.bin/karma start"
   },
   "dependencies": {

@@ -30,7 +30,7 @@ module.exports = {
       'babel-polyfill',                      // Babel requires some helper code to be run before your application
       path.join(__dirname, 'src/main.js')    // Add your application's scripts last
     ],
-    vendor: [
+    vendor: [                                // Scripts packaged into 'vendor.js'
       'moment'
       //'react',
       //'react-dom',
@@ -51,11 +51,10 @@ module.exports = {
     preLoaders: [
       {
         test: /\.js[x]?$/,
-        include: [
+        include: [                     // ... or: exclude: /(node_modules|bower_components)/,
           path.join(__dirname, 'src'),
           path.join(__dirname, 'test')
         ],
-        // ... or: exclude: /(node_modules|bower_components)/,
         loaders: ['eslint']
       }
     ],
