@@ -824,6 +824,9 @@ Og `babel-loader` i `webpack.config.js` blir da:
 * [webpack-demos](https://github.com/ruanyf/webpack-demos)
 * [Webpack Made Simple: Building ES6 & LESS with autorefresh](http://jamesknelson.com/webpack-made-simple-build-es6-less-with-autorefresh-in-26-lines/)
 * [pushState With Webpack-dev-server](http://jaketrent.com/post/pushstate-webpack-dev-server/)
+* [Tutorial – write in ES6 and Sass on the front end with Webpack and Babel](http://tech.90min.com/?p=1340)
+* [How to store assets separately with Webpack](http://stackoverflow.com/questions/31399715/how-to-store-assets-separately-with-webpack?rq=1)
+* [How to configure font file output directory from font-awesome-webpack in webpack?](http://stackoverflow.com/questions/34014151/how-to-configure-font-file-output-directory-from-font-awesome-webpack-in-webpack)
 
 
 ### CSS/SASS
@@ -862,6 +865,7 @@ Og `babel-loader` i `webpack.config.js` blir da:
 * [Testing React on Jsdom](http://jaketrent.com/post/testing-react-with-jsdom/)
 * [Sinon Spies vs. Stubs](http://jaketrent.com/post/sinon-spies-vs-stubs/)
 * [testing-with-karma-webpack](http://slidedeck.io/pascalpp/testing-with-karma-webpack)
+* [Tutorial – write in ES6 and Sass on the front end with Webpack and Babel](http://tech.90min.com/?p=1340)
 
 
 ### Etc

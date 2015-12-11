@@ -45,7 +45,7 @@ module.exports = {
     publicPath       : '/static/'
   },
   resolve: {
-    extensions: ['', '.webpack.js', '.web.js', '.js', '.jsx', '.css', '.scss', '.html']
+    extensions: ['', '.webpack.js', '.web.js', '.js', '.jsx', '.css', '.scss', '.html', '.json']
   },
   module: {
     preLoaders: [
@@ -100,15 +100,20 @@ module.exports = {
         test: /\.png/, loader: 'url-loader?limit=16384&mimetype=image/png'
       },
       {
-        test: /\.svg/, loader: 'url-loader?limit=16384&mimetype=image/svg'
+        test: /\.svg/, loader: 'url-loader?limit=16384&mimetype=image/svg+xml'
       },
       // Fonts
       {
         test: /\.woff(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: 'url-loader?limit=16384&mimetype=application/font-woff'
       },
       {
-        test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: 'file-loader'
+        test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/, loader: "url-loader?limit=16384&mimetype=application/octet-stream"
+      },
+      {
+        test: /\.eot(\?v=\d+\.\d+\.\d+)?$/, loader: "file-loader"
       }
+
+      // TODO: JSON loader
     ]
   },
   plugins: [
@@ -124,7 +129,8 @@ module.exports = {
     // Do not use:
     //   new webpack.HotModuleReplacementPlugin()
     //   new webpack.NoErrorsPlugin()
-    // Use: '--hot --inline --module-bind'
+    // Use:
+    //   '--hot --inline --module-bind'
     // see: https://github.com/webpack/docs/wiki/hot-module-replacement-with-webpack
   ],
   postcss: [
