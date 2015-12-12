@@ -836,6 +836,9 @@ Og `babel-loader` i `webpack.config.js` blir da:
 * [Tutorial – write in ES6 and Sass on the front end with Webpack and Babel](http://tech.90min.com/?p=1340)
 * [Webpack CSS Example](https://github.com/bensmithett/webpack-css-example)
 * [Faster SASS builds with Webpack](http://eng.localytics.com/faster-sass-builds-with-webpack/)
+* [Roboto fontface](https://github.com/choffmeister/roboto-fontface-bower)
+* [Google Fonts Files](https://github.com/google/fonts)
+* [font-roboto-local](https://github.com/PolymerElements/font-roboto-local)
 * [font-awesome-webpack](https://github.com/gowravshekar/font-awesome-webpack)
 
 
