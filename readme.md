@@ -811,6 +811,11 @@ Og `babel-loader` i `webpack.config.js` blir da:
 * [How to Write an Open Source JavaScript Library](https://egghead.io/lessons/javascript-how-to-write-a-javascript-library-introduction)
 * [fetch API](https://davidwalsh.name/fetch)
 * [window.fetch polyfill](https://github.com/github/fetch)
+* [core-decorators.js](https://github.com/jayphelps/core-decorators.js)
+* [Exploring ES2016 Decorators](https://medium.com/google-developers/exploring-es7-decorators-76ecb65fb841#.5z8emeo19)
+* [7 Patterns to Refactor JavaScript Applications: Decorators](https://blog.engineyard.com/2015/7-patterns-refactor-javascript-decorators)
+* [Decorators in JavaScript](https://www.youtube.com/watch?v=d8CDFsQHZpE)
+* [lodash-decorators](https://github.com/steelsojka/lodash-decorators)
 
 
 ### Webpack
