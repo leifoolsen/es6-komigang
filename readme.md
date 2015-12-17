@@ -884,3 +884,4 @@ Og `babel-loader` i `webpack.config.js` blir da:
 * [Setup Webpack on an ES6 React app with SASS](http://marmelab.com/blog/2015/05/18/setup-webpack-for-es6-react-application-with-sass.html)
 * [How to easily test React components with Karma and Webpack](http://qiita.com/kimagure/items/f2d8d53504e922fe3c5c)
 * [How to test React components using Karma and webpack](http://nicolasgallagher.com/how-to-test-react-components-karma-webpack/)
+* [ReactiveX - The Observer pattern done right](http://reactivex.io/)
