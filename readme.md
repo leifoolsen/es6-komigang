@@ -816,6 +816,7 @@ Og `babel-loader` i `webpack.config.js` blir da:
 * [7 Patterns to Refactor JavaScript Applications: Decorators](https://blog.engineyard.com/2015/7-patterns-refactor-javascript-decorators)
 * [Decorators in JavaScript](https://www.youtube.com/watch?v=d8CDFsQHZpE)
 * [lodash-decorators](https://github.com/steelsojka/lodash-decorators)
+* [javascript-decorators](https://github.com/wycats/javascript-decorators)
 
 
 ### Webpack
