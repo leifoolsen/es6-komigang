@@ -817,6 +817,8 @@ Og `babel-loader` i `webpack.config.js` blir da:
 * [Decorators in JavaScript](https://www.youtube.com/watch?v=d8CDFsQHZpE)
 * [lodash-decorators](https://github.com/steelsojka/lodash-decorators)
 * [javascript-decorators](https://github.com/wycats/javascript-decorators)
+* [Google Developers - Introduction to fetch](https://developers.google.com/web/updates/2015/03/introduction-to-fetch?hl=en)
+* [Preparing for ECMAScript 6: New String Methods](http://www.sitepoint.com/preparing-ecmascript-6-new-string-methods/)
 
 
 ### Webpack
