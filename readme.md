@@ -819,6 +819,12 @@ Og `babel-loader` i `webpack.config.js` blir da:
 * [javascript-decorators](https://github.com/wycats/javascript-decorators)
 * [Google Developers - Introduction to fetch](https://developers.google.com/web/updates/2015/03/introduction-to-fetch?hl=en)
 * [Preparing for ECMAScript 6: New String Methods](http://www.sitepoint.com/preparing-ecmascript-6-new-string-methods/)
+* [Basic Data structures in ES6](http://www.sublimejs.com/-basic-data-structure-in-es6/)
+* [Understanding ES6 Modules](http://www.sitepoint.com/understanding-es6-modules/)
+* [The JavaScript Looping Evolution](http://developer.telerik.com/featured/the-javascript-looping-evolution/)
+* [Cookbook (es6)](https://github.com/nervgh/recursive-iterator/wiki/Cookbook-(es6))
+* [ES6 - Sean Saranga Amarasinghe](http://seanamarasinghe.com/developer/javascript/es6/)
+* [Understanding ECMAScript 6 arrow functions](https://www.nczonline.net/blog/2013/09/10/understanding-ecmascript-6-arrow-functions/)
 
 
 ### Webpack
@@ -838,6 +844,7 @@ Og `babel-loader` i `webpack.config.js` blir da:
 * [Tutorial – write in ES6 and Sass on the front end with Webpack and Babel](http://tech.90min.com/?p=1340)
 * [How to store assets separately with Webpack](http://stackoverflow.com/questions/31399715/how-to-store-assets-separately-with-webpack?rq=1)
 * [How to configure font file output directory from font-awesome-webpack in webpack?](http://stackoverflow.com/questions/34014151/how-to-configure-font-file-output-directory-from-font-awesome-webpack-in-webpack)
+* [Introduction to Webpack](http://seanamarasinghe.com/developer/introduction-to-webpack/)
 
 
 ### CSS/SASS
@@ -896,3 +903,4 @@ Og `babel-loader` i `webpack.config.js` blir da:
 * [How to easily test React components with Karma and Webpack](http://qiita.com/kimagure/items/f2d8d53504e922fe3c5c)
 * [How to test React components using Karma and webpack](http://nicolasgallagher.com/how-to-test-react-components-karma-webpack/)
 * [ReactiveX - The Observer pattern done right](http://reactivex.io/)
+* [RxJS v4.0](https://xgrommx.github.io/rx-book/index.html)
