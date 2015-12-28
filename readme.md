@@ -825,6 +825,8 @@ Og `babel-loader` i `webpack.config.js` blir da:
 * [Cookbook (es6)](https://github.com/nervgh/recursive-iterator/wiki/Cookbook-(es6))
 * [ES6 - Sean Saranga Amarasinghe](http://seanamarasinghe.com/developer/javascript/es6/)
 * [Understanding ECMAScript 6 arrow functions](https://www.nczonline.net/blog/2013/09/10/understanding-ecmascript-6-arrow-functions/)
+* [ES6 arrow functions, syntax and lexical scoping](https://toddmotto.com/es6-arrow-functions-syntaxes-and-lexical-scoping/)
+* [ES6 in the Wild](http://kahnjw.com/posts/5/)
 
 
 ### Webpack
