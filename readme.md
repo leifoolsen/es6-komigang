@@ -847,6 +847,7 @@ Og `babel-loader` i `webpack.config.js` blir da:
 * [How to store assets separately with Webpack](http://stackoverflow.com/questions/31399715/how-to-store-assets-separately-with-webpack?rq=1)
 * [How to configure font file output directory from font-awesome-webpack in webpack?](http://stackoverflow.com/questions/34014151/how-to-configure-font-file-output-directory-from-font-awesome-webpack-in-webpack)
 * [Introduction to Webpack](http://seanamarasinghe.com/developer/introduction-to-webpack/)
+* [Advanced WebPack Part 1 - The CommonsChunk Plugin](http://jonathancreamer.com/advanced-webpack-part-1-the-commonschunk-plugin/)
 
 
 ### CSS/SASS
@@ -905,4 +906,10 @@ Og `babel-loader` i `webpack.config.js` blir da:
 * [How to easily test React components with Karma and Webpack](http://qiita.com/kimagure/items/f2d8d53504e922fe3c5c)
 * [How to test React components using Karma and webpack](http://nicolasgallagher.com/how-to-test-react-components-karma-webpack/)
 * [ReactiveX - The Observer pattern done right](http://reactivex.io/)
-* [RxJS v4.0](https://xgrommx.github.io/rx-book/index.html)
+* [RxJS tutorials](http://reactivex.io/tutorials.html)
+* [RxJS v4.0 - an on-line book by Dennis Stoyanov](https://xgrommx.github.io/rx-book/index.html)
+* [Fluorine - State Accumulation from a single stream of actions](https://github.com/philplckthun/fluorine)
+* [The introduction to Reactive Programming you've been missing](https://gist.github.com/staltz/868e7e9bc2a7b8c1f754)
+* [Functional Programming in Javascript](http://reactivex.io/learnrx/)
+* [Flyd - The modular, KISS, functional reactive programming library for JavaScript.](https://github.com/paldepind/flyd)
+* [Redux](https://github.com/rackt/redux)
