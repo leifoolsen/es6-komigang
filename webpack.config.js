@@ -1,5 +1,5 @@
 if (!global.Promise) {
-  console.log("require es6-promise");
+  //console.log("require es6-promise");
   global.Promise = require('es6-promise').polyfill();
 }
 
@@ -16,8 +16,10 @@ const cssLoader = [
 const sassLoader = [
   'css-loader?sourceMap',
   'postcss-loader',
+  'resolve-url-loader',
   'sass-loader?sourceMap&expanded'
 ].join('!');
+
 
 module.exports = {
   debug: true,
@@ -28,6 +30,8 @@ module.exports = {
     app: [
       path.join(__dirname, 'src/main.scss'), // Styles
       'babel-polyfill',                      // Babel requires some helper code to be run before your application
+                                             //   see: http://jamesknelson.com/webpack-made-simple-build-es6-less-with-autorefresh-in-26-lines/
+                                             //   see: http://jamesknelson.com/using-es6-in-the-browser-with-babel-6-and-webpack/
       path.join(__dirname, 'src/main.js')    // Add your application's scripts last
     ],
     vendor: [                                // Scripts packaged into 'vendor.js'
@@ -93,25 +97,10 @@ module.exports = {
           mimetype: 'image/jpg'
         }
       },
-      {
-        test: /\.gif/, loader: 'url-loader?limit=16384&mimetype=image/gif'
-      },
-      {
-        test: /\.png/, loader: 'url-loader?limit=16384&mimetype=image/png'
-      },
-      {
-        test: /\.svg/, loader: 'url-loader?limit=16384&mimetype=image/svg+xml'
-      },
-      // Fonts
-      {
-        test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: "url-loader?limit=16384&mimetype=application/font-woff"
-      },
-      {
-        test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/, loader: "url-loader?limit=16384&mimetype=application/octet-stream"
-      },
-      {
-        test: /\.eot(\?v=\d+\.\d+\.\d+)?$/, loader: "file-loader"
-      }
+      {test: /\.gif/, loader: 'url-loader?limit=16384&mimetype=image/gif'},
+      {test: /\.png/, loader: 'url-loader?limit=16384&mimetype=image/png'},
+      { test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: "url-loader?limit=16384&minetype=application/font-woff" },
+      { test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: "file-loader?limit=16384" }
 
       // TODO: JSON loader
     ]
@@ -124,7 +113,9 @@ module.exports = {
     new ExtractTextPlugin('styles.css', {
 			disable: false,
 			allChunks: true
-		})
+		}),
+    new webpack.optimize.DedupePlugin(),
+    new webpack.optimize.OccurrenceOrderPlugin()
 
     // Do not use:
     //   new webpack.HotModuleReplacementPlugin()

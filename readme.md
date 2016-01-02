@@ -226,13 +226,17 @@ export default Person;
 import moment from 'moment';
 import Person from './js/components/Person.js';
 
-const element = document.querySelector('#container');
-
-const content = document.createElement('h1');
-content.classList.add('Person');
-content.textContent =
-  `${moment().format('YYYY-MM-DD HH:mm:ss')}: Yo ${new Person('Leif', 'Olsen')}`;
-element.appendChild(content);
+class App {
+  const run() {
+    const element = document.querySelector('#container');
+    const person = new Person('Leif', 'Olsen');
+    const content = document.createElement('h1');
+    content.classList.add('Person');
+    content.textContent = `${moment().format('YYYY-MM-DD HH:mm:ss')}: Yo ${person}`;
+    element.appendChild(content);
+  }
+}
+document.addEventListener('DOMContentLoaded', () => App.run());
 ```
 
 ### Prøv ut koden
@@ -247,14 +251,14 @@ Dette er i hovedsak utviklingsmiljøet du trenger for å komme i gang med ECMASc
 Resten av eksemplet forutsetter at du benytter __Node-4.x__ eller [__Node-5.x__](https://nodejs.org/en/)!
 
 
+## Polyfills og Shims
+TODO
+
+
 ## Konfigurernig av Node og Webpack vha node-config
 TODO
  
  
-## Minification
-TODO
-
-
 ## Rest-api med Node Express
 Dette avsnittet viser hvordan man kan sette opp Node Express i et ES6-miljø og hvordan man setter opp en proxy fra
 webpack dev server til Node Express slik at man enkelt kan prøve ut ES6 fetch-api'et.
@@ -337,6 +341,8 @@ Til prosessering av CSS/SASS og grafiske elementer trenger vi følgende.
 * [extract-text-webpack-plugin](https://github.com/webpack/extract-text-webpack-plugin)
 * [autoprefixer](https://github.com/postcss/autoprefixer)
 * [postcss-loader](https://github.com/postcss/postcss-loader)
+* [resolve-url-loader](https://github.com/bholloway/resolve-url-loader)
+* [autoprefixer](https://github.com/postcss/autoprefixer)
 
 ```
 npm install --save-dev html-loader
@@ -348,13 +354,18 @@ npm install --save-dev file-loader
 npm install --save-dev url-loader
 npm install --save-dev extract-text-webpack-plugin
 npm install --save-dev autoprefixer postcss-loader
+npm install --save-dev resolve-url-loader  
+npm install --save-dev autoprefixer  
 ```
 
 Legg til følgende kode i `./webpack.config.js` for å håndtere statiske ressurser.
 ```javascript
-//require('./node_modules/es6-promise'); // Not needed for Node v4
+if (!global.Promise) {
+  global.Promise = require('es6-promise').polyfill();
+}
 const path = require('path');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const autoprefixer = require('autoprefixer');
 
 const cssLoader = [
   'css-loader?sourceMap',
@@ -364,6 +375,7 @@ const cssLoader = [
 const sassLoader = [
   'css-loader?sourceMap',
   'postcss-loader',
+  'resolve-url-loader',
   'sass-loader?sourceMap&expanded'
 ].join('!');
 
@@ -409,11 +421,8 @@ module.exports = {
     },
     { test: /\.gif/, loader: 'url-loader?limit=16384&mimetype=image/gif' },
     { test: /\.png/, loader: 'url-loader?limit=16384&mimetype=image/png' },
-    { test: /\.svg/, loader: 'url-loader?limit=16384&mimetype=image/svg' },
-
-    // Fonts
-    { test: /\.woff(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: 'url-loader?limit=16384&mimetype=application/font-woff' },
-    { test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: 'file-loader' },
+    { test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: "url-loader?limit=16384&minetype=application/font-woff" },
+    { test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: "file-loader?limit=16384" }
   ],
   plugins: [
     new webpack.optimize.CommonsChunkPlugin({
@@ -620,26 +629,40 @@ export default Person;
 ```
 
 Oppdater filen `./src/main.js`
+
 ```javascript
 'use strict';
 
 import moment from 'moment';
 import Person from './js/components/Person.js';
 
-const element = document.querySelector('#container');
-
-// Content
-const content = document.createElement('h1');
-content.textContent = content.classList.add('Person');
-  `${moment().format('YYYY-MM-DD HH:mm:ss')}: Yo ${new Person('Leif', 'Olsen')}`;
-element.appendChild(content);
-
-// Append header, using import html
+// Get header html, using import
 import header from './html/header.html';
-content.insertAdjacentHTML('beforebegin', header);
 
-// Append footer, using require html
-content.insertAdjacentHTML('afterend', require('./html/footer.html'));
+// Get footer html, using require
+const footer = require('./html/footer.html');
+
+class App {
+  const run() {
+    const element = document.querySelector('#container');
+    const person = new Person('Leif', 'Olsen');
+
+    // content
+    const content = document.createElement('h1');
+    content.classList.add('Person');
+    content.textContent = `${moment().format('YYYY-MM-DD HH:mm:ss')}: Yo ${person}`;
+    element.appendChild(content);
+
+    // Append header
+    content.insertAdjacentHTML('beforebegin', header);
+
+    // Append footer
+    content.insertAdjacentHTML('afterend', footer);
+  }
+}
+
+// Start
+document.addEventListener('DOMContentLoaded', () => App.run());
 ```
 
 Dersom testserveren kjører kan du overvåke resultatet av kodeendringene i nettleseren.
@@ -800,23 +823,24 @@ Og `babel-loader` i `webpack.config.js` blir da:
 * [The Six Things You Need To Know About Babel 6](http://jamesknelson.com/the-six-things-you-need-to-know-about-babel-6/)
 * [The Complete Guide to ES6 with Babel 6](http://jamesknelson.com/the-complete-guide-to-es6-with-babel-6/)
 * [Get Started with ECMAScript 6](http://blog.teamtreehouse.com/get-started-ecmascript-6)
-* [Exploring es6](http://exploringjs.com/es6/) (free book)
-* [Understanding ECMAScript 6](https://leanpub.com/understandinges6/read) (free book)
+* [Exploring es6](http://exploringjs.com/es6/), free book
+* [Understanding ECMAScript 6](https://leanpub.com/understandinges6/read), free book
 * [ECMAScript 6 Learning](https://github.com/ericdouglas/ES6-Learning)
 * [ECMAScript 6 — New Features: Overview & Comparison](http://es6-features.org/#Constants)
 * [ECMAScript 6 equivalents in ES5](https://github.com/addyosmani/es6-equivalents-in-es5)
 * [ECMAScript 6 Tools](https://github.com/addyosmani/es6-tools)
-* [Exploring ES2016 Decorators](https://medium.com/google-developers/exploring-es7-decorators-76ecb65fb841#.hrtgi290a)
 * [Making the most of JavaScript’s “future” today with Babel](https://strongloop.com/strongblog/javascript-babel-future/)
 * [How to Write an Open Source JavaScript Library](https://egghead.io/lessons/javascript-how-to-write-a-javascript-library-introduction)
 * [fetch API](https://davidwalsh.name/fetch)
 * [window.fetch polyfill](https://github.com/github/fetch)
+* [isomorphic-fetch - Fetch for node and Browserify. Built on top of GitHub's WHATWG Fetch polyfill.](https://github.com/matthew-andrews/isomorphic-fetch)
 * [core-decorators.js](https://github.com/jayphelps/core-decorators.js)
 * [Exploring ES2016 Decorators](https://medium.com/google-developers/exploring-es7-decorators-76ecb65fb841#.5z8emeo19)
 * [7 Patterns to Refactor JavaScript Applications: Decorators](https://blog.engineyard.com/2015/7-patterns-refactor-javascript-decorators)
 * [Decorators in JavaScript](https://www.youtube.com/watch?v=d8CDFsQHZpE)
 * [lodash-decorators](https://github.com/steelsojka/lodash-decorators)
 * [javascript-decorators](https://github.com/wycats/javascript-decorators)
+* [Using ES7 Decorators with Babel 6](http://technologyadvice.github.io/es7-decorators-babel6/)
 * [Google Developers - Introduction to fetch](https://developers.google.com/web/updates/2015/03/introduction-to-fetch?hl=en)
 * [Preparing for ECMAScript 6: New String Methods](http://www.sitepoint.com/preparing-ecmascript-6-new-string-methods/)
 * [Basic Data structures in ES6](http://www.sublimejs.com/-basic-data-structure-in-es6/)
@@ -827,6 +851,52 @@ Og `babel-loader` i `webpack.config.js` blir da:
 * [Understanding ECMAScript 6 arrow functions](https://www.nczonline.net/blog/2013/09/10/understanding-ecmascript-6-arrow-functions/)
 * [ES6 arrow functions, syntax and lexical scoping](https://toddmotto.com/es6-arrow-functions-syntaxes-and-lexical-scoping/)
 * [ES6 in the Wild](http://kahnjw.com/posts/5/)
+* [JavaScript Design Patterns in ES 2015](http://joshbedo.github.io/JS-Design-Patterns/)
+* [polyfill-custom-event, es6](https://github.com/tuxsudo/polyfill-custom-event)
+* [Cross-browser CustomEvent constructor, polyfill](https://github.com/webmodules/custom-event)
+* [How to Create Custom Events in JavaScript](http://www.sitepoint.com/javascript-custom-events/)
+* [JavaScript CustomEvent](https://davidwalsh.name/customevent)
+* [Using the ES6 transpiler Babel on Node.js](http://www.2ality.com/2015/03/babel-on-node.html)
+* [Finitely Iterating Infinite Data With ES6 Generators](http://derickbailey.com/categories/tips-and-tricks/)
+* [JavaScript Promises](http://www.html5rocks.com/en/tutorials/es6/promises/)
+* [That's so fetch!](https://jakearchibald.com/2015/thats-so-fetch/)
+* [HTML5 Local Storage and Session Storage](http://javaninja.net/2015/08/html5-local-storage-and-session-storage/)
+* [Storing Data on The Client with LocalStorage](http://blog.teamtreehouse.com/storing-data-on-the-client-with-localstorage)
+* [The Basics Of ES6 Generators](https://davidwalsh.name/es6-generators)
+* [ES6 Promises in Depth](https://ponyfoo.com/articles/es6-promises-in-depth)
+* [ES 7 decorators to reduce boilerplate when creating custom HTML elements.](https://github.com/patrickarlt/custom-element-decorators)
+* [HTML templating with ES6 template strings](http://www.2ality.com/2015/01/template-strings-html.html)
+* [es6-template-demo - working demo code from http://www.2ality.com/2015/01/template-strings-html.html](https://github.com/dannyko/es6-template-demo)
+* [Getting Literal With ES6 Template Strings](https://developers.google.com/web/updates/2015/01/ES6-Template-Strings?hl=en)
+* [The Genius of Template Strings in ES6](http://code.tutsplus.com/tutorials/the-genius-of-template-strings-in-es6--cms-24915)
+* [ES6 In Depth: Template strings](https://hacks.mozilla.org/2015/05/es6-in-depth-template-strings-2/)
+* [HTML Exports](https://github.com/nevir/html-exports)
+* [SystemJS](https://github.com/systemjs/systemjs)
+* [How to Implement HTML5 Local Storage](https://www.safaribooksonline.com/blog/2013/10/10/how-to-use-html5-local-storage/)
+* [JavaScript Fetch API in action](https://blog.gospodarets.com/fetch_in_action/)
+* [Creating an ES6 DOM Library](http://www.ericponto.com/blog/2014/10/05/es6-dom-library/)
+
+
+### events, EventEmitter
+* [Implementing EventEmitter in ES6](http://www.datchley.name/es6-eventemitter/)
+* [Pub Sub with Event Emitter](http://javascriptplayground.com/blog/2014/03/event-emitter/)
+* [Node.js EventEmitter Tutorial](http://www.hacksparrow.com/node-js-eventemitter-tutorial.html)
+
+
+### RxJS
+* [ReactiveX - The Observer pattern done right](http://reactivex.io/)
+* [RxJS 5, beta - Compliant with the ES7 Observable Spec](https://github.com/ReactiveX/RxJS)
+* [The Reactive Extensions for JavaScript (RxJS) 4.0](https://github.com/Reactive-Extensions/RxJS)
+* [ReactiveX tutorials](http://reactivex.io/tutorials.html)
+* [RxJS v4.0 - an on-line book by Dennis Stoyanov](https://xgrommx.github.io/rx-book/index.html)
+* [Fluorine - State Accumulation from a single stream of actions](https://github.com/philplckthun/fluorine)
+* [The introduction to Reactive Programming you've been missing](https://gist.github.com/staltz/868e7e9bc2a7b8c1f754)
+* [Functional Programming in Javascript](http://reactivex.io/learnrx/)
+* [RxJS Evolved](http://www.slideshare.net/trxcllnt/rxjs-evolved)
+* [What Is RxJS?](https://egghead.io/lessons/rxjs-what-is-rxjs)
+* [RxJS 5](https://discventionstech.wordpress.com/2015/10/29/rxjs-5/)
+* [HOW TO DEBUG RXJS CODE](http://staltz.com/how-to-debug-rxjs-code.html)
+* [Flyd - The modular, KISS, functional reactive programming library for JavaScript.](https://github.com/paldepind/flyd)
 
 
 ### Webpack
@@ -848,6 +918,9 @@ Og `babel-loader` i `webpack.config.js` blir da:
 * [How to configure font file output directory from font-awesome-webpack in webpack?](http://stackoverflow.com/questions/34014151/how-to-configure-font-file-output-directory-from-font-awesome-webpack-in-webpack)
 * [Introduction to Webpack](http://seanamarasinghe.com/developer/introduction-to-webpack/)
 * [Advanced WebPack Part 1 - The CommonsChunk Plugin](http://jonathancreamer.com/advanced-webpack-part-1-the-commonschunk-plugin/)
+* [webpack-babel-boilerplate](https://github.com/shovon/webpack-babel-boilerplate)
+* [Start your own JavaScript library using webpack and ES6](http://krasimirtsonev.com/blog/article/javascript-library-starter-using-webpack-es6)
+* [babel-npm-boilerplate](https://github.com/camsong/babel-npm-boilerplate)
 
 
 ### CSS/SASS
@@ -861,6 +934,18 @@ Og `babel-loader` i `webpack.config.js` blir da:
 * [Google Fonts Files](https://github.com/google/fonts)
 * [font-roboto-local](https://github.com/PolymerElements/font-roboto-local)
 * [font-awesome-webpack](https://github.com/gowravshekar/font-awesome-webpack)
+* [Myth - CSS the way it was imagined](http://www.myth.io/)
+* [Introduction to Myth – CSS Preprocessor](http://www.sevensignature.com/blog/home/myth-css-preprocessor/)
+* [Modernizr - Respond to your user’s browser features.](https://modernizr.com/)
+* [modernizr-loader for webpack](https://github.com/peerigon/modernizr-loader)
+* [CSS4 variables in SASS - HOUSTON, WE WILL PROBABLY END UP TOTALLY HAVING A PROBLEM](http://codepen.io/jakealbaugh/post/css4-variables-and-sass)
+* [Why I'm Excited About Native CSS Variables](http://philipwalton.com/articles/why-im-excited-about-native-css-variables/)
+* [A Polyfill for CSS3 calc()](https://github.com/closingtag/calc-polyfill)
+* [Writing a CSS Parser in JavaScript](https://medium.com/jotform-form-builder/writing-a-css-parser-in-javascript-3ecaa1719a43#.bwpkdrlis)
+* [css.js - A lightweight, battle tested, fast, css parser in JavaScript](https://github.com/jotform/css.js)
+* [matchMedia() polyfill - test whether a CSS media type or media query applies](https://github.com/paulirish/matchMedia.js/)   
+* [Respond.js - A fast & lightweight polyfill for min/max-width CSS3 Media Queries (for IE 6-8, and more)](https://github.com/scottjehl/Respond)
+* [Animate.css - A cross-browser library of CSS animations.](https://github.com/daneden/animate.css)
 
 
 ### Lint
@@ -891,6 +976,49 @@ Og `babel-loader` i `webpack.config.js` blir da:
 * [Sinon Spies vs. Stubs](http://jaketrent.com/post/sinon-spies-vs-stubs/)
 * [testing-with-karma-webpack](http://slidedeck.io/pascalpp/testing-with-karma-webpack)
 * [Tutorial – write in ES6 and Sass on the front end with Webpack and Babel](http://tech.90min.com/?p=1340)
+* [JavaScript Design Patterns in ES 2015](http://joshbedo.github.io/JS-Design-Patterns/)
+
+
+### NoeJS, Express
+* [Running scripts with npm](http://www.jayway.com/2014/03/28/running-scripts-with-npm/)
+* [Node.js Tutorials](https://www.codementor.io/nodejs/tutorial)
+* [NODESCHOOL](http://nodeschool.io/)
+* [Howto Node](http://howtonode.org/)
+* [webpack-express-boilerplate](https://github.com/christianalfoni/webpack-express-boilerplate)
+* [Getting Started with Express - Up and Running](https://egghead.io/lessons/node-js-getting-started-with-express-up-and-running)
+* [react-express-babel6](https://github.com/shantanuraj/react-express-babel6)
+* [Using ES6/ES2015 in a Node.JS and Express](https://www.lookami.com/using-es6-es2015-in-a-node-js-express/)
+* [Dropbox Express with ECMAScript 6+](http://notebook.erikostrom.com/2015/05/22/dropbox-express-with-ecmascript-6.html)
+* [Express & ES6 REST API Boilerplate](https://github.com/developit/express-es6-rest-api)
+* [nodemon](https://github.com/remy/nodemon)
+* [Build a RESTful API Using Node and Express 4](https://scotch.io/tutorials/build-a-restful-api-using-node-and-express-4)
+* [Building a Node.js REST API with Express](https://medium.com/@jeffandersen/building-a-node-js-rest-api-with-express-46b0901f29b6#.9bsnbvr41)
+* [Node.js - Express Framework](http://www.tutorialspoint.com/nodejs/nodejs_express_framework.htm)
+* [ExpressJs Router Tutorial](https://codeforgeek.com/2015/05/expressjs-router-tutorial/)
+* [Best Practices for Node.js Development](https://devcenter.heroku.com/articles/node-best-practices)
+* [Create a character voting app using React, Node.js, MongoDB and Socket.IO](http://sahatyalkabov.com/create-a-character-voting-app-using-react-nodejs-mongodb-and-socketio/)
+* [Universal (isomorphic) boilerplate written in ES2015 for Node and the browser.](https://github.com/Kflash/trolly)
+* [Example Node Server w/ Babel](https://github.com/babel/example-node-server)
+* [NodeJS Express ES6 Hello world](https://github.com/500tech/nodejs-express-es6)
+* [Best Practices for Node.js Development](https://devcenter.heroku.com/articles/node-best-practices)
+* [Expressive ES6 features that shine in Node.js 4.0](http://rethinkdb.com/blog/node-4/)
+* [Configure your Node.js Applications](https://github.com/lorenwest/node-config)
+* [Architecting a Secure RESTful Node.js app](http://thejackalofjavascript.com/architecting-a-restful-node-js-app/)
+* [Passport - Simple, unobtrusive authentication for Node.js](http://passportjs.org/)
+* [express-validator - An express.js middleware for node-validator.](https://github.com/ctavan/express-validator)
+* [NodeJS Tutorial Playlist](https://www.youtube.com/playlist?list=PLZm85UZQLd2Q946FgnllFFMa0mfQLrYDL)
+* [Getting Started with Node.js on Heroku](https://devcenter.heroku.com/articles/getting-started-with-nodejs#introduction)
+* [How I Structure RESTful APIs using Express 4.](http://www.codekitchen.ca/guide-to-structuring-and-building-a-restful-api-using-express-4/)
+* [easy-express-controllers](https://github.com/arackaf/easy-express-controllers)
+* [NodeJS and ES6](https://www.youtube.com/watch?v=PBLwtZRNh2M)
+
+
+### Videos
+* [Decorators in JavaScript](https://www.youtube.com/watch?v=d8CDFsQHZpE)
+* [What Is RxJS?](https://egghead.io/lessons/rxjs-what-is-rxjs)
+* [RxJS 5](https://discventionstech.wordpress.com/2015/10/29/rxjs-5/)
+* [Promise to not use Promises – ES7 Observables by Brian Holt](https://www.youtube.com/watch?v=DaCc8lckuw8)
+* [NodeJS and ES6](https://www.youtube.com/watch?v=PBLwtZRNh2M)
 
 
 ### Etc
@@ -905,11 +1033,8 @@ Og `babel-loader` i `webpack.config.js` blir da:
 * [Setup Webpack on an ES6 React app with SASS](http://marmelab.com/blog/2015/05/18/setup-webpack-for-es6-react-application-with-sass.html)
 * [How to easily test React components with Karma and Webpack](http://qiita.com/kimagure/items/f2d8d53504e922fe3c5c)
 * [How to test React components using Karma and webpack](http://nicolasgallagher.com/how-to-test-react-components-karma-webpack/)
-* [ReactiveX - The Observer pattern done right](http://reactivex.io/)
-* [RxJS tutorials](http://reactivex.io/tutorials.html)
-* [RxJS v4.0 - an on-line book by Dennis Stoyanov](https://xgrommx.github.io/rx-book/index.html)
-* [Fluorine - State Accumulation from a single stream of actions](https://github.com/philplckthun/fluorine)
-* [The introduction to Reactive Programming you've been missing](https://gist.github.com/staltz/868e7e9bc2a7b8c1f754)
-* [Functional Programming in Javascript](http://reactivex.io/learnrx/)
-* [Flyd - The modular, KISS, functional reactive programming library for JavaScript.](https://github.com/paldepind/flyd)
 * [Redux](https://github.com/rackt/redux)
+* [Aurelia - next gen JavaScript client framework](http://aurelia.io/)
+* [rivets.js - Lightweight and powerful data binding + templating solution for building modern web applications.](http://rivetsjs.com/)
+* [JavaScript Air - The live broadcast podcast all about JavaScript](http://javascriptair.com/)
+* [updtr - Update outdated npm modules with zero pain](https://github.com/peerigon/updtr)
