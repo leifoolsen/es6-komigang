@@ -946,6 +946,8 @@ Og `babel-loader` i `webpack.config.js` blir da:
 * [matchMedia() polyfill - test whether a CSS media type or media query applies](https://github.com/paulirish/matchMedia.js/)   
 * [Respond.js - A fast & lightweight polyfill for min/max-width CSS3 Media Queries (for IE 6-8, and more)](https://github.com/scottjehl/Respond)
 * [Animate.css - A cross-browser library of CSS animations.](https://github.com/daneden/animate.css)
+* [CSS next - Use tomorrow's CSS syntax, today.](http://cssnext.io/)
+* [COLORS - A nicer color palette for the web.](http://clrs.cc/)
 
 
 ### Lint
