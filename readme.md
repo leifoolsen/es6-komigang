@@ -875,12 +875,16 @@ Og `babel-loader` i `webpack.config.js` blir da:
 * [How to Implement HTML5 Local Storage](https://www.safaribooksonline.com/blog/2013/10/10/how-to-use-html5-local-storage/)
 * [JavaScript Fetch API in action](https://blog.gospodarets.com/fetch_in_action/)
 * [Creating an ES6 DOM Library](http://www.ericponto.com/blog/2014/10/05/es6-dom-library/)
+* [Capture and report JavaScript errors with window.onerror](http://blog.getsentry.com/2016/01/04/client-javascript-reporting-window-onerror.html)
+* [Digging into the modern JavaScript - ES6](http://nanovazquez.com/2015/12/24/digging-into-the-modern-javascript-es6/)
+* [Start your own JavaScript library using webpack and ES6](http://krasimirtsonev.com/blog/article/javascript-library-starter-using-webpack-es6)
 
 
-### events, EventEmitter
+### events, EventEmitter, PubSub
 * [Implementing EventEmitter in ES6](http://www.datchley.name/es6-eventemitter/)
 * [Pub Sub with Event Emitter](http://javascriptplayground.com/blog/2014/03/event-emitter/)
 * [Node.js EventEmitter Tutorial](http://www.hacksparrow.com/node-js-eventemitter-tutorial.html)
+* [Becoming fully reactive: an in-depth explanation of Mobservable]
 
 
 ### RxJS
@@ -897,12 +901,16 @@ Og `babel-loader` i `webpack.config.js` blir da:
 * [RxJS 5](https://discventionstech.wordpress.com/2015/10/29/rxjs-5/)
 * [HOW TO DEBUG RXJS CODE](http://staltz.com/how-to-debug-rxjs-code.html)
 * [Flyd - The modular, KISS, functional reactive programming library for JavaScript.](https://github.com/paldepind/flyd)
+* [Create a simple toggle button using reactive programming](https://www.themarketingtechnologist.co/create-a-simple-toggle-button-with-rxjs-using-scan-and-startwith/)
+* [HOW TO DEBUG RXJS CODE](http://staltz.com/how-to-debug-rxjs-code.html)
 
 
 ### Webpack
 * [What is webpack](http://webpack.github.io/docs/what-is-webpack.html)
 * [Webpack configuration](https://webpack.github.io/docs/configuration.html)
 * [WEBPACK 101: AN INTRODUCTION TO WEBPACK](http://code.hootsuite.com/webpack-101/)
+* [Webpack and Babel – ES6 & ES7 on the front end](http://tech.90min.com/?p=1333)
+* [Tutorial – write in ES6 and Sass on the front end with Webpack and Babel](http://tech.90min.com/?p=1340)
 * [Beginner’s guide to Webpack](https://medium.com/@dabit3/beginner-s-guide-to-webpack-b1f1a3638460#.ysa5ikt2h)
 * [Introduction to Webpack with practical examples](http://julienrenaux.fr/2015/03/30/introduction-to-webpack-with-practical-examples/)
 * [Setting Up a Front End Development Environment](http://www.dennyferra.com/setting-up-a-front-end-development-environment/)
@@ -913,7 +921,6 @@ Og `babel-loader` i `webpack.config.js` blir da:
 * [webpack-demos](https://github.com/ruanyf/webpack-demos)
 * [Webpack Made Simple: Building ES6 & LESS with autorefresh](http://jamesknelson.com/webpack-made-simple-build-es6-less-with-autorefresh-in-26-lines/)
 * [pushState With Webpack-dev-server](http://jaketrent.com/post/pushstate-webpack-dev-server/)
-* [Tutorial – write in ES6 and Sass on the front end with Webpack and Babel](http://tech.90min.com/?p=1340)
 * [How to store assets separately with Webpack](http://stackoverflow.com/questions/31399715/how-to-store-assets-separately-with-webpack?rq=1)
 * [How to configure font file output directory from font-awesome-webpack in webpack?](http://stackoverflow.com/questions/34014151/how-to-configure-font-file-output-directory-from-font-awesome-webpack-in-webpack)
 * [Introduction to Webpack](http://seanamarasinghe.com/developer/introduction-to-webpack/)
@@ -948,7 +955,7 @@ Og `babel-loader` i `webpack.config.js` blir da:
 * [Animate.css - A cross-browser library of CSS animations.](https://github.com/daneden/animate.css)
 * [CSS next - Use tomorrow's CSS syntax, today.](http://cssnext.io/)
 * [COLORS - A nicer color palette for the web.](http://clrs.cc/)
-
+* [How to use responsive breakpoint analytics to measure design performance](https://www.themarketingtechnologist.co/how_to_use_responsive_breakpoint_analytics_to_measure_design_performance/)
 
 ### Lint
 * [Configuring ESLint](http://eslint.org/docs/user-guide/configuring.html)
@@ -1040,3 +1047,4 @@ Og `babel-loader` i `webpack.config.js` blir da:
 * [rivets.js - Lightweight and powerful data binding + templating solution for building modern web applications.](http://rivetsjs.com/)
 * [JavaScript Air - The live broadcast podcast all about JavaScript](http://javascriptair.com/)
 * [updtr - Update outdated npm modules with zero pain](https://github.com/peerigon/updtr)
+* [javascriptkicks](http://javascriptkicks.com/stories)
