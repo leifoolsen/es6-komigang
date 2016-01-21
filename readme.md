@@ -829,6 +829,7 @@ Og `babel-loader` i `webpack.config.js` blir da:
 * [ECMAScript 6 — New Features: Overview & Comparison](http://es6-features.org/#Constants)
 * [ECMAScript 6 equivalents in ES5](https://github.com/addyosmani/es6-equivalents-in-es5)
 * [ECMAScript 6 Tools](https://github.com/addyosmani/es6-tools)
+* [ECMAScript 6 - git.io/es6features](https://github.com/lukehoban/es6features)
 * [Making the most of JavaScript’s “future” today with Babel](https://strongloop.com/strongblog/javascript-babel-future/)
 * [How to Write an Open Source JavaScript Library](https://egghead.io/lessons/javascript-how-to-write-a-javascript-library-introduction)
 * [fetch API](https://davidwalsh.name/fetch)
@@ -878,6 +879,15 @@ Og `babel-loader` i `webpack.config.js` blir da:
 * [Capture and report JavaScript errors with window.onerror](http://blog.getsentry.com/2016/01/04/client-javascript-reporting-window-onerror.html)
 * [Digging into the modern JavaScript - ES6](http://nanovazquez.com/2015/12/24/digging-into-the-modern-javascript-es6/)
 * [Start your own JavaScript library using webpack and ES6](http://krasimirtsonev.com/blog/article/javascript-library-starter-using-webpack-es6)
+* [Real Life ES6 - Arrow Functions](http://javascriptplayground.com/blog/2014/04/real-life-es6-arrow-fn/)
+* [i18n with tagged template strings in ECMAScript 6](http://jaysoo.ca/2014/03/20/i18n-with-es6-template-strings/)
+* [You Don't Know JS (book series)](https://github.com/getify/You-Dont-Know-JS)
+* [promise-cookbook](https://github.com/mattdesl/promise-cookbook)
+* [promise-cookbook](https://github.com/wbinnssmith/promise-cookbook)
+* [Web Components, by Bill Stavroulakis](http://bstavroulakis.com/blog/web/web-components-html-templates/)
+* [Riot.js - A React-like user interface micro-library](https://github.com/riot/riot)
+* [Enumify - A JavaScript library for enums. To be used by transpiled ES6](https://github.com/rauschma/enumify)
+* [Future JavaScript](https://github.com/jedrichards/es6)
 
 
 ### events, EventEmitter, PubSub
@@ -889,7 +899,7 @@ Og `babel-loader` i `webpack.config.js` blir da:
 
 ### RxJS
 * [ReactiveX - The Observer pattern done right](http://reactivex.io/)
-* [RxJS 5, beta - Compliant with the ES7 Observable Spec](https://github.com/ReactiveX/RxJS)
+* [RxJS 5, beta - Compliant with the EcmaScript Observable Spec](https://github.com/ReactiveX/RxJS)
 * [The Reactive Extensions for JavaScript (RxJS) 4.0](https://github.com/Reactive-Extensions/RxJS)
 * [ReactiveX tutorials](http://reactivex.io/tutorials.html)
 * [RxJS v4.0 - an on-line book by Dennis Stoyanov](https://xgrommx.github.io/rx-book/index.html)
@@ -900,9 +910,15 @@ Og `babel-loader` i `webpack.config.js` blir da:
 * [What Is RxJS?](https://egghead.io/lessons/rxjs-what-is-rxjs)
 * [RxJS 5](https://discventionstech.wordpress.com/2015/10/29/rxjs-5/)
 * [HOW TO DEBUG RXJS CODE](http://staltz.com/how-to-debug-rxjs-code.html)
-* [Flyd - The modular, KISS, functional reactive programming library for JavaScript.](https://github.com/paldepind/flyd)
 * [Create a simple toggle button using reactive programming](https://www.themarketingtechnologist.co/create-a-simple-toggle-button-with-rxjs-using-scan-and-startwith/)
 * [HOW TO DEBUG RXJS CODE](http://staltz.com/how-to-debug-rxjs-code.html)
+* [The introduction to Reactive Programming you've been missing](https://gist.github.com/staltz/868e7e9bc2a7b8c1f754)
+* [RxJS Observables vs Promises](https://egghead.io/lessons/rxjs-rxjs-observables-vs-promises)
+* [RxJS tutorials](http://reactivex.io/tutorials.html)
+* [Rxmq.js - JavaScript pub/sub library based on RxJS](https://github.com/rxmqjs/rxmq.js)
+* [Flyd - The modular, KISS, functional reactive programming library for JavaScript.](https://github.com/paldepind/flyd)
+* [Cycle.js - A functional and reactive JavaScript framework for cleaner code](http://cycle.js.org/)
+* [ReactiveX - The Observer pattern done right](http://reactivex.io/)
 
 
 ### Webpack
@@ -1028,6 +1044,7 @@ Og `babel-loader` i `webpack.config.js` blir da:
 * [RxJS 5](https://discventionstech.wordpress.com/2015/10/29/rxjs-5/)
 * [Promise to not use Promises – ES7 Observables by Brian Holt](https://www.youtube.com/watch?v=DaCc8lckuw8)
 * [NodeJS and ES6](https://www.youtube.com/watch?v=PBLwtZRNh2M)
+* [Async JavaScript with Promises](https://www.youtube.com/watch?v=g90irqWEqd8)
 
 
 ### Etc
