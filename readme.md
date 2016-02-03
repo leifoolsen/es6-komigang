@@ -205,15 +205,15 @@ En god beskrivelse av hvordan man setter opp Babel sammen med webpack finner du 
 ```javascript
 'use strict';
 class Person {
-  constructor(first, last) {
-    this.first = first;
-    this.last = last;
+  constructor(_first, _last) {
+    this._first = _first;
+    this._last = _last;
   }
-  getName() {
+  get name() {
     return this.first + ' ' + this.last;
   }
   toString() {
-    return this.getName();
+    return this.name;
   }
 }
 export default Person;
@@ -316,7 +316,6 @@ eslint: {
     'strict': 0,
     'no-unused-vars': 2,
     'camelcase': 1,
-    'no-underscore-dangle': 1,
     'indent': [1, 2],
     'quotes': 0,
     'linebreak-style': [2, 'unix'],
@@ -614,15 +613,15 @@ Oppdater filen `./src/compoments/Person.js`
 import './Person.scss';
 
 class Person {
-  constructor(first, last) {
-    this.first = first;
-    this.last = last;
+  constructor(_first, _last) {
+    this._first = _first;
+    this._last = _last;
   }
-  getName() {
+  get name() {
     return this.first + ' ' + this.last;
   }
   toString() {
-    return this.getName();
+    return this.name;
   }
 }
 export default Person;
@@ -763,7 +762,7 @@ import Person from '../../../src/js/components/Person';
 describe('Person', () => {
    it('should say hello to leif', () => {
        let person = new Person('Leif', 'Olsen');
-       expect(person.getName()).toBe('Leif Olsen');
+       expect(person.name).toBe('Leif Olsen');
    });
 });
 ```
@@ -853,17 +852,16 @@ Og `babel-loader` i `webpack.config.js` blir da:
 * [ES6 arrow functions, syntax and lexical scoping](https://toddmotto.com/es6-arrow-functions-syntaxes-and-lexical-scoping/)
 * [ES6 in the Wild](http://kahnjw.com/posts/5/)
 * [JavaScript Design Patterns in ES 2015](http://joshbedo.github.io/JS-Design-Patterns/)
-* [polyfill-custom-event, es6](https://github.com/tuxsudo/polyfill-custom-event)
-* [Cross-browser CustomEvent constructor, polyfill](https://github.com/webmodules/custom-event)
-* [How to Create Custom Events in JavaScript](http://www.sitepoint.com/javascript-custom-events/)
-* [JavaScript CustomEvent](https://davidwalsh.name/customevent)
 * [Using the ES6 transpiler Babel on Node.js](http://www.2ality.com/2015/03/babel-on-node.html)
 * [Finitely Iterating Infinite Data With ES6 Generators](http://derickbailey.com/categories/tips-and-tricks/)
 * [JavaScript Promises](http://www.html5rocks.com/en/tutorials/es6/promises/)
+* [Easy asynchrony with ES6](https://curiosity-driven.org/promises-and-generators)
 * [That's so fetch!](https://jakearchibald.com/2015/thats-so-fetch/)
+* [Tasks, microtasks, queues and schedules](https://jakearchibald.com/2015/tasks-microtasks-queues-and-schedules/)
 * [HTML5 Local Storage and Session Storage](http://javaninja.net/2015/08/html5-local-storage-and-session-storage/)
 * [Storing Data on The Client with LocalStorage](http://blog.teamtreehouse.com/storing-data-on-the-client-with-localstorage)
 * [The Basics Of ES6 Generators](https://davidwalsh.name/es6-generators)
+* [Diving Deeper With ES6 Generators](https://davidwalsh.name/es6-generators-dive)
 * [ES6 Promises in Depth](https://ponyfoo.com/articles/es6-promises-in-depth)
 * [ES 7 decorators to reduce boilerplate when creating custom HTML elements.](https://github.com/patrickarlt/custom-element-decorators)
 * [HTML templating with ES6 template strings](http://www.2ality.com/2015/01/template-strings-html.html)
@@ -876,7 +874,6 @@ Og `babel-loader` i `webpack.config.js` blir da:
 * [How to Implement HTML5 Local Storage](https://www.safaribooksonline.com/blog/2013/10/10/how-to-use-html5-local-storage/)
 * [JavaScript Fetch API in action](https://blog.gospodarets.com/fetch_in_action/)
 * [Creating an ES6 DOM Library](http://www.ericponto.com/blog/2014/10/05/es6-dom-library/)
-* [Capture and report JavaScript errors with window.onerror](http://blog.getsentry.com/2016/01/04/client-javascript-reporting-window-onerror.html)
 * [Digging into the modern JavaScript - ES6](http://nanovazquez.com/2015/12/24/digging-into-the-modern-javascript-es6/)
 * [Start your own JavaScript library using webpack and ES6](http://krasimirtsonev.com/blog/article/javascript-library-starter-using-webpack-es6)
 * [Real Life ES6 - Arrow Functions](http://javascriptplayground.com/blog/2014/04/real-life-es6-arrow-fn/)
@@ -888,7 +885,12 @@ Og `babel-loader` i `webpack.config.js` blir da:
 * [Riot.js - A React-like user interface micro-library](https://github.com/riot/riot)
 * [Enumify - A JavaScript library for enums. To be used by transpiled ES6](https://github.com/rauschma/enumify)
 * [Future JavaScript](https://github.com/jedrichards/es6)
-
+* [Vanilla JavaScript TodoMVC Example](https://github.com/kentcdodds/es6-todomvc)
+* [Vanilla ES6 (ES2015) • TodoMVC](https://github.com/addyosmani/es2015-todomvc-chrome)
+* [Mozilla - ES6 In Depth Articles](https://hacks.mozilla.org/category/es6-in-depth/)
+* [ES6 One Liners to Show Off](http://h3manth.com/new/blog/2014/es6-one-liners-to-show-off/)
+* [Lightweight ES6 Features That Pack A Punch](http://colintoh.com/blog/lightweight-es6-features)
+* [Staying Sane With Asynchronous Programming: Promises and Generators](http://colintoh.com/blog/staying-sane-with-asynchronous-programming-promises-and-generators)
 
 ### events, EventEmitter, PubSub
 * [Implementing EventEmitter in ES6](http://www.datchley.name/es6-eventemitter/)
@@ -1065,3 +1067,72 @@ Og `babel-loader` i `webpack.config.js` blir da:
 * [JavaScript Air - The live broadcast podcast all about JavaScript](http://javascriptair.com/)
 * [updtr - Update outdated npm modules with zero pain](https://github.com/peerigon/updtr)
 * [javascriptkicks](http://javascriptkicks.com/stories)
+* [router.js](https://github.com/tildeio/router.js)
+* [hyperagent.js - A HAL client for JavaScript http://weluse.github.io/hyperagent](https://github.com/weluse/hyperagent)
+* [HTMLBars](https://github.com/tildeio/htmlbars)
+* [DOMtastic - Small, fast, and modular DOM & Event library for modern browsers](https://github.com/webpro/DOMtastic)
+* [ES6-DOM](https://github.com/nickeljew/es6-dom)
+* [stevia: Natural sweetener for Javascript Objects](https://github.com/traviskaufman/stevia)
+* [html-template-tag](https://github.com/AntonioVdlC/html-template-tag)
+* [smooth-scroll](https://github.com/tuxsudo/smooth-scroll)
+* [How to forget about jQuery and start using native JavaScript APIs](http://blog.romanliutikov.com/post/63383858003/how-to-forget-about-jquery-and-start-using-native)
+* [You Don't Need jQuery!](http://blog.garstasio.com/you-dont-need-jquery/selectors/)
+* [Native JavaScript Equivalents of jQuery Methods: the DOM and Forms](http://www.sitepoint.com/jquery-vs-raw-javascript-1-dom-forms/)
+* [Bliss: Want to use Vanilla JS but find native APIs a bit unwieldy? Bliss is for you.](http://blissfuljs.com/index.html)
+* [Bliss: Heavenly JavaScript](https://github.com/LeaVerou/bliss)
+* [Dom Diff](https://github.com/skatejs/dom-diff)
+* [Mithril: A Javascript Framework for Building Brilliant Applications](https://github.com/lhorie/mithril.js)
+* [Skills Matter Logo](https://skillsmatter.com/explore?q=tag%3Aes6)
+* [microscopejs](https://github.com/microscopejs/)
+* [Lodash: 10 Javascript Utility Functions That You Should Probably Stop Rewriting](http://colintoh.com/blog/lodash-10-javascript-utility-functions-stop-rewriting)
+* [html-template-to-dom](https://github.com/medikoo/html-template-to-dom)
+* [Benjamin De Cock - Gists](https://gist.github.com/bendc)
+* [ES.next showcase - Showcasing real-world usage of ECMAScript 6 (the next JavaScript version) features](https://github.com/sindresorhus/esnext-showcase)
+* [bling.js](https://github.com/stevermeister/bling.js)
+* [requestAnimationFrame API: now with sub-millisecond precision](https://developers.google.com/web/updates/2012/05/requestAnimationFrame-API-now-with-sub-millisecond-precision)
+* [requestAnimationFrame for Smart Animating](http://www.paulirish.com/2011/requestanimationframe-for-smart-animating/)
+* [request-frame](https://github.com/julienetie/request-frame)
+* [HTML5 2D game development: Graphics and animation, rAf polyfill](http://www.ibm.com/developerworks/library/j-html5-game2/#N101B4)
+* [Using requestAnimationFrame](https://css-tricks.com/using-requestanimationframe/)
+* [requestanimationframe-fix.js](https://github.com/greggman/requestanimationframe-fix.js)
+* [smooth-scroll](https://github.com/tuxsudo/smooth-scroll)
+* [micro-tween](https://github.com/JosephClay/micro-tween)
+* [tween.js: JavaScript tweening engine for easy animations, incorporating optimised Robert Penner's equations.](https://github.com/tweenjs/tween.js/)
+* [Automatos: A CSS Animation library](https://github.com/danreeves/automatos)
+* [request-animation-frame-shim](https://github.com/erykpiast/request-animation-frame-shim)
+* [Animating Without jQuery](https://www.smashingmagazine.com/2014/09/animating-without-jquery/)
+* [Velocity.js](http://julian.com/research/velocity/)
+* [paulcpederson/scroll.js](https://gist.github.com/paulcpederson/7f9375b5d66120e5c7b3)
+* [MutationObserver API](https://davidwalsh.name/mutationobserver-api)
+* [Detect, Undo And Redo DOM Changes With Mutation Observers](https://addyosmani.com/blog/mutation-observers/)
+* [Using Mutation Observers to Watch for Element Availability](http://ryanmorr.com/using-mutation-observers-to-watch-for-element-availability/)
+* [polyfill-custom-event, es6](https://github.com/tuxsudo/polyfill-custom-event)
+* [Cross-browser CustomEvent constructor, polyfill](https://github.com/webmodules/custom-event)
+* [How to Create Custom Events in JavaScript](http://www.sitepoint.com/javascript-custom-events/)
+* [JavaScript CustomEvent](https://davidwalsh.name/customevent)
+* [Capture and report JavaScript errors with window.onerror](http://blog.getsentry.com/2016/01/04/client-javascript-reporting-window-onerror.html)
+* [Lose the jQuery Bloat ­— DOM Manipulation with NodeList.js](http://www.sitepoint.com/dom-manipulation-with-nodelist-js/)
+* [NodeList.js](https://github.com/eorroe/NodeList.js)
+* [Stop Writing Slow Javascript](http://ilikekillnerds.com/2015/02/stop-writing-slow-javascript/)
+* [Creating Cross Browser HTML5 Forms Now, Using modernizr, webforms2 and html5Forms](http://www.useragentman.com/blog/2010/07/27/creating-cross-browser-html5-forms-now-using-modernizr-webforms2-and-html5widgets-2/)
+* [Cross Browser HTML5 Progress Bars In Depth](http://www.useragentman.com/blog/2012/01/03/cross-browser-html5-progress-bars-in-depth/)
+* [dialog-polyfill.js is a polyfill for &lt;dialog&gt;](https://github.com/GoogleChrome/dialog-polyfill)
+* [dialog element demo](http://demo.agektmr.com/dialog/)
+* [HTML5 Dialog tag with polyfill](http://codepen.io/getonlineamit/pen/LCbop)
+* [ShowModalDialog Polyfill](https://github.com/niutech/showModalDialog)
+* [Native Modal Windows in HTML5: Using the dialog Element](http://thenewcode.com/957/Native-Modal-Windows-in-HTML5-Using-the-dialog-Element)
+* [nwxforms](https://github.com/dperini/nwxforms)
+* [The H5F library, emulate the HTML5 forms chapter](http://www.thecssninja.com/javascript/H5F)
+* [H5F: a JavaScript library that allows you to use the HTML5 Forms](https://github.com/ryanseddon/H5F)
+* [Web Experience Toolkit, Collaborative open source project led by the Government of Canada](https://github.com/wet-boew)
+* [Web Experience Toolkit: polyfills](http://wet-boew.github.io/wet-boew/docs/ref/polyfills-en.html)
+* [WEBSHIMS LIB: POLYFILL ONLY THE INCAPABLE BROWSERS](http://tests-anciens.ljouhet.net/webshims/demos/details.html)
+* [details polyfill](http://blog.mxstbr.com/2015/06/html-details/)
+* [Making A Complete Polyfill For The HTML5 Details Element](https://www.smashingmagazine.com/2014/11/complete-polyfill-html5-details-element/)
+* [Feature Detection and Styling For The HTML5 details Element](http://thenewcode.com/680/Feature-Detection-and-Styling-For-The-HTML5-details-Element)
+* [CSS Script: Simple Free JavaScript / CSS / CSS3 / HTML5 codes to make your life easier.](http://www.cssscript.com/)
+* [CSS Script: Accordion](http://www.cssscript.com/categories/accordion/)
+* [18 Best HTML5 CSS3 Accordion Tabs and Menus](http://designscrazed.org/html5-css3-accordion-tabs/)
+* [Fancy FAQ page using CSS3 only](http://red-team-design.com/fancy-faq-page-using-css3-only/)
+
+

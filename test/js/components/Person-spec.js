@@ -8,6 +8,6 @@ describe('Person', () => {
 
        let person = new Person('Leif', 'Olsen');
 
-       expect(person.getName()).toBe('Leif Olsen');
+       expect(person.name).toBe('Leif Olsen');
    });
 });

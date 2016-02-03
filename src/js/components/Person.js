@@ -3,15 +3,15 @@
 import './Person.scss';
 
 class Person {
-  constructor(first, last) {
-    this.first = first;
-    this.last = last;
+  constructor(_first, _last) {
+    this._first = _first;
+    this._last = _last;
   }
-  getName() {
-    return this.first + ' ' + this.last;
+  get name() {
+    return this._first + ' ' + this._last;
   }
   toString() {
-    return this.getName();
+    return this.name;
   }
 }
 export default Person;
